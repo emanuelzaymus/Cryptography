@@ -1,4 +1,5 @@
-﻿using Cryptography.Caesar;
+﻿using Cryptography.Alphabet;
+using Cryptography.Caesar;
 using Cryptography.Utilities;
 using NUnit.Framework;
 
@@ -15,7 +16,7 @@ namespace Cryptography.Tests.Caesar
             const string originalText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             AttackChecker checker = new(originalText);
 
-            CaesarCipherBruteForceAttack attack = new(Alphabets.Alphabets.ALPHABET);
+            CaesarCipherBruteForceAttack attack = new(Alphabets.ALPHABET);
             var success = attack.Attack(encryptedText, checker, out string decryptedText, out int? shift);
 
             Assert.IsTrue(success);
@@ -31,7 +32,7 @@ namespace Cryptography.Tests.Caesar
             const string originalText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             AttackChecker checker = new(originalText);
 
-            CaesarCipherBruteForceAttack attack = new(Alphabets.Alphabets.ALPHABET);
+            CaesarCipherBruteForceAttack attack = new(Alphabets.ALPHABET);
             var success = attack.Attack(encryptedText, checker, out string decryptedText, out int? shift);
 
             Assert.IsTrue(success);

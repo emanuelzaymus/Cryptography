@@ -1,4 +1,4 @@
-﻿namespace Cryptography.Alphabets
+﻿namespace Cryptography.Alphabet
 {
     public static class Alphabets
     {
