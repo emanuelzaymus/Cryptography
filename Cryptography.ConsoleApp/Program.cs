@@ -9,19 +9,19 @@ namespace Cryptography.ConsoleApp
             CaesarCipher cipher = new(Alphabets.ALPHABET, 356);
 
             //string text = "TOTOJETAJNASPRAVA";
-            string text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             Console.WriteLine(text);
 
-            string encrypted = cipher.Encrypt(text);
+            var encrypted = cipher.Encrypt(text);
 
             Console.WriteLine(encrypted);
 
-            string decripted = cipher.Decrypt(encrypted);
+            var decrypted = cipher.Decrypt(encrypted);
 
-            Console.WriteLine(decripted);
+            Console.WriteLine(decrypted);
 
-            Console.WriteLine(text == decripted ? "ARE EAQUAL" : "ARE NOT EQUAL !!!");
+            Console.WriteLine(text == decrypted ? "ARE EQUAL" : "ARE NOT EQUAL !!!");
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 namespace Cryptography
 {
     /// <summary>
-    /// Monoalphabetic Caesar cipher.
+    /// Mono-alphabetic Caesar cipher.
     /// </summary>
     public class CaesarCipher : ICipher
     {
@@ -18,7 +18,7 @@ namespace Cryptography
 
             _shift = (shift >= 0)
                 ? Modulo(shift)
-                : throw new ArgumentException(nameof(shift), "Shift cannot be negative.");
+                : throw new ArgumentException("Shift cannot be negative.", nameof(shift));
         }
 
         public string Encrypt(string text) => ShiftEveryChar(text, _shift);
@@ -56,7 +56,8 @@ namespace Cryptography
 
             if (index < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(ch), $"Cannot find characted '{ch}' in the alphabet. The character is not valid.");
+                throw new ArgumentOutOfRangeException(nameof(ch),
+                    $"Cannot find characted '{ch}' in the alphabet. The character is not valid.");
             }
 
             return index;
@@ -65,6 +66,5 @@ namespace Cryptography
         private int ShiftIndex(int index, int shift) => Modulo(index + shift);
 
         private int Modulo(int shift) => shift % _alphabet.Length;
-
     }
 }
