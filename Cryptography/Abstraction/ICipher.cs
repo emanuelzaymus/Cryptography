@@ -2,10 +2,8 @@
 {
     public interface ICipher
     {
-        string Alphabet { get; }
+        string Encrypt(string plainText);
 
-        string Encrypt(string text);
-
-        string Decrypt(string text);
+        string Decrypt(string encryptedText);
     }
 }

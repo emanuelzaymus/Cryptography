@@ -1,5 +1,8 @@
-﻿namespace Cryptography.Alphabet
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Cryptography.Alphabet
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class Alphabets
     {
         public const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

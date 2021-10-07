@@ -2,6 +2,9 @@
 
 namespace Cryptography.Caesar
 {
+    /// <summary>
+    /// Ciphertext only brute force attack. 
+    /// </summary>
     public class CaesarCipherBruteForceAttack
     {
         private readonly AlphabetShifting _alphabetShifting;
