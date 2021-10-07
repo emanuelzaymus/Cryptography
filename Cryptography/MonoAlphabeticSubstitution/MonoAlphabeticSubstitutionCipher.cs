@@ -12,10 +12,13 @@ namespace Cryptography.MonoAlphabeticSubstitution
 
         public MonoAlphabeticSubstitutionCipher(string originalAlphabet, string substitutionAlphabet)
         {
-            _originalAlphabet = originalAlphabet
-                                ?? throw new ArgumentNullException(nameof(originalAlphabet));
-            _substitutionAlphabet = substitutionAlphabet
-                                    ?? throw new ArgumentNullException(nameof(substitutionAlphabet));
+            _originalAlphabet = !string.IsNullOrEmpty(originalAlphabet)
+                ? originalAlphabet
+                : throw new ArgumentException("Value cannot be null or empty.", nameof(originalAlphabet));
+
+            _substitutionAlphabet = !string.IsNullOrEmpty(substitutionAlphabet)
+                ? substitutionAlphabet
+                : throw new ArgumentException("Value cannot be null or empty.", nameof(substitutionAlphabet));
 
             CheckAlphabets(originalAlphabet, substitutionAlphabet);
         }
