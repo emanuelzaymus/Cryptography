@@ -9,13 +9,14 @@ namespace Cryptography.Utilities
 
         public AlphabetShifting(string alphabet)
         {
-            Alphabet = alphabet ?? throw new ArgumentNullException(nameof(alphabet));
+            Alphabet = !string.IsNullOrEmpty(alphabet)
+                ? alphabet
+                : throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
         }
 
         public string ShiftEveryChar(string text, int shift)
         {
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
+            if (text is null) throw new ArgumentNullException(nameof(text));
 
             StringBuilder builder = new(text.Length);
 
