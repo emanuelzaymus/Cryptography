@@ -4,12 +4,8 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
-    public abstract class AffineCipher : Cipher
+    internal static class AffineCipherUtils
     {
-        protected AffineCipher(string alphabet) : base(alphabet)
-        {
-        }
-
         internal static void CheckKey1(int alphabetLength, int key1)
         {
             if (key1 == 1) return;

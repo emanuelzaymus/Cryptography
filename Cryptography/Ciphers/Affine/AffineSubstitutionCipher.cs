@@ -17,7 +17,7 @@ namespace Cryptography.Ciphers.Affine
             if (string.IsNullOrEmpty(alphabet))
                 throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
 
-            AffineCipher.CheckKey1(alphabet.Length, key1);
+            AffineCipherUtils.CheckKey1(alphabet.Length, key1);
 
             var alphabetBuilder = new StringBuilder(alphabet.Length);
 

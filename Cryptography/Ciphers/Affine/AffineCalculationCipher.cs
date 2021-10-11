@@ -1,10 +1,11 @@
-﻿using System;
-using Cryptography.Utilities;
+﻿using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
-    public class AffineCalculationCipher : AffineCipher
+    public class AffineCalculationCipher : Cipher
     {
+        private ZClass Z { get; }
+
         private readonly int _key1;
         private readonly int _key2;
 
@@ -13,67 +14,29 @@ namespace Cryptography.Ciphers.Affine
 
         public AffineCalculationCipher(string alphabet, int key1, int key2) : base(alphabet)
         {
-            CheckKey1(alphabet.Length, key1);
+            AffineCipherUtils.CheckKey1(alphabet.Length, key1);
 
-            _key1 = Utils.PositiveModulo(key1, alphabet.Length);
-            _key2 = Utils.PositiveModulo(key2, alphabet.Length);
+            Z = new ZClass(alphabet.Length);
 
-            _decryptKey1 = InverseElement(_key1, alphabet.Length);
-            _decryptKey2 =
-                Utils.PositiveModulo(OppositeElement(_key2, alphabet.Length) * _decryptKey1, alphabet.Length);
+            _key1 = Z.Modulo(key1);
+            _key2 = Z.Modulo(key2);
+
+            _decryptKey1 = Z.Inverse(_key1);
+            _decryptKey2 = Z.Modulo(Z.Opposite(_key2) * _decryptKey1);
         }
 
         protected override char CharEncryption(char ch)
         {
             int charIndex = GetCharIndex(ch);
-            int newCharIndex = Utils.PositiveModulo(charIndex * _key1 + _key2, Alphabet.Length);
+            int newCharIndex = Z.Modulo(charIndex * _key1 + _key2);
             return Alphabet[newCharIndex];
         }
 
         protected override char CharDecryption(char ch)
         {
             int charIndex = GetCharIndex(ch);
-            int newCharIndex = Utils.PositiveModulo(charIndex * _decryptKey1 + _decryptKey2, Alphabet.Length);
+            int newCharIndex = Z.Modulo(charIndex * _decryptKey1 + _decryptKey2);
             return Alphabet[newCharIndex];
-        }
-
-        // TODO: maybe into Utils??
-
-        private int InverseElement(int element, int alphabetLength)
-        {
-            if (!IsElementInBounds(element, alphabetLength))
-            {
-                throw new ArgumentOutOfRangeException(nameof(element),
-                    $"Element must be between 0 and {nameof(alphabetLength)}.");
-            }
-
-            for (int i = 1; i < alphabetLength; i++)
-            {
-                if (Utils.PositiveModulo(element * i, alphabetLength) == 1)
-                {
-                    return i;
-                }
-            }
-
-            throw new Exception("You should not get here.");
-        }
-
-        // TODO: maybe into Utils??
-        private int OppositeElement(int element, int alphabetLength)
-        {
-            if (!IsElementInBounds(element, alphabetLength))
-            {
-                throw new ArgumentOutOfRangeException(nameof(element),
-                    $"Element must be between 0 and {nameof(alphabetLength)}.");
-            }
-
-            return alphabetLength - element;
-        }
-
-        // TODO: maybe into Utils??
-        private bool IsElementInBounds(int element, int alphabetLength)
-        {
-            return element >= 0 && element < alphabetLength;
         }
     }
 }
