@@ -5,26 +5,29 @@ namespace Cryptography.Ciphers.Caesar
     /// <summary>
     /// Mono-alphabetic Caesar cipher.
     /// </summary>
-    public class CaesarCipher : ICipher
+    public class CaesarCipher : Cipher
     {
-        private readonly AlphabetShifting _alphabetShifting;
-
         private readonly int _shift;
 
-        public CaesarCipher(string alphabet, int shift)
+        public CaesarCipher(string alphabet, int shift) : base(alphabet)
         {
-            _alphabetShifting = new AlphabetShifting(alphabet);
             _shift = Utils.PositiveModulo(shift, alphabet.Length);
         }
 
-        public string Encrypt(string plainText)
+        protected override char CharEncryption(char ch) => ShiftChar(ch, _shift);
+
+        protected override char CharDecryption(char ch) => ShiftChar(ch, -_shift);
+
+        private char ShiftChar(char ch, int shift)
         {
-            return _alphabetShifting.ShiftEveryChar(plainText, _shift);
+            int charIndex = GetCharIndex(ch);
+            int newCharIndex = ShiftIndex(charIndex, shift);
+            return Alphabet[newCharIndex];
         }
 
-        public string Decrypt(string encryptedText)
+        private int ShiftIndex(int index, int shift)
         {
-            return _alphabetShifting.ShiftEveryChar(encryptedText, -_shift);
+            return Utils.PositiveModulo(index + shift, Alphabet.Length);
         }
     }
 }
