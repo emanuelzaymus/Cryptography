@@ -59,6 +59,26 @@ namespace Cryptography.Tests.Affine
             Assert.Throws<InvalidKeyException>(() => new AffineSubstitutionCipher(alphabet, 27, 8));
         }
 
-        // TODO: Write tests for Affine Cipher
+        [Test]
+        public void Encrypt_Alphabet_ShouldReturnEncryptedAlphabet()
+        {
+            var cipher = new AffineSubstitutionCipher(Alphabets.ALPHABET, 5, 10);
+
+            var encrypted = cipher.Encrypt(Alphabets.ALPHABET);
+
+            // ReSharper disable once StringLiteralTypo
+            Assert.That(encrypted, Is.EqualTo("KPUZEJOTYDINSXCHMRWBGLQVAF"));
+        }
+
+        [Test]
+        public void Decrypt_EncryptedAlphabet_ShouldReturnOriginalAlphabet()
+        {
+            var cipher = new AffineSubstitutionCipher(Alphabets.ALPHABET, 5, 10);
+
+            // ReSharper disable once StringLiteralTypo
+            var decrypted = cipher.Decrypt("KPUZEJOTYDINSXCHMRWBGLQVAF");
+
+            Assert.That(decrypted, Is.EqualTo(Alphabets.ALPHABET));
+        }
     }
 }
