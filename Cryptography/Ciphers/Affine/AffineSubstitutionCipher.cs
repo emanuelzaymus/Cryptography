@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
-using Cryptography.Ciphers.Common;
 using Cryptography.Ciphers.MonoAlphabeticSubstitution;
 using Cryptography.Utilities;
 
@@ -19,7 +17,7 @@ namespace Cryptography.Ciphers.Affine
             if (string.IsNullOrEmpty(alphabet))
                 throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
 
-            CheckKey1(alphabet.Length, key1);
+            AffineCipher.CheckKey1(alphabet.Length, key1);
 
             var alphabetBuilder = new StringBuilder(alphabet.Length);
 
@@ -31,24 +29,6 @@ namespace Cryptography.Ciphers.Affine
             }
 
             return alphabetBuilder.ToString();
-        }
-
-        // TODO: maybe put into a predecessor AffineCipher.cs
-        internal static void CheckKey1(int alphabetLength, int key1)
-        {
-            if (key1 == 1) return;
-
-            int positiveModulo = Utils.PositiveModulo(key1, alphabetLength);
-
-            // Skip number 1
-            var divisors = Utils.GetDivisors(alphabetLength).Skip(1);
-
-            if (divisors.Any(d => positiveModulo % d == 0))
-            {
-                throw new InvalidKeyException(
-                    $"Value {key1} cannot be a {nameof(key1)} because the cipher would not be consistent.",
-                    nameof(key1));
-            }
         }
     }
 }

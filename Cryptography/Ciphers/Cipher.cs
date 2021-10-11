@@ -1,11 +1,11 @@
 ﻿using System;
-using Cryptography.Utilities;
+using System.Text;
 
 namespace Cryptography.Ciphers
 {
     public abstract class Cipher : ICipher
     {
-        protected readonly string Alphabet;
+        protected string Alphabet { get; }
 
         protected Cipher(string alphabet)
         {
@@ -14,27 +14,13 @@ namespace Cryptography.Ciphers
                 : throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
         }
 
-        // protected string ShiftEveryChar(string text, int shift)
-        // {
-        //     if (text is null) throw new ArgumentNullException(nameof(text));
-        //
-        //     StringBuilder builder = new(text.Length);
-        //
-        //     foreach (var ch in text)
-        //     {
-        //         char shiftedChar = ShiftChar(ch, shift);
-        //         builder.Append(shiftedChar);
-        //     }
-        //
-        //     return builder.ToString();
-        // }
+        public string Encrypt(string plainText) => TransformEveryChar(plainText, CharEncryption);
 
-        protected char ShiftChar(char ch, int shift)
-        {
-            int charIndex = GetCharIndex(ch);
-            int newCharIndex = ShiftIndex(charIndex, shift);
-            return Alphabet[newCharIndex];
-        }
+        public string Decrypt(string encryptedText) => TransformEveryChar(encryptedText, CharDecryption);
+
+        protected abstract char CharEncryption(char ch);
+
+        protected abstract char CharDecryption(char ch);
 
         protected int GetCharIndex(char ch)
         {
@@ -49,13 +35,19 @@ namespace Cryptography.Ciphers
             return index;
         }
 
-        protected int ShiftIndex(int index, int shift)
+        private string TransformEveryChar(string text, Func<char, char> transformation)
         {
-            return Utils.PositiveModulo(index + shift, Alphabet.Length);
+            if (text is null) throw new ArgumentNullException(nameof(text));
+
+            var stringBuilder = new StringBuilder(text.Length);
+
+            foreach (char ch in text)
+            {
+                char newChar = transformation(ch);
+                stringBuilder.Append(newChar);
+            }
+
+            return stringBuilder.ToString();
         }
-
-        public abstract string Encrypt(string plainText);
-
-        public abstract string Decrypt(string encryptedText);
     }
 }

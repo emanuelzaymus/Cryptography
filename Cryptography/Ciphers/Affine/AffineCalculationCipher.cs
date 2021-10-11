@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Text;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
-    public class AffineCalculationCipher : Cipher
+    public class AffineCalculationCipher : AffineCipher
     {
         private readonly int _key1;
         private readonly int _key2;
@@ -14,7 +13,7 @@ namespace Cryptography.Ciphers.Affine
 
         public AffineCalculationCipher(string alphabet, int key1, int key2) : base(alphabet)
         {
-            AffineSubstitutionCipher.CheckKey1(alphabet.Length, key1);
+            CheckKey1(alphabet.Length, key1);
 
             _key1 = Utils.PositiveModulo(key1, alphabet.Length);
             _key2 = Utils.PositiveModulo(key2, alphabet.Length);
@@ -23,6 +22,22 @@ namespace Cryptography.Ciphers.Affine
             _decryptKey2 =
                 Utils.PositiveModulo(OppositeElement(_key2, alphabet.Length) * _decryptKey1, alphabet.Length);
         }
+
+        protected override char CharEncryption(char ch)
+        {
+            int charIndex = GetCharIndex(ch);
+            int newCharIndex = Utils.PositiveModulo(charIndex * _key1 + _key2, Alphabet.Length);
+            return Alphabet[newCharIndex];
+        }
+
+        protected override char CharDecryption(char ch)
+        {
+            int charIndex = GetCharIndex(ch);
+            int newCharIndex = Utils.PositiveModulo(charIndex * _decryptKey1 + _decryptKey2, Alphabet.Length);
+            return Alphabet[newCharIndex];
+        }
+
+        // TODO: maybe into Utils??
 
         private int InverseElement(int element, int alphabetLength)
         {
@@ -43,6 +58,7 @@ namespace Cryptography.Ciphers.Affine
             throw new Exception("You should not get here.");
         }
 
+        // TODO: maybe into Utils??
         private int OppositeElement(int element, int alphabetLength)
         {
             if (!IsElementInBounds(element, alphabetLength))
@@ -54,45 +70,10 @@ namespace Cryptography.Ciphers.Affine
             return alphabetLength - element;
         }
 
+        // TODO: maybe into Utils??
         private bool IsElementInBounds(int element, int alphabetLength)
         {
             return element >= 0 && element < alphabetLength;
-        }
-
-        public override string Encrypt(string plainText)
-        {
-            if (plainText is null) throw new ArgumentNullException(nameof(plainText));
-
-            var stringBuilder = new StringBuilder(plainText.Length);
-
-            foreach (char ch in plainText)
-            {
-                int charIndex = GetCharIndex(ch);
-                int newCharIndex = Utils.PositiveModulo(charIndex * _key1 + _key2, Alphabet.Length);
-                char newChar = Alphabet[newCharIndex];
-
-                stringBuilder.Append(newChar);
-            }
-
-            return stringBuilder.ToString();
-        }
-
-        public override string Decrypt(string encryptedText)
-        {
-            if (encryptedText is null) throw new ArgumentNullException(nameof(encryptedText));
-
-            var stringBuilder = new StringBuilder(encryptedText.Length);
-
-            foreach (char ch in encryptedText)
-            {
-                int charIndex = GetCharIndex(ch);
-                int newCharIndex = Utils.PositiveModulo(charIndex * _decryptKey1 + _decryptKey2, Alphabet.Length);
-                char newChar = Alphabet[newCharIndex];
-
-                stringBuilder.Append(newChar);
-            }
-
-            return stringBuilder.ToString();
         }
     }
 }
