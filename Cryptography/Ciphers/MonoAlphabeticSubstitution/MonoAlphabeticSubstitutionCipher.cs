@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Text;
 
 namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
 {
-    public class MonoAlphabeticSubstitutionCipher : ICipher
+    public class MonoAlphabeticSubstitutionCipher : Cipher
     {
-        private readonly string _originalAlphabet;
+        private string OriginalAlphabet => Alphabet;
 
-        private readonly string _substitutionAlphabet;
+        private string SubstitutionAlphabet { get; }
 
         public MonoAlphabeticSubstitutionCipher(string originalAlphabet, string substitutionAlphabet)
+            : base(originalAlphabet)
         {
-            _originalAlphabet = !string.IsNullOrEmpty(originalAlphabet)
-                ? originalAlphabet
-                : throw new ArgumentException("Value cannot be null or empty.", nameof(originalAlphabet));
-
-            _substitutionAlphabet = !string.IsNullOrEmpty(substitutionAlphabet)
+            SubstitutionAlphabet = !string.IsNullOrEmpty(substitutionAlphabet)
                 ? substitutionAlphabet
                 : throw new ArgumentException("Value cannot be null or empty.", nameof(substitutionAlphabet));
 
@@ -34,35 +30,16 @@ namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
             }
         }
 
-        public string Encrypt(string plainText) => SubstituteEveryChar(plainText, EncryptSubstitution);
-
-        public string Decrypt(string encryptedText) => SubstituteEveryChar(encryptedText, DecryptSubstitution);
-
-        private string SubstituteEveryChar(string text, Func<char, char> substitution)
+        protected override char CharEncryption(char ch)
         {
-            if (text is null) throw new ArgumentNullException(nameof(text));
-
-            var stringBuilder = new StringBuilder(text.Length);
-
-            foreach (char ch in text)
-            {
-                char substituted = substitution(ch);
-                stringBuilder.Append(substituted);
-            }
-
-            return stringBuilder.ToString();
+            int charIndex = GetCharIndex(ch, OriginalAlphabet);
+            return SubstitutionAlphabet[charIndex];
         }
 
-        private char EncryptSubstitution(char ch)
+        protected override char CharDecryption(char ch)
         {
-            int charIndex = GetCharIndex(ch, _originalAlphabet);
-            return _substitutionAlphabet[charIndex];
-        }
-
-        private char DecryptSubstitution(char ch)
-        {
-            int charIndex = GetCharIndex(ch, _substitutionAlphabet);
-            return _originalAlphabet[charIndex];
+            int charIndex = GetCharIndex(ch, SubstitutionAlphabet);
+            return OriginalAlphabet[charIndex];
         }
 
         private int GetCharIndex(char ch, string alphabet)
