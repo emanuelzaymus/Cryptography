@@ -1,4 +1,4 @@
-﻿namespace Cryptography.Abstraction
+﻿namespace Cryptography.Ciphers
 {
     public interface ICipher
     {

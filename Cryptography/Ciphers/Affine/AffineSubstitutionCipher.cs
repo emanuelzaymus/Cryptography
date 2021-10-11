@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using Cryptography.MonoAlphabeticSubstitution;
+using Cryptography.Ciphers.Common;
+using Cryptography.Ciphers.MonoAlphabeticSubstitution;
 using Cryptography.Utilities;
 
-namespace Cryptography.Affine
+namespace Cryptography.Ciphers.Affine
 {
     public class AffineSubstitutionCipher : MonoAlphabeticSubstitutionCipher
     {

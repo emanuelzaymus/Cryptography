@@ -1,5 +1,6 @@
 ﻿using System;
 using Cryptography.Alphabet;
+using Cryptography.Ciphers.Caesar;
 
 namespace Cryptography.ConsoleApp
 {
@@ -7,7 +8,7 @@ namespace Cryptography.ConsoleApp
     {
         private static void Main(string[] args)
         {
-            Caesar.CaesarCipher cipher = new(Alphabets.ALPHABET, 356);
+            CaesarCipher cipher = new(Alphabets.ALPHABET, 356);
 
             const string text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             Console.WriteLine(text);

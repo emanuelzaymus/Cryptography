@@ -1,7 +1,6 @@
-﻿using Cryptography.Abstraction;
-using Cryptography.Utilities;
+﻿using Cryptography.Utilities;
 
-namespace Cryptography.Caesar
+namespace Cryptography.Ciphers.Caesar
 {
     /// <summary>
     /// Mono-alphabetic Caesar cipher.

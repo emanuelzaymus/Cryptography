@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace Cryptography.Affine
+namespace Cryptography.Ciphers.Common
 {
-    // TODO: Put into Common directory
     public class InvalidKeyException : ArgumentException
     {
         public InvalidKeyException(string message, string paramName) : base(message, paramName)

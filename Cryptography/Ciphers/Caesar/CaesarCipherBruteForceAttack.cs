@@ -1,6 +1,6 @@
 ﻿using Cryptography.Utilities;
 
-namespace Cryptography.Caesar
+namespace Cryptography.Ciphers.Caesar
 {
     /// <summary>
     /// Ciphertext only brute force attack. 

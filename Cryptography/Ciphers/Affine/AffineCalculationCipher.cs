@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text;
-using Cryptography.Abstraction;
 using Cryptography.Utilities;
 
-namespace Cryptography.Affine
+namespace Cryptography.Ciphers.Affine
 {
     public class AffineCalculationCipher : Cipher
     {

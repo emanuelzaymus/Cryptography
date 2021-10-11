@@ -1,8 +1,8 @@
-﻿using Cryptography.Affine;
-using Cryptography.Alphabet;
+﻿using Cryptography.Alphabet;
+using Cryptography.Ciphers.Affine;
 using NUnit.Framework;
 
-namespace Cryptography.Tests.Affine
+namespace Cryptography.Tests.Ciphers.Affine
 {
     [TestFixture]
     public class AffineCalculationCipherTests

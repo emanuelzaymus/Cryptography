@@ -1,7 +1,7 @@
 ﻿using System;
 using Cryptography.Utilities;
 
-namespace Cryptography.Abstraction
+namespace Cryptography.Ciphers
 {
     public abstract class Cipher : ICipher
     {

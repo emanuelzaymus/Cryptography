@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Text;
-using Cryptography.Abstraction;
 
-namespace Cryptography.MonoAlphabeticSubstitution
+namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
 {
     public class MonoAlphabeticSubstitutionCipher : ICipher
     {

@@ -1,8 +1,8 @@
 using Cryptography.Alphabet;
-using Cryptography.Caesar;
+using Cryptography.Ciphers.Caesar;
 using NUnit.Framework;
 
-namespace Cryptography.Tests.Caesar
+namespace Cryptography.Tests.Ciphers.Caesar
 {
     [TestFixture]
     public class CaesarCipherTests

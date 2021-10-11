@@ -1,8 +1,8 @@
 ﻿using Cryptography.Alphabet;
-using Cryptography.MonoAlphabeticSubstitution;
+using Cryptography.Ciphers.MonoAlphabeticSubstitution;
 using NUnit.Framework;
 
-namespace Cryptography.Tests.MonoAlphabeticSubstitution
+namespace Cryptography.Tests.Ciphers.MonoAlphabeticSubstitution
 {
     [TestFixture]
     public class MonoAlphabeticSubstitutionCipherTests

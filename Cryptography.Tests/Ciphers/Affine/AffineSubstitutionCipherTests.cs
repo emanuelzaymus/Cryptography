@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cryptography.Affine;
 using Cryptography.Alphabet;
+using Cryptography.Ciphers;
+using Cryptography.Ciphers.Affine;
+using Cryptography.Ciphers.Common;
 using NUnit.Framework;
 
-namespace Cryptography.Tests.Affine
+namespace Cryptography.Tests.Ciphers.Affine
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
