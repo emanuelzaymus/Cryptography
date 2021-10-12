@@ -1,4 +1,5 @@
 ﻿using System;
+using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Caesar
@@ -12,9 +13,8 @@ namespace Cryptography.Ciphers.Caesar
 
         public CaesarCipherBruteForceAttack(string alphabet)
         {
-            _alphabet = !string.IsNullOrEmpty(alphabet)
-                ? alphabet
-                : throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
+            Alphabets.CheckAlphabet(alphabet);
+            _alphabet = alphabet;
         }
 
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText, out int? shift)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
@@ -15,9 +16,9 @@ namespace Cryptography.Ciphers.Affine
 
         public AffineCipherBruteForceAttack(string alphabet)
         {
-            _alphabet = !string.IsNullOrEmpty(alphabet)
-                ? alphabet
-                : throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
+            Alphabets.CheckAlphabet(alphabet);
+            
+            _alphabet = alphabet;
             _divisors = Utils.GetDivisorsWithout1(alphabet.Length);
         }
 

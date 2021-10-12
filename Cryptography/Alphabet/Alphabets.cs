@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cryptography.Alphabet
 {
@@ -16,5 +17,13 @@ namespace Cryptography.Alphabet
         public const string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         public const string Alphabet_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
         public const string Alphabet_123 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789";
+
+        public static void CheckAlphabet(string alphabetString)
+        {
+            if (string.IsNullOrEmpty(alphabetString))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(alphabetString));
+            }
+        }
     }
 }

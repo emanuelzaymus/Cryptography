@@ -1,4 +1,5 @@
 ﻿using System;
+using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers
@@ -9,9 +10,9 @@ namespace Cryptography.Ciphers
 
         protected Cipher(string alphabet)
         {
-            Alphabet = !string.IsNullOrEmpty(alphabet)
-                ? alphabet
-                : throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
+            Alphabets.CheckAlphabet(alphabet);
+
+            Alphabet = alphabet;
         }
 
         public string Encrypt(string plainText) => TransformEveryChar(plainText, CharEncryption);

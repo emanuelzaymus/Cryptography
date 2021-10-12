@@ -1,4 +1,5 @@
 ﻿using System;
+using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
@@ -15,9 +16,8 @@ namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
         public MonoAlphabeticSubstitutionCipher(string originalAlphabet, string substitutionAlphabet)
             : base(originalAlphabet)
         {
-            SubstitutionAlphabet = !string.IsNullOrEmpty(substitutionAlphabet)
-                ? substitutionAlphabet
-                : throw new ArgumentException("Value cannot be null or empty.", nameof(substitutionAlphabet));
+            Alphabets.CheckAlphabet(substitutionAlphabet);
+            SubstitutionAlphabet = substitutionAlphabet;
 
             CheckAlphabets(originalAlphabet, substitutionAlphabet);
         }
