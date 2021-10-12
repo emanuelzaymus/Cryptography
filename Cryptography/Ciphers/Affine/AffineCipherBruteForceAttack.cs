@@ -4,6 +4,9 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
+    /// <summary>
+    /// Ciphertext only brute force attack.
+    /// </summary>
     public class AffineCipherBruteForceAttack
     {
         private readonly string _alphabet;
@@ -12,7 +15,9 @@ namespace Cryptography.Ciphers.Affine
 
         public AffineCipherBruteForceAttack(string alphabet)
         {
-            _alphabet = alphabet ?? throw new ArgumentNullException(nameof(alphabet));
+            _alphabet = !string.IsNullOrEmpty(alphabet)
+                ? alphabet
+                : throw new ArgumentException("Value cannot be null or empty.", nameof(alphabet));
             _divisors = Utils.GetDivisorsWithout1(alphabet.Length);
         }
 

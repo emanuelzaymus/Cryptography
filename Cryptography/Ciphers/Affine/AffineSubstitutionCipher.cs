@@ -4,6 +4,9 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
+    /// <summary>
+    /// Affine cipher based on substitution principle.
+    /// </summary>
     public class AffineSubstitutionCipher : MonoAlphabeticSubstitutionCipher
     {
         public AffineSubstitutionCipher(string alphabet, int key1, int key2)
@@ -19,7 +22,6 @@ namespace Cryptography.Ciphers.Affine
             AffineCipherUtils.CheckKey1(alphabet.Length, key1);
 
             int charIndex = 0;
-
             return alphabet.Transform(_ =>
             {
                 int newCharIndex = Utils.PositiveModulo(charIndex++ * key1 + key2, alphabet.Length);

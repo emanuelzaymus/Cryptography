@@ -12,7 +12,7 @@ namespace Cryptography.Tests.Ciphers.MonoAlphabeticSubstitution
         [Test]
         public void Encrypt_EncryptOriginalAlphabet_ShouldReturnSubstitutionAlphabet()
         {
-            var substitutionAlphabet = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            const string substitutionAlphabet = "QWERTYUIOPASDFGHJKLZXCVBNM";
             var cipher = new MonoAlphabeticSubstitutionCipher(Alphabets.ALPHABET, substitutionAlphabet);
 
             var encrypted = cipher.Encrypt(Alphabets.ALPHABET);
@@ -23,8 +23,8 @@ namespace Cryptography.Tests.Ciphers.MonoAlphabeticSubstitution
         [Test]
         public void Encrypt_PlainMessage_ShouldEncryptCorrectly()
         {
-            // Alphabets.ALPHABET_   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
-            var substitutionAlphabet = " QWERTYUIOPASDFGHJKLZXCVBNM";
+            // Alphabets.ALPHABET_            = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            const string substitutionAlphabet = " QWERTYUIOPASDFGHJKLZXCVBNM";
             var cipher = new MonoAlphabeticSubstitutionCipher(Alphabets.ALPHABET_, substitutionAlphabet);
 
             var encrypted = cipher.Encrypt("MY AWESOME MESSAGE");
@@ -35,7 +35,7 @@ namespace Cryptography.Tests.Ciphers.MonoAlphabeticSubstitution
         [Test]
         public void Decrypt_DecryptSubstitutionAlphabet_ShouldReturnOriginalAlphabet()
         {
-            var substitutionAlphabet = "QAZWSXEDCRF VTGBYHNUJMIKOLP";
+            const string substitutionAlphabet = "QAZWSXEDCRF VTGBYHNUJMIKOLP";
             var cipher = new MonoAlphabeticSubstitutionCipher(Alphabets.ALPHABET_, substitutionAlphabet);
 
             var decrypted = cipher.Decrypt(substitutionAlphabet);
@@ -47,8 +47,8 @@ namespace Cryptography.Tests.Ciphers.MonoAlphabeticSubstitution
         [Test]
         public void Decrypt_EncryptedText_ShouldReturnOriginalText()
         {
-            // Alphabets.ALPHABET_   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
-            var substitutionAlphabet = "QAZWSXEDCRF VTGBYHNUJMIKOLP";
+            // Alphabets.ALPHABET_            = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            const string substitutionAlphabet = "QAZWSXEDCRF VTGBYHNUJMIKOLP";
             var cipher = new MonoAlphabeticSubstitutionCipher(Alphabets.ALPHABET_, substitutionAlphabet);
 
             var decrypted = cipher.Decrypt("TGUPMSHOPNSZJHSPIQOPGXPSTZHOBUCTE");

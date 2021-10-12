@@ -14,20 +14,14 @@ namespace Cryptography.Ciphers.Caesar
             _shift = Utils.PositiveModulo(shift, alphabet.Length);
         }
 
-        protected override char CharEncryption(char ch) => ShiftChar(ch, _shift);
-
-        protected override char CharDecryption(char ch) => ShiftChar(ch, -_shift);
-
-        private char ShiftChar(char ch, int shift)
+        protected override char CharEncryption(char ch)
         {
-            int charIndex = GetCharIndex(ch);
-            int newCharIndex = ShiftIndex(charIndex, shift);
-            return Alphabet[newCharIndex];
+            return CaesarCipherUtils.ShiftChar(ch, _shift, Alphabet);
         }
 
-        private int ShiftIndex(int index, int shift)
+        protected override char CharDecryption(char ch)
         {
-            return Utils.PositiveModulo(index + shift, Alphabet.Length);
+            return CaesarCipherUtils.ShiftChar(ch, -_shift, Alphabet);
         }
     }
 }

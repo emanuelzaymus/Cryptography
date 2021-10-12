@@ -3,6 +3,9 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
+    /// <summary>
+    /// Affine cipher based on calculation principle.
+    /// </summary>
     public class AffineCalculationCipher : Cipher
     {
         private ZClass Z { get; }

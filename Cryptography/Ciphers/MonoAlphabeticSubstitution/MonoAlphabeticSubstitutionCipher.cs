@@ -3,6 +3,9 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
 {
+    /// <summary>
+    /// Mono-alphabetic substitution.
+    /// </summary>
     public class MonoAlphabeticSubstitutionCipher : Cipher
     {
         private string OriginalAlphabet => Alphabet;
