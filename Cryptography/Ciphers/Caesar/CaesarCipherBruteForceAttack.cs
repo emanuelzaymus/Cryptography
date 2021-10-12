@@ -19,11 +19,27 @@ namespace Cryptography.Ciphers.Caesar
 
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText, out int? shift)
         {
+            return Attack(encryptedText, attackChecker, out decryptedText, out shift, false);
+        }
+
+        public void PrintAttack(string encryptedText)
+        {
+            Attack(encryptedText, null, out _, out _, true);
+        }
+
+        private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText, out int? shift,
+            bool print)
+        {
             for (shift = 0; shift < _alphabet.Length; shift++)
             {
                 decryptedText = ShiftEveryChar(encryptedText, -shift.Value);
 
-                if (attackChecker.IsDecryptedCorrectly(decryptedText))
+                if (print)
+                {
+                    Console.WriteLine("{0,3}  {1}", shift, decryptedText);
+                }
+
+                if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
                 {
                     return true;
                 }

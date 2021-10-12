@@ -1,25 +1,11 @@
-﻿using System;
-using Cryptography.Alphabet;
-using Cryptography.Ciphers.Caesar;
-
-namespace Cryptography.ConsoleApp
+﻿namespace Cryptography.ConsoleApp
 {
-    internal static class Program
+    public static class Program
     {
-        private static void Main(string[] args)
+        public static void Main()
         {
-            CaesarCipher cipher = new(Alphabets.ALPHABET, 356);
-
-            const string text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            Console.WriteLine(text);
-
-            var encrypted = cipher.Encrypt(text);
-            Console.WriteLine(encrypted);
-
-            var decrypted = cipher.Decrypt(encrypted);
-            Console.WriteLine(decrypted);
-
-            Console.WriteLine(text == decrypted ? "ARE EQUAL" : "ARE NOT EQUAL !!!");
+            // CaesarCipherProgram.Run();
+            AffineCipherProgram.Run();
         }
     }
 }

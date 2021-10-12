@@ -9,7 +9,7 @@ namespace Cryptography.Ciphers.Caesar
     {
         private readonly int _shift;
 
-        public CaesarCipher(string alphabet, int shift) : base(alphabet)
+        public CaesarCipher(string alphabet, int shift = 3) : base(alphabet)
         {
             _shift = Utils.PositiveModulo(shift, alphabet.Length);
         }

@@ -24,6 +24,17 @@ namespace Cryptography.Ciphers.Affine
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
             out int? decryptKey1, out int? decryptKey2)
         {
+            return Attack(encryptedText, attackChecker, out decryptedText, out decryptKey1, out decryptKey2, false);
+        }
+
+        public void PrintAttack(string encryptedText)
+        {
+            Attack(encryptedText, null, out _, out _, out _, true);
+        }
+
+        private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
+            out int? decryptKey1, out int? decryptKey2, bool print)
+        {
             for (decryptKey1 = 0; decryptKey1 < _alphabet.Length; decryptKey1++)
             {
                 if (IsDivisibleByAlphabetDivisors(decryptKey1.Value))
@@ -35,7 +46,12 @@ namespace Cryptography.Ciphers.Affine
                 {
                     decryptedText = TryDecrypt(encryptedText, decryptKey1.Value, decryptKey2.Value);
 
-                    if (attackChecker.IsDecryptedCorrectly(decryptedText))
+                    if (print)
+                    {
+                        Console.WriteLine("{0,3} {1,3}  {2}", decryptKey1, decryptKey2, decryptedText);
+                    }
+
+                    if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
                     {
                         return true;
                     }
