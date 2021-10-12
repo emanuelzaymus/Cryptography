@@ -23,7 +23,7 @@ namespace Cryptography.Utilities
             return Z - a;
         }
 
-        public int Inverse(int a)
+        public int? Inverse(int a)
         {
             CheckElementInBounds(a);
 
@@ -35,7 +35,7 @@ namespace Cryptography.Utilities
                 }
             }
 
-            throw new Exception("You should not get here.");
+            return null;
         }
 
         private void CheckElementInBounds(int a)

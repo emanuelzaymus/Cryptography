@@ -1,10 +1,12 @@
-﻿using Cryptography.Alphabet;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cryptography.Alphabet;
 using Cryptography.Ciphers.Affine;
 using NUnit.Framework;
 
 namespace Cryptography.Tests.Ciphers.Affine
 {
     [TestFixture]
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class AffineCalculationCipherTests
     {
         // Key1 and Key2 validity is tested in AffineSubstitutionCipherTests.
@@ -16,7 +18,6 @@ namespace Cryptography.Tests.Ciphers.Affine
 
             var encrypted = cipher.Encrypt(Alphabets.ALPHABET);
 
-            // ReSharper disable once StringLiteralTypo
             Assert.That(encrypted, Is.EqualTo("KPUZEJOTYDINSXCHMRWBGLQVAF"));
         }
 
@@ -25,7 +26,6 @@ namespace Cryptography.Tests.Ciphers.Affine
         {
             var cipher = new AffineCalculationCipher(Alphabets.ALPHABET, 5, 10);
 
-            // ReSharper disable once StringLiteralTypo
             var decrypted = cipher.Decrypt("KPUZEJOTYDINSXCHMRWBGLQVAF");
 
             Assert.That(decrypted, Is.EqualTo(Alphabets.ALPHABET));

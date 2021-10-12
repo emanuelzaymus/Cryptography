@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cryptography.Alphabet;
-using Cryptography.Ciphers;
 using Cryptography.Ciphers.Affine;
 using Cryptography.Ciphers.Common;
 using NUnit.Framework;
@@ -9,6 +8,7 @@ namespace Cryptography.Tests.Ciphers.Affine
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class AffineSubstitutionCipherTests
     {
         [Test]
@@ -68,7 +68,6 @@ namespace Cryptography.Tests.Ciphers.Affine
 
             var encrypted = cipher.Encrypt(Alphabets.ALPHABET);
 
-            // ReSharper disable once StringLiteralTypo
             Assert.That(encrypted, Is.EqualTo("KPUZEJOTYDINSXCHMRWBGLQVAF"));
         }
 
@@ -77,7 +76,6 @@ namespace Cryptography.Tests.Ciphers.Affine
         {
             var cipher = new AffineSubstitutionCipher(Alphabets.ALPHABET, 5, 10);
 
-            // ReSharper disable once StringLiteralTypo
             var decrypted = cipher.Decrypt("KPUZEJOTYDINSXCHMRWBGLQVAF");
 
             Assert.That(decrypted, Is.EqualTo(Alphabets.ALPHABET));

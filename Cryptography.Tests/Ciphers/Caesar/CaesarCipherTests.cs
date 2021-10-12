@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Cryptography.Alphabet;
 using Cryptography.Ciphers.Caesar;
 using NUnit.Framework;
@@ -5,13 +6,9 @@ using NUnit.Framework;
 namespace Cryptography.Tests.Ciphers.Caesar
 {
     [TestFixture]
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class CaesarCipherTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void Encrypt_NormalShift_ShouldEncryptCorrectly()
         {
@@ -20,7 +17,6 @@ namespace Cryptography.Tests.Ciphers.Caesar
 
             var encrypted = cipher.Encrypt(text);
 
-            // ReSharper disable once StringLiteralTypo
             Assert.AreEqual("DEFGHIJKLMNOPQRSTUVWXYZABC", encrypted);
         }
 
@@ -32,7 +28,6 @@ namespace Cryptography.Tests.Ciphers.Caesar
 
             var encrypted = cipher.Encrypt(text);
 
-            // ReSharper disable once StringLiteralTypo
             Assert.AreEqual("GHIJKLMNOPQRSTUVWXYZABCDEF", encrypted);
         }
 
@@ -44,7 +39,6 @@ namespace Cryptography.Tests.Ciphers.Caesar
 
             var encrypted = cipher.Encrypt(text);
 
-            // ReSharper disable once StringLiteralTypo
             Assert.AreEqual("VWXYZABCDEFGHIJKLMNOPQRSTU", encrypted);
         }
 
@@ -53,7 +47,6 @@ namespace Cryptography.Tests.Ciphers.Caesar
         public void Decrypt_NormalShift_ShouldEncryptCorrectly()
         {
             CaesarCipher cipher = new(Alphabets.ALPHABET, 3);
-            // ReSharper disable once StringLiteralTypo
             const string encrypted = "DEFGHIJKLMNOPQRSTUVWXYZABC";
 
             var decrypted = cipher.Decrypt(encrypted);
@@ -65,7 +58,6 @@ namespace Cryptography.Tests.Ciphers.Caesar
         public void Decrypt_TooLargeShift_ShouldEncryptCorrectly()
         {
             CaesarCipher cipher = new(Alphabets.ALPHABET, 26 + 6);
-            // ReSharper disable once StringLiteralTypo
             const string encrypted = "GHIJKLMNOPQRSTUVWXYZABCDEF";
 
             var decrypted = cipher.Decrypt(encrypted);
@@ -77,7 +69,6 @@ namespace Cryptography.Tests.Ciphers.Caesar
         public void Decrypt_NegativeShift_ShouldEncryptCorrectly()
         {
             CaesarCipher cipher = new(Alphabets.ALPHABET, -5);
-            // ReSharper disable once StringLiteralTypo
             const string encrypted = "VWXYZABCDEFGHIJKLMNOPQRSTU";
 
             var decrypted = cipher.Decrypt(encrypted);

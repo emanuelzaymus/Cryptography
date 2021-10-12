@@ -1,4 +1,5 @@
-﻿using Cryptography.Utilities;
+﻿using System;
+using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
@@ -21,7 +22,8 @@ namespace Cryptography.Ciphers.Affine
             _key1 = Z.Modulo(key1);
             _key2 = Z.Modulo(key2);
 
-            _decryptKey1 = Z.Inverse(_key1);
+            _decryptKey1 = Z.Inverse(_key1) ?? throw
+                new ArgumentException("For key1 does not exist inverse element. Choose different key1.", nameof(_key1));
             _decryptKey2 = Z.Modulo(Z.Opposite(_key2) * _decryptKey1);
         }
 

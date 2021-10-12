@@ -1,4 +1,5 @@
-﻿using Cryptography.Alphabet;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cryptography.Alphabet;
 using Cryptography.Ciphers.Caesar;
 using Cryptography.Utilities;
 using NUnit.Framework;
@@ -6,12 +7,12 @@ using NUnit.Framework;
 namespace Cryptography.Tests.Ciphers.Caesar
 {
     [TestFixture]
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class CaesarCipherBruteForceAttackTests
     {
         [Test]
         public void Attack_PositiveShift_DecryptedTextCorrectly()
         {
-            // ReSharper disable once StringLiteralTypo
             const string encryptedText = "DEFGHIJKLMNOPQRSTUVWXYZABC";
             const string originalText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             AttackChecker checker = new(originalText);
@@ -27,7 +28,6 @@ namespace Cryptography.Tests.Ciphers.Caesar
         [Test]
         public void Attack_NegativeShift_DecryptedTextCorrectly()
         {
-            // ReSharper disable once StringLiteralTypo
             const string encryptedText = "TUVWXYZABCDEFGHIJKLMNOPQRS";
             const string originalText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             AttackChecker checker = new(originalText);
