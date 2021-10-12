@@ -30,6 +30,7 @@ namespace Cryptography.Ciphers.Caesar
 
             decryptedText = null;
             shift = null;
+            
             return false;
         }
     }

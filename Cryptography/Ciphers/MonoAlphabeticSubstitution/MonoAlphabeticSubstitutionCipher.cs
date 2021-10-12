@@ -1,4 +1,5 @@
 ﻿using System;
+using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
 {
@@ -32,27 +33,14 @@ namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
 
         protected override char CharEncryption(char ch)
         {
-            int charIndex = GetCharIndex(ch, OriginalAlphabet);
+            int charIndex = OriginalAlphabet.GetCharIndex(ch);
             return SubstitutionAlphabet[charIndex];
         }
 
         protected override char CharDecryption(char ch)
         {
-            int charIndex = GetCharIndex(ch, SubstitutionAlphabet);
+            int charIndex = SubstitutionAlphabet.GetCharIndex(ch);
             return OriginalAlphabet[charIndex];
-        }
-
-        private int GetCharIndex(char ch, string alphabet)
-        {
-            int index = alphabet.IndexOf(ch);
-
-            if (index < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch),
-                    $"Cannot find character '{ch}' in the alphabet. The character is not valid.");
-            }
-
-            return index;
         }
     }
 }

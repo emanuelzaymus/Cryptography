@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cryptography.Utilities
 {
@@ -21,6 +22,10 @@ namespace Cryptography.Utilities
             return modulo;
         }
 
+        /// <summary>
+        /// Returns all divisors of number <paramref name="n"/>.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static int[] GetDivisors(int n)
         {
             if (n <= 0)
@@ -39,6 +44,14 @@ namespace Cryptography.Utilities
             divisors.Add(n);
 
             return divisors.ToArray();
+        }
+
+        /// <summary>
+        /// Returns divisors of number <paramref name="n"/> without number 1.
+        /// </summary>
+        public static int[] GetDivisorsWithout1(int n)
+        {
+            return GetDivisors(n).Skip(1).ToArray();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers
 {
@@ -22,32 +22,16 @@ namespace Cryptography.Ciphers
 
         protected abstract char CharDecryption(char ch);
 
-        protected int GetCharIndex(char ch)
-        {
-            int index = Alphabet.IndexOf(ch);
-
-            if (index < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch),
-                    $"Cannot find character '{ch}' in the alphabet. The character is not valid.");
-            }
-
-            return index;
-        }
+        protected int GetCharIndex(char ch) => Alphabet.GetCharIndex(ch);
 
         private string TransformEveryChar(string text, Func<char, char> transformation)
         {
-            if (text is null) throw new ArgumentNullException(nameof(text));
-
-            var stringBuilder = new StringBuilder(text.Length);
-
-            foreach (char ch in text)
+            if (text is null)
             {
-                char newChar = transformation(ch);
-                stringBuilder.Append(newChar);
+                throw new ArgumentNullException(nameof(text));
             }
 
-            return stringBuilder.ToString();
+            return text.Transform(transformation);
         }
     }
 }
