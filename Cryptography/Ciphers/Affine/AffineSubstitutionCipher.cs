@@ -1,5 +1,4 @@
-﻿using System;
-using Cryptography.Alphabet;
+﻿using Cryptography.Alphabet;
 using Cryptography.Ciphers.MonoAlphabeticSubstitution;
 using Cryptography.Utilities;
 
@@ -20,10 +19,9 @@ namespace Cryptography.Ciphers.Affine
             Alphabets.CheckAlphabet(alphabet);
             AffineCipherUtils.CheckKey1(alphabet.Length, key1);
 
-            int charIndex = 0;
-            return alphabet.Transform(_ =>
+            return alphabet.Transform((_, stringCharIndex) =>
             {
-                int newCharIndex = Utils.PositiveModulo(charIndex++ * key1 + key2, alphabet.Length);
+                int newCharIndex = Utils.PositiveModulo(stringCharIndex * key1 + key2, alphabet.Length);
                 return alphabet[newCharIndex];
             });
         }

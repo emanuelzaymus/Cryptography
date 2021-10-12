@@ -19,13 +19,13 @@ namespace Cryptography.Ciphers
 
         public string Decrypt(string encryptedText) => TransformEveryChar(encryptedText, CharDecryption);
 
-        protected abstract char CharEncryption(char ch);
+        protected abstract char CharEncryption(char ch, int index);
 
-        protected abstract char CharDecryption(char ch);
+        protected abstract char CharDecryption(char ch, int index);
 
-        protected int GetCharIndex(char ch) => Alphabet.GetCharIndex(ch);
+        protected int GetAlphabetCharIndex(char ch) => Alphabet.GetCharIndex(ch);
 
-        private string TransformEveryChar(string text, Func<char, char> transformation)
+        private string TransformEveryChar(string text, Func<char, int, char> transformation)
         {
             if (text is null)
             {

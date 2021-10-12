@@ -5,15 +5,23 @@ namespace Cryptography.Utilities
 {
     public static class StringExtensions
     {
-        public static string Transform(this string str, Func<char, char> transformation)
+        /// <summary>
+        /// Transforms every character of this string using <paramref name="transformation"/> function.
+        /// </summary>
+        /// <param name="str">This string</param>
+        /// <param name="transformation">Transformation function which accepts character itself and its position (<c>stringCharIndex</c>) in the original string</param>
+        /// <exception cref="ArgumentNullException">ArgumentNullException is thrown when <paramref name="transformation"/> is null</exception>
+        public static string Transform(this string str, Func<char, int, char> transformation)
         {
             if (transformation is null) throw new ArgumentNullException(nameof(transformation));
 
             var stringBuilder = new StringBuilder(str.Length);
 
-            foreach (char ch in str)
+            for (int stringCharIndex = 0; stringCharIndex < str.Length; stringCharIndex++)
             {
-                char newChar = transformation(ch);
+                char ch = str[stringCharIndex];
+                char newChar = transformation(ch, stringCharIndex);
+
                 stringBuilder.Append(newChar);
             }
 

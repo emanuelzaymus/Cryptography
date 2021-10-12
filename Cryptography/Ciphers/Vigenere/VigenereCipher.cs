@@ -13,12 +13,12 @@ namespace Cryptography.Ciphers.Vigenere
             _password = password;
         }
 
-        protected override char CharEncryption(char ch)
+        protected override char CharEncryption(char ch, int stringCharIndex)
         {
             throw new NotImplementedException();
         }
 
-        protected override char CharDecryption(char ch)
+        protected override char CharDecryption(char ch, int stringCharIndex)
         {
             throw new NotImplementedException();
         }

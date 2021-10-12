@@ -6,8 +6,8 @@ namespace Cryptography.Ciphers.Caesar
     {
         internal static char ShiftChar(char ch, int shift, string alphabet)
         {
-            int charIndex = alphabet.GetCharIndex(ch);
-            int newCharIndex = ShiftIndex(charIndex, shift, alphabet.Length);
+            int alphabetCharIndex = alphabet.GetCharIndex(ch);
+            int newCharIndex = ShiftIndex(alphabetCharIndex, shift, alphabet.Length);
             return alphabet[newCharIndex];
         }
 

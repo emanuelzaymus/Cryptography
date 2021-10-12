@@ -34,16 +34,16 @@ namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
             }
         }
 
-        protected override char CharEncryption(char ch)
+        protected override char CharEncryption(char ch, int stringCharIndex)
         {
-            int charIndex = OriginalAlphabet.GetCharIndex(ch);
-            return SubstitutionAlphabet[charIndex];
+            int alphabetCharIndex = OriginalAlphabet.GetCharIndex(ch);
+            return SubstitutionAlphabet[alphabetCharIndex];
         }
 
-        protected override char CharDecryption(char ch)
+        protected override char CharDecryption(char ch, int stringCharIndex)
         {
-            int charIndex = SubstitutionAlphabet.GetCharIndex(ch);
-            return OriginalAlphabet[charIndex];
+            int alphabetCharIndex = SubstitutionAlphabet.GetCharIndex(ch);
+            return OriginalAlphabet[alphabetCharIndex];
         }
     }
 }

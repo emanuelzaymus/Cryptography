@@ -30,17 +30,17 @@ namespace Cryptography.Ciphers.Affine
             _decryptKey2 = Z.Modulo(Z.Opposite(_key2) * _decryptKey1);
         }
 
-        protected override char CharEncryption(char ch)
+        protected override char CharEncryption(char ch, int stringCharIndex)
         {
-            int charIndex = GetCharIndex(ch);
-            int newCharIndex = Z.Modulo(charIndex * _key1 + _key2);
+            int alphabetCharIndex = GetAlphabetCharIndex(ch);
+            int newCharIndex = Z.Modulo(alphabetCharIndex * _key1 + _key2);
             return Alphabet[newCharIndex];
         }
 
-        protected override char CharDecryption(char ch)
+        protected override char CharDecryption(char ch, int stringCharIndex)
         {
-            int charIndex = GetCharIndex(ch);
-            int newCharIndex = Z.Modulo(charIndex * _decryptKey1 + _decryptKey2);
+            int alphabetCharIndex = GetAlphabetCharIndex(ch);
+            int newCharIndex = Z.Modulo(alphabetCharIndex * _decryptKey1 + _decryptKey2);
             return Alphabet[newCharIndex];
         }
     }

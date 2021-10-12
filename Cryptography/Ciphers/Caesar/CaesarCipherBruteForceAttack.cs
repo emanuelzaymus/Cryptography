@@ -53,7 +53,7 @@ namespace Cryptography.Ciphers.Caesar
 
         private string ShiftEveryChar(string encryptedText, int shift)
         {
-            return encryptedText.Transform(ch => CaesarCipherUtils.ShiftChar(ch, shift, _alphabet));
+            return encryptedText.Transform((ch, _) => CaesarCipherUtils.ShiftChar(ch, shift, _alphabet));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Cryptography.Ciphers.Affine
         public AffineCipherBruteForceAttack(string alphabet)
         {
             Alphabets.CheckAlphabet(alphabet);
-            
+
             _alphabet = alphabet;
             _divisors = Utils.GetDivisorsWithout1(alphabet.Length);
         }
@@ -73,10 +73,10 @@ namespace Cryptography.Ciphers.Affine
 
         private string TryDecrypt(string encryptedText, int decryptKey1, int decryptKey2)
         {
-            return encryptedText.Transform(ch =>
+            return encryptedText.Transform((ch, _) =>
             {
-                int charIndex = _alphabet.GetCharIndex(ch);
-                int newCharIndex = Utils.PositiveModulo(charIndex * decryptKey1 + decryptKey2, _alphabet.Length);
+                int alphabetCharIndex = _alphabet.GetCharIndex(ch);
+                int newCharIndex = Utils.PositiveModulo(alphabetCharIndex * decryptKey1 + decryptKey2, _alphabet.Length);
                 return _alphabet[newCharIndex];
             });
         }
