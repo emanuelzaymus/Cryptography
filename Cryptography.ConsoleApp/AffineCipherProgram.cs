@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cryptography.Alphabet;
+using Cryptography.Analysis;
 using Cryptography.Ciphers.Affine;
 
 namespace Cryptography.ConsoleApp
@@ -10,10 +11,10 @@ namespace Cryptography.ConsoleApp
     {
         internal static void Run()
         {
-            AffineCipherBruteForceAttack attack = new(Alphabets.ALPHABET_);
+            AffineCipherLanguageAnalysisAttack attack = new(Alphabets.ALPHABET_, LettersProbabilities.SlovakLanguage);
 
             // VYRIESIL SOM LAHKU ULOHU
-            attack.PrintAttack("LIYGTOGDPOAUPDFQNVPVDAQV");
+            attack.PrintAttack("LIYGTOGDPOAUPDFQNVPVDAQV", 2);
         }
     }
 }
