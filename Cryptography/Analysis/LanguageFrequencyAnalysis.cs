@@ -6,7 +6,7 @@ using Cryptography.Analysis.TextNormalization;
 
 namespace Cryptography.Analysis
 {
-    public class LanguageFrequencyAnalysis : ILettersProbabilities
+    public class LanguageFrequencyAnalysis
     {
         private readonly Dictionary<char, double> _lettersProbabilities;
 

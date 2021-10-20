@@ -2,13 +2,13 @@
 
 namespace Cryptography.Analysis.TextNormalization
 {
-    internal class Casing
+    public class Casing
     {
-        internal static readonly Casing None = new(text => text);
+        public static readonly Casing None = new(text => text);
 
-        internal static readonly Casing UpperCase = new(text => text?.ToUpper());
+        public static readonly Casing UpperCase = new(text => text?.ToUpper());
 
-        internal static readonly Casing LowerCase = new(text => text?.ToLower());
+        public static readonly Casing LowerCase = new(text => text?.ToLower());
 
         internal Func<string, string> Transform { get; }
 

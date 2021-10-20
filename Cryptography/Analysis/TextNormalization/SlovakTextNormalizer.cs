@@ -3,7 +3,7 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Analysis.TextNormalization
 {
-    internal class SlovakTextNormalizer : ITextNormalizer
+    public class SlovakTextNormalizer : ITextNormalizer
     {
         private static readonly Dictionary<char, char> Letters = new()
         {
