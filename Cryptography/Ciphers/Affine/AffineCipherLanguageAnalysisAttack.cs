@@ -61,10 +61,7 @@ namespace Cryptography.Ciphers.Affine
 
                     decryptedText = TryDecrypt(encryptedText, decryptKey1.Value, decryptKey2.Value);
 
-                    if (print)
-                    {
-                        PrintResult(decryptKey1, decryptKey2, decryptedText);
-                    }
+                    PrintResult(print, decryptKey1, decryptKey2, decryptedText);
 
                     if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
                     {
@@ -72,7 +69,7 @@ namespace Cryptography.Ciphers.Affine
                     }
                 }
 
-                Console.WriteLine();
+                PrintNewLine(print);
             }
 
             decryptedText = null;

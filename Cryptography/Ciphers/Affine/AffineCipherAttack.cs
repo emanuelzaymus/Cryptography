@@ -35,9 +35,20 @@ namespace Cryptography.Ciphers.Affine
             });
         }
 
-        protected void PrintResult(int? decryptKey1, int? decryptKey2, string decryptedText)
+        protected void PrintResult(bool print, int? decryptKey1, int? decryptKey2, string decryptedText)
         {
-            Console.WriteLine("{0,3} {1,3}  {2}", decryptKey1, decryptKey2, decryptedText);
+            if (print)
+            {
+                Console.WriteLine("{0,3} {1,3}  {2}", decryptKey1, decryptKey2, decryptedText);
+            }
+        }
+
+        protected void PrintNewLine(bool print)
+        {
+            if (print)
+            {
+                Console.WriteLine();
+            }
         }
     }
 }
