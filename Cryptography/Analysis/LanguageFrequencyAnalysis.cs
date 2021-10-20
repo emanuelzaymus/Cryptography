@@ -2,42 +2,55 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Cryptography.Alphabet;
 using Cryptography.Analysis.TextNormalization;
 
 namespace Cryptography.Analysis
 {
-    public class LanguageFrequencyAnalysis
+    public static class LanguageFrequencyAnalysis
     {
-        private readonly Dictionary<char, double> _lettersProbabilities;
-
-        public LanguageFrequencyAnalysis(string analyseFilePath, string validLetters, ITextNormalizer normalizer = null)
+        public static Dictionary<char, double> GetLettersProbabilities(FileInfo analyseFile, string validLetters,
+            ITextNormalizer normalizer = null)
         {
-            if (string.IsNullOrEmpty(validLetters))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(validLetters));
+            if (analyseFile is null || !analyseFile.Exists)
+            {
+                throw new ArgumentException("Analyse file is null or does not exist.", nameof(analyseFile));
+            }
 
-            var text = File.ReadAllText(analyseFilePath);
+            var text = File.ReadAllText(analyseFile.FullName);
+
+            return GetLettersProbabilities(text, validLetters, normalizer);
+        }
+
+        public static Dictionary<char, double> GetLettersProbabilities(string text, string validLetters,
+            ITextNormalizer normalizer = null)
+        {
+            if (string.IsNullOrEmpty(text))
+                throw new ArgumentException("Value cannot be null or empty.", nameof(text));
+
+            Alphabets.CheckAlphabet(validLetters);
 
             if (normalizer is not null)
             {
                 text = normalizer.Normalize(text);
             }
 
-            _lettersProbabilities = new(validLetters.Length);
-            validLetters.ToList().ForEach(letter => _lettersProbabilities.Add(letter, 0));
-
-            Analyse(text);
+            return Analyse(text, validLetters);
         }
 
-        private void Analyse(string text)
+        private static Dictionary<char, double> Analyse(string text, string validLetters)
         {
+            var lettersProbabilities = new Dictionary<char, double>(validLetters.Length);
+            validLetters.ToList().ForEach(letter => lettersProbabilities.Add(letter, 0));
+
             int sum = 0;
 
             // Count up all letter occurrences
             foreach (var ch in text)
             {
-                if (_lettersProbabilities.ContainsKey(ch))
+                if (lettersProbabilities.ContainsKey(ch))
                 {
-                    _lettersProbabilities[ch]++;
+                    lettersProbabilities[ch]++;
                     sum++;
                 }
             }
@@ -48,12 +61,12 @@ namespace Cryptography.Analysis
             }
 
             // Calculate letter probabilities for all letters
-            foreach (char key in _lettersProbabilities.Keys)
+            foreach (char key in lettersProbabilities.Keys)
             {
-                _lettersProbabilities[key] /= sum;
+                lettersProbabilities[key] /= sum;
             }
-        }
 
-        public Dictionary<char, double> GetLettersProbabilities() => _lettersProbabilities;
+            return lettersProbabilities;
+        }
     }
 }

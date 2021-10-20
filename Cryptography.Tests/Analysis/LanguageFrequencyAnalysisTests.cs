@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Cryptography.Alphabet;
 using Cryptography.Analysis;
 using Cryptography.Analysis.TextNormalization;
@@ -9,16 +10,14 @@ namespace Cryptography.Tests.Analysis
     [TestFixture]
     public class LanguageFrequencyAnalysisTests
     {
-        private const string EnTelegraph = "Resources/TextsToAnalyse/en_teleg.txt";
-        private const string SkTelegraph = "Resources/TextsToAnalyse/sk_teleg.txt";
+        private readonly FileInfo _enTelegraph = new("Resources/TextsToAnalyse/en_teleg.txt");
+        private readonly FileInfo _skTelegraph = new("Resources/TextsToAnalyse/sk_teleg.txt");
 
         [Test]
         public void GetLettersProbabilities_EnglishTelegraphFile_ShouldReturnCorrectValues()
         {
-            LanguageFrequencyAnalysis analysis = new(EnTelegraph, Alphabets.ALPHABET_,
-                new TextNormalizer(Casing.UpperCase));
-
-            var actual = analysis.GetLettersProbabilities();
+            var actual = LanguageFrequencyAnalysis
+                .GetLettersProbabilities(_enTelegraph, Alphabets.ALPHABET_, new TextNormalizer(Casing.UpperCase));
 
             var expected = LettersProbabilities.EnglishLanguage;
 
@@ -36,10 +35,8 @@ namespace Cryptography.Tests.Analysis
         [Test]
         public void GetLettersProbabilities_SlovakTelegraphFile_ShouldReturnCorrectValues()
         {
-            LanguageFrequencyAnalysis analysis = new(SkTelegraph, Alphabets.ALPHABET_,
-                new SlovakTextNormalizer(Casing.UpperCase));
-
-            var actual = analysis.GetLettersProbabilities();
+            var actual = LanguageFrequencyAnalysis
+                .GetLettersProbabilities(_skTelegraph, Alphabets.ALPHABET_, new SlovakTextNormalizer(Casing.UpperCase));
 
             var expected = LettersProbabilities.SlovakLanguage;
 
