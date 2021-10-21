@@ -8,15 +8,15 @@ namespace Cryptography.Ciphers.Affine
 {
     public class AffineCipherLanguageAnalysisAttack : AffineCipherAttack
     {
-        private readonly Dictionary<char, double> _lettersProbabilities;
+        private readonly List<LetterProbability> _probabilitiesOfLetters;
 
-        public AffineCipherLanguageAnalysisAttack(string alphabet, Dictionary<char, double> lettersProbabilities)
+        public AffineCipherLanguageAnalysisAttack(string alphabet, List<LetterProbability> probabilitiesOfLetters)
             : base(alphabet)
         {
-            if (alphabet.Length != lettersProbabilities.Count)
+            if (alphabet.Length != probabilitiesOfLetters.Count)
                 throw new Exception("Alphabet length and lettersProbabilities count do not equal.");
 
-            _lettersProbabilities = lettersProbabilities;
+            _probabilitiesOfLetters = probabilitiesOfLetters;
         }
 
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
@@ -34,13 +34,13 @@ namespace Cryptography.Ciphers.Affine
         private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
             out int? decryptKey1, out int? decryptKey2, bool print, int tryKeysCount)
         {
-            char mostProbableChar = MostProbableCharacter(_lettersProbabilities);
+            char mostProbableChar = MostProbableCharacter();
             int mostProbableCharIndex = Alphabet.GetCharIndex(mostProbableChar);
 
             var encryptedProbabilities = LanguageFrequencyAnalysis
-                .GetLettersProbabilities(encryptedText, Alphabet)
-                .OrderByDescending(pair => pair.Value)
-                .Select(pair => pair.Key)
+                .GetProbabilitiesOfLetters(encryptedText, Alphabet)
+                .OrderByDescending(letterProbability => letterProbability.Probability)
+                .Select(letterProbability => letterProbability.Letter)
                 .ToList();
 
             for (int i = 0; i < tryKeysCount; i++)
@@ -79,13 +79,13 @@ namespace Cryptography.Ciphers.Affine
             return false;
         }
 
-        private char MostProbableCharacter(Dictionary<char, double> lettersProbabilities)
+        private char MostProbableCharacter()
         {
-            return lettersProbabilities
-                .Aggregate((pair1, pari2) => pair1.Value > pari2.Value
-                    ? pair1
-                    : pari2)
-                .Key;
+            return _probabilitiesOfLetters
+                .Aggregate((lp1, lp2) => lp1.Probability > lp2.Probability
+                    ? lp1
+                    : lp2)
+                .Letter;
         }
     }
 }

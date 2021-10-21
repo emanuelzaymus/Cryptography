@@ -5,7 +5,8 @@
         public static void Main()
         {
             // CaesarCipherProgram.Run();
-            AffineCipherProgram.Run();
+            // AffineCipherProgram.Run();
+            VigenereCipherProgram.Run();
         }
     }
 }
