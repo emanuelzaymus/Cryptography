@@ -21,19 +21,35 @@ namespace Cryptography.Ciphers.Vigenere
             _probabilitiesOfLetters = probabilitiesOfLetters;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="encryptedText"></param>
+        /// <param name="attackChecker"></param>
+        /// <param name="decryptedText"></param>
+        /// <param name="password"></param>
+        /// <param name="tryCombinationsCount"></param>
+        /// <returns></returns>
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out string password, int tryKeysCount)
+            out string password, int tryCombinationsCount)
         {
-            return Attack(encryptedText, attackChecker, out decryptedText, out password, false, tryKeysCount);
+            return Attack(encryptedText, attackChecker, out decryptedText, out password, false, null,
+                tryCombinationsCount);
         }
 
-        public void PrintAttack(string encryptedText, int tryKeysCount)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="encryptedText"></param>
+        /// <param name="formattedText"></param>
+        /// <param name="tryCombinationsCount"></param>
+        public void PrintAttack(string encryptedText, string formattedText, int tryCombinationsCount)
         {
-            Attack(encryptedText, null, out _, out _, true, tryKeysCount);
+            Attack(encryptedText, null, out _, out _, true, formattedText, tryCombinationsCount);
         }
 
         private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out string password, bool print, int tryKeysCount)
+            out string password, bool print, string formattedText, int tryCombinationsCount)
         {
             var passwordLengthEstimations = KasiskiExamination.GetPasswordLengthEstimations(encryptedText, 3, 8);
 
@@ -41,42 +57,43 @@ namespace Cryptography.Ciphers.Vigenere
             {
                 var strings = DivideTextIntoNStringsCyclically(encryptedText, passwordLength);
 
-                var coincidences = strings.Select(s => IndexOfCoincidence.GetIndexOfCoincidence(s, _alphabet)).ToList();
+                var coincidences = strings
+                    .Select(s => IndexOfCoincidence.GetIndexOfCoincidence(s, _alphabet))
+                    .ToList();
 
                 bool allCoincidencesAreAboveThreshold = coincidences
-                    .Select(c => c > IndexOfCoincidence.Threshold).All(b => b);
+                    .Select(c => c > IndexOfCoincidence.Threshold)
+                    .All(b => b);
 
-                // I chose suitable passwordLength 
-                if (allCoincidencesAreAboveThreshold)
+                if (allCoincidencesAreAboveThreshold) // I've chosen suitable passwordLength 
                 {
                     List<List<LetterProbability>> allLetterProbabilities = strings
                         .Select(s => LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(s, _alphabet))
                         .ToList();
 
-                    // Calculate ofr every string the smallest differences of letter probabilities (take 5 smallest)
+                    // Calculate for every string the smallest differences of letter probabilities (take 5 smallest)
                     List<List<(int Shift, double Difference)>> allDifferences = allLetterProbabilities
                         .Select(AllLettersProbabilitiesDifferenceForEveryShift)
                         .ToList();
 
-                    //var currentIndices = Enumerable.Repeat(0, 4).ToList();
-
-                    // Teraz vyskusam len najlepsie sifty
-
-                    var bestShifts = allDifferences.Select(differences => differences.First().Shift).ToList();
-
-                    decryptedText = TryShifts(encryptedText, bestShifts);
-                    password = string.Concat(bestShifts.Select(s => _alphabet[s]));
-
-                    if (print)
+                    var allIndicesCombinations = CreateAllIndicesCombinations(passwordLength, tryCombinationsCount);
+                    foreach (var indicesCombination in allIndicesCombinations)
                     {
-                        Console.WriteLine(decryptedText);
-                    }
+                        var shifts = SelectShifts(allDifferences, indicesCombination).ToList();
 
-                    if (attackChecker.IsDecryptedCorrectly(decryptedText))
-                    {
-                        return true;
+                        decryptedText = TryDecrypt(encryptedText, shifts);
+                        password = CreatePasswordFromShifts(shifts);
+
+                        PrintResult(print, decryptedText, formattedText);
+
+                        if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
+                        {
+                            return true;
+                        }
                     }
                 }
+
+                PrintNewLine(print);
             }
 
             decryptedText = null;
@@ -84,7 +101,99 @@ namespace Cryptography.Ciphers.Vigenere
             return false;
         }
 
-        private string TryShifts(string encryptedText, IReadOnlyList<int> shifts)
+        // TODO: put to other place -> Series.Generate(int, int);
+        public static IEnumerable<List<int>> CreateAllIndicesCombinations(int passwordLength, int tryCombinationsCount)
+        {
+            var indices = Enumerable.Repeat(0, passwordLength).ToList();
+
+            yield return indices;
+
+            for (int i = 0; i < Math.Pow(tryCombinationsCount, passwordLength) - 1; i++)
+            {
+                for (int j = 0; j < passwordLength; j++)
+                {
+                    if (indices[j] < tryCombinationsCount - 1)
+                    {
+                        indices[j]++;
+                        break;
+                    }
+
+                    indices[j] = 0;
+                }
+
+                yield return indices;
+            }
+        }
+
+        private IEnumerable<int> SelectShifts(List<List<(int Shift, double Difference)>> allDifferences,
+            List<int> indicesCombination)
+        {
+            for (int i = 0; i < indicesCombination.Count; i++)
+            {
+                int iCombination = indicesCombination[i];
+                yield return allDifferences[i][iCombination].Shift;
+            }
+        }
+
+        private string CreatePasswordFromShifts(List<int> shifts)
+        {
+            return string.Concat(shifts.Select(s => _alphabet[s]));
+        }
+
+        private void PrintNewLine(bool print)
+        {
+            if (print)
+            {
+                Console.WriteLine();
+            }
+        }
+
+        private void PrintResult(bool print, string decryptedText, string formattedText)
+        {
+            if (print)
+            {
+                if (formattedText is not null)
+                {
+                    var formatted = FormatDecryptedText(decryptedText, formattedText);
+
+                    Console.WriteLine(formatted);
+                }
+                else
+                {
+                    Console.WriteLine(decryptedText);
+                }
+            }
+        }
+
+        // TODO: Put to other place -> Utilities.Formation / Formatting
+        private string FormatDecryptedText(string decryptedText, string formattedText)
+        {
+            StringBuilder builder = new(formattedText.Length);
+            using var decryptEnumerator = decryptedText.GetEnumerator();
+
+            foreach (char ch in formattedText)
+            {
+                if (_alphabet.Contains(ch))
+                {
+                    if (decryptEnumerator.MoveNext())
+                    {
+                        builder.Append(decryptEnumerator.Current);
+                    }
+                    else
+                    {
+                        throw new Exception("You should not get here.");
+                    }
+                }
+                else
+                {
+                    builder.Append(ch);
+                }
+            }
+
+            return builder.ToString();
+        }
+
+        private string TryDecrypt(string encryptedText, IReadOnlyList<int> shifts)
         {
             return encryptedText.Transform((ch, i) =>
             {
@@ -96,19 +205,19 @@ namespace Cryptography.Ciphers.Vigenere
 
         private List<string> DivideTextIntoNStringsCyclically(string text, int n)
         {
-            var stringBuilders = new List<StringBuilder>(n);
+            var nStringBuilders = new List<StringBuilder>(n);
 
-            foreach (var i in Enumerable.Range(0, n))
+            for (int i = 0; i < n; i++)
             {
-                stringBuilders.Add(new StringBuilder(text.Length / n + 1));
+                nStringBuilders.Add(new StringBuilder(text.Length / n + 1));
             }
 
             foreach ((char ch, int i) in text.Select((ch, i) => (ch, i)))
             {
-                stringBuilders[i % n].Append(ch);
+                nStringBuilders[i % n].Append(ch);
             }
 
-            return stringBuilders.Select(b => b.ToString()).ToList();
+            return nStringBuilders.Select(b => b.ToString()).ToList();
         }
 
         private List<(int Shift, double Difference)> AllLettersProbabilitiesDifferenceForEveryShift(
