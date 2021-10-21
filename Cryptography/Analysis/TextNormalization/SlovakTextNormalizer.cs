@@ -3,7 +3,7 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Analysis.TextNormalization
 {
-    public class SlovakTextNormalizer : TextNormalizer
+    public class SlovakTextNormalizer : TextNormalizer, ITextNormalizer
     {
         private static readonly Dictionary<char, char> Letters = new()
         {
@@ -22,7 +22,6 @@ namespace Cryptography.Analysis.TextNormalization
         {
         }
 
-        // This method is used.
         public new string Normalize(string text)
         {
             var transformed = text.Transform(Normalization);
