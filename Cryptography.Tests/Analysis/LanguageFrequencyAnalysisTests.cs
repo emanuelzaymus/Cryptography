@@ -13,8 +13,8 @@ namespace Cryptography.Tests.Analysis
         private readonly FileInfo _enTelegraph = new("Resources/TextsToAnalyse/en_teleg.txt");
         private readonly FileInfo _skTelegraph = new("Resources/TextsToAnalyse/sk_teleg.txt");
 
-        private readonly FileInfo _text1 = new("Resources/TextsToAnalyse/text1.txt");
-        private readonly FileInfo _text2 = new("Resources/TextsToAnalyse/text2.txt");
+        private readonly FileInfo _text1 = new("Resources/Texts/text1.txt");
+        private readonly FileInfo _text2 = new("Resources/Texts/text2.txt");
 
         [Test]
         public void GetLettersProbabilities_EnglishTelegraphFile_ShouldReturnCorrectValues()
