@@ -13,6 +13,9 @@ namespace Cryptography.Tests.Analysis
         private readonly FileInfo _enTelegraph = new("Resources/TextsToAnalyse/en_teleg.txt");
         private readonly FileInfo _skTelegraph = new("Resources/TextsToAnalyse/sk_teleg.txt");
 
+        private readonly FileInfo _text1 = new("Resources/TextsToAnalyse/text1.txt");
+        private readonly FileInfo _text2 = new("Resources/TextsToAnalyse/text2.txt");
+
         [Test]
         public void GetLettersProbabilities_EnglishTelegraphFile_ShouldReturnCorrectValues()
         {
@@ -49,6 +52,24 @@ namespace Cryptography.Tests.Analysis
 
                 Assert.That(Math.Abs(actualValue - expectedValue), Is.LessThan(0.0001));
             }
+        }
+
+        [Test]
+        public void GetIndexOfCoincidence_Text1_ShouldReturn0Point0422()
+        {
+            var indexOfCoincidence = LanguageFrequencyAnalysis.GetIndexOfCoincidence(_text1, Alphabets.ALPHABET,
+                new TextNormalizer(Casing.UpperCase));
+
+            Assert.That(Math.Abs(indexOfCoincidence - 0.0422), Is.LessThan(0.00009));
+        }
+
+        [Test]
+        public void GetIndexOfCoincidence_Text2_ShouldReturn0Point0589()
+        {
+            var indexOfCoincidence = LanguageFrequencyAnalysis.GetIndexOfCoincidence(_text2, Alphabets.ALPHABET,
+                new TextNormalizer(Casing.UpperCase));
+
+            Assert.That(Math.Abs(indexOfCoincidence - 0.0589), Is.LessThan(0.00009));
         }
     }
 }
