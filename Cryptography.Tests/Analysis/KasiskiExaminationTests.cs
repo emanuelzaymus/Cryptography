@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Cryptography.Alphabet;
 using Cryptography.Analysis;
+using Cryptography.Analysis.TextNormalization;
+using Cryptography.Utilities;
 using NUnit.Framework;
 
 namespace Cryptography.Tests.Analysis
@@ -12,7 +13,8 @@ namespace Cryptography.Tests.Analysis
         [Test]
         public void GetTrinityDistances_Text1_ShouldReturnCorrectDistances()
         {
-            var distances = KasiskiExamination.GetTrinityDistances(Files.Text1, Alphabets.ALPHABET);
+            var normalizer = new TextNormalizer(onlyValidCharacters: Alphabets.ALPHABET);
+            var distances = KasiskiExamination.GetTrinityDistances(Texts.GetText1(normalizer));
 
             var expectedDistances = new List<(string, int)>
             {
@@ -29,8 +31,8 @@ namespace Cryptography.Tests.Analysis
         [Test]
         public void GetPasswordLengthEstimations_Text1_ShouldReturnCorrectEstimations()
         {
-            var text = File.ReadAllText(Files.Text1.FullName);
-            var estimations = KasiskiExamination.GetPasswordLengthEstimations(text, Alphabets.ALPHABET, 3, 12);
+            var normalizer = new TextNormalizer(Casing.UpperCase, Alphabets.ALPHABET);
+            var estimations = KasiskiExamination.GetPasswordLengthEstimations(Texts.GetText1(normalizer), 3, 12);
 
             var expectedEstimations = new List<(int, int)>
             {

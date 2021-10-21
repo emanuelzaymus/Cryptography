@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Cryptography.Alphabet;
-using Cryptography.Analysis.TextNormalization;
 
 namespace Cryptography.Analysis
 {
     public static class KasiskiExamination
     {
-        public static List<(int Length, int DivisorsCount)> GetPasswordLengthEstimations(string text, string alphabet,
+        public static List<(int Length, int DivisorsCount)> GetPasswordLengthEstimations(string text,
             int minPasswordLength, int maxPasswordLength)
         {
-            var trinityDistances = GetTrinityDistances(text, alphabet);
+            var trinityDistances = GetTrinityDistances(text);
 
             List<Estimation> estimations = new();
 
@@ -39,38 +36,9 @@ namespace Cryptography.Analysis
                 .ToList();
         }
 
-        public static List<(string Trinity, int Distance)> GetTrinityDistances(FileInfo file, string alphabet,
-            ITextNormalizer normalizer = null)
+        public static List<(string Trinity, int Distance)> GetTrinityDistances(string text)
         {
-            if (file is null)
-                throw new ArgumentNullException(nameof(file));
-
-            var text = File.ReadAllText(file.FullName);
-
-            return GetTrinityDistances(text, alphabet, normalizer);
-        }
-
-        public static List<(string Trinity, int Distance)> GetTrinityDistances(string text, string alphabet,
-            ITextNormalizer normalizer = null)
-        {
-            if (text is null)
-                throw new ArgumentNullException(nameof(text));
-
-            Alphabets.CheckAlphabet(alphabet);
-
-            if (normalizer is not null)
-            {
-                text = normalizer.Normalize(text);
-            }
-
-            text = RemoveInvalidCharacters(text, alphabet);
-
             return GetTupleDistances(text, 3);
-        }
-
-        private static string RemoveInvalidCharacters(string text, string alphabet)
-        {
-            return string.Concat(text.Where(alphabet.Contains));
         }
 
         private static List<(string Tuple, int Distance)> GetTupleDistances(string text, int tupleLength)
