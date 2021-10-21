@@ -3,7 +3,7 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Analysis.TextNormalization
 {
-    public class SlovakTextNormalizer : ITextNormalizer
+    public class SlovakTextNormalizer : TextNormalizer
     {
         private static readonly Dictionary<char, char> Letters = new()
         {
@@ -17,23 +17,17 @@ namespace Cryptography.Analysis.TextNormalization
             {'Ř', 'R'}, {'Ů', 'U'}, {'Ö', 'O'}, {'Ü', 'U'}
         };
 
-        private readonly Casing _casing;
-
-        public SlovakTextNormalizer(Casing casing)
+        public SlovakTextNormalizer(Casing casing = null, string onlyValidCharacters = null)
+            : base(casing, onlyValidCharacters)
         {
-            _casing = casing;
         }
 
-        public string Normalize(string text)
+        // This method is used.
+        public new string Normalize(string text)
         {
             var transformed = text.Transform(Normalization);
 
-            if (_casing is not null)
-            {
-                transformed = _casing.Transform(transformed);
-            }
-
-            return transformed;
+            return base.Normalize(transformed);
         }
 
         private char Normalization(char ch, int _)

@@ -13,13 +13,13 @@ namespace Cryptography.Utilities
         private static string Text2 => File.ReadAllText("Resources/Texts/text2.txt");
 
 
-        public static string GetEnTelegraph(ITextNormalizer normalizer = null) => Normalize(EnTelegraph, normalizer);
+        public static string GetEnTelegraph(TextNormalizer normalizer = null) => Normalize(EnTelegraph, normalizer);
 
-        public static string GetSkTelegraph(ITextNormalizer normalizer = null) => Normalize(SkTelegraph, normalizer);
+        public static string GetSkTelegraph(TextNormalizer normalizer = null) => Normalize(SkTelegraph, normalizer);
 
-        public static string GetText1(ITextNormalizer normalizer = null) => Normalize(Text1, normalizer);
+        public static string GetText1(TextNormalizer normalizer = null) => Normalize(Text1, normalizer);
 
-        public static string GetText2(ITextNormalizer normalizer = null) => Normalize(Text2, normalizer);
+        public static string GetText2(TextNormalizer normalizer = null) => Normalize(Text2, normalizer);
 
         private static string Normalize(string text, ITextNormalizer normalizer)
         {

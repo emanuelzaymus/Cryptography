@@ -1,26 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Cryptography.Alphabet;
-using Cryptography.Analysis.TextNormalization;
 
 namespace Cryptography.Analysis
 {
     public static class LanguageFrequencyAnalysis
     {
-        public static Dictionary<char, double> GetLettersProbabilities(FileInfo analyseFile, string validLetters,
-            ITextNormalizer normalizer = null)
+        public static Dictionary<char, double> GetLettersProbabilities(string text, string validLetters)
         {
-            var text = ReadText(analyseFile);
-
-            return GetLettersProbabilities(text, validLetters, normalizer);
-        }
-
-        public static Dictionary<char, double> GetLettersProbabilities(string text, string validLetters,
-            ITextNormalizer normalizer = null)
-        {
-            text = NormalizeText(text, validLetters, normalizer);
+            CheckParameters(text, validLetters);
 
             return CalculateLettersProbabilities(text, validLetters);
         }
@@ -62,17 +51,9 @@ namespace Cryptography.Analysis
             return lettersCounts;
         }
 
-        public static double GetIndexOfCoincidence(FileInfo analyseFile, string validLetters,
-            ITextNormalizer normalizer = null)
+        public static double GetIndexOfCoincidence(string text, string validLetters)
         {
-            var text = ReadText(analyseFile);
-
-            return GetIndexOfCoincidence(text, validLetters, normalizer);
-        }
-
-        public static double GetIndexOfCoincidence(string text, string validLetters, ITextNormalizer normalizer)
-        {
-            text = NormalizeText(text, validLetters, normalizer);
+            CheckParameters(text, validLetters);
 
             var lettersCounts = CalculateLettersCounts(text, validLetters);
 
@@ -93,29 +74,12 @@ namespace Cryptography.Analysis
             return indexOfCoincidence;
         }
 
-        private static string ReadText(FileInfo analyseFile)
-        {
-            if (analyseFile is null || !analyseFile.Exists)
-            {
-                throw new ArgumentException("Analyse file is null or does not exist.", nameof(analyseFile));
-            }
-
-            return File.ReadAllText(analyseFile.FullName);
-        }
-
-        private static string NormalizeText(string text, string validLetters, ITextNormalizer normalizer)
+        private static void CheckParameters(string text, string validLetters)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentException("Value cannot be null or empty.", nameof(text));
 
             Alphabets.CheckAlphabet(validLetters);
-
-            if (normalizer is not null)
-            {
-                return normalizer.Normalize(text);
-            }
-
-            return text;
         }
     }
 }

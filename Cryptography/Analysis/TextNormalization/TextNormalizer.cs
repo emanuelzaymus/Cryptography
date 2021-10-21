@@ -27,16 +27,22 @@ namespace Cryptography.Analysis.TextNormalization
 
         private string ChangeCasing(string text)
         {
-            return _casing is not null
-                ? _casing.Transform(text)
-                : text;
+            if (_casing is not null)
+            {
+                return _casing.Transform(text);
+            }
+
+            return text;
         }
 
         private string RemoveInvalidCharacters(string text)
         {
-            return _onlyValidCharacters is not null
-                ? string.Concat(text.Where(_onlyValidCharacters.Contains))
-                : text;
+            if (_onlyValidCharacters is not null)
+            {
+                return string.Concat(text.Where(_onlyValidCharacters.Contains));
+            }
+
+            return text;
         }
     }
 }

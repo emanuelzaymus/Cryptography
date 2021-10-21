@@ -2,6 +2,7 @@
 using Cryptography.Alphabet;
 using Cryptography.Analysis;
 using Cryptography.Analysis.TextNormalization;
+using Cryptography.Utilities;
 using NUnit.Framework;
 
 namespace Cryptography.Tests.Analysis
@@ -12,8 +13,8 @@ namespace Cryptography.Tests.Analysis
         [Test]
         public void GetLettersProbabilities_EnglishTelegraphFile_ShouldReturnCorrectValues()
         {
-            var actual = LanguageFrequencyAnalysis
-                .GetLettersProbabilities(Files.EnTelegraph, Alphabets.ALPHABET_, new TextNormalizer(Casing.UpperCase));
+            var enTelegraph = Texts.GetEnTelegraph(Casing.UpperCase);
+            var actual = LanguageFrequencyAnalysis.GetLettersProbabilities(enTelegraph, Alphabets.ALPHABET_);
 
             var expected = LettersProbabilities.EnglishLanguage;
 
@@ -31,8 +32,8 @@ namespace Cryptography.Tests.Analysis
         [Test]
         public void GetLettersProbabilities_SlovakTelegraphFile_ShouldReturnCorrectValues()
         {
-            var actual = LanguageFrequencyAnalysis.GetLettersProbabilities(Files.SkTelegraph, Alphabets.ALPHABET_,
-                new SlovakTextNormalizer(Casing.UpperCase));
+            var skTelegraph = Texts.GetSkTelegraph(new SlovakTextNormalizer(Casing.UpperCase));
+            var actual = LanguageFrequencyAnalysis.GetLettersProbabilities(skTelegraph, Alphabets.ALPHABET_);
 
             var expected = LettersProbabilities.SlovakLanguage;
 
@@ -50,8 +51,8 @@ namespace Cryptography.Tests.Analysis
         [Test]
         public void GetIndexOfCoincidence_Text1_ShouldReturn0Point0422()
         {
-            var indexOfCoincidence = LanguageFrequencyAnalysis.GetIndexOfCoincidence(Files.Text1, Alphabets.ALPHABET,
-                new TextNormalizer(Casing.UpperCase));
+            var text1 = Texts.GetText1(Casing.UpperCase);
+            var indexOfCoincidence = LanguageFrequencyAnalysis.GetIndexOfCoincidence(text1, Alphabets.ALPHABET);
 
             Assert.That(Math.Abs(indexOfCoincidence - 0.0422), Is.LessThan(0.00009));
         }
@@ -59,8 +60,8 @@ namespace Cryptography.Tests.Analysis
         [Test]
         public void GetIndexOfCoincidence_Text2_ShouldReturn0Point0589()
         {
-            var indexOfCoincidence = LanguageFrequencyAnalysis.GetIndexOfCoincidence(Files.Text2, Alphabets.ALPHABET,
-                new TextNormalizer(Casing.UpperCase));
+            var text2 = Texts.GetText2(Casing.UpperCase);
+            var indexOfCoincidence = LanguageFrequencyAnalysis.GetIndexOfCoincidence(text2, Alphabets.ALPHABET);
 
             Assert.That(Math.Abs(indexOfCoincidence - 0.0589), Is.LessThan(0.00009));
         }
