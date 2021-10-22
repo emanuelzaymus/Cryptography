@@ -28,13 +28,15 @@ namespace Cryptography.Ciphers.Vigenere
         /// <param name="attackChecker"></param>
         /// <param name="decryptedText"></param>
         /// <param name="password"></param>
+        /// <param name="minPasswordLength"></param>
+        /// <param name="maxPasswordLength"></param>
         /// <param name="tryCombinationsCount"></param>
         /// <returns></returns>
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out string password, int tryCombinationsCount)
+            out string password, int minPasswordLength, int maxPasswordLength, int tryCombinationsCount)
         {
             return Attack(encryptedText, attackChecker, out decryptedText, out password, false, null,
-                tryCombinationsCount);
+                minPasswordLength, maxPasswordLength, tryCombinationsCount);
         }
 
         /// <summary>
@@ -42,16 +44,22 @@ namespace Cryptography.Ciphers.Vigenere
         /// </summary>
         /// <param name="encryptedText"></param>
         /// <param name="formattedText"></param>
+        /// <param name="minPasswordLength"></param>
+        /// <param name="maxPasswordLength"></param>
         /// <param name="tryCombinationsCount"></param>
-        public void PrintAttack(string encryptedText, string formattedText, int tryCombinationsCount)
+        public void PrintAttack(string encryptedText, string formattedText, int minPasswordLength,
+            int maxPasswordLength, int tryCombinationsCount)
         {
-            Attack(encryptedText, null, out _, out _, true, formattedText, tryCombinationsCount);
+            Attack(encryptedText, null, out _, out _, true,
+                formattedText, minPasswordLength, maxPasswordLength, tryCombinationsCount);
         }
 
         private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out string password, bool print, string formattedText, int tryCombinationsCount)
+            out string password, bool print, string formattedText, int minPasswordLength, int maxPasswordLength,
+            int tryCombinationsCount)
         {
-            var passwordLengthEstimations = KasiskiExamination.GetPasswordLengthEstimations(encryptedText, 3, 8);
+            var passwordLengthEstimations = KasiskiExamination.GetPasswordLengthEstimations(
+                encryptedText, minPasswordLength, maxPasswordLength);
 
             foreach (var passwordLength in passwordLengthEstimations.Select(e => e.Length))
             {
@@ -61,9 +69,9 @@ namespace Cryptography.Ciphers.Vigenere
                     .Select(s => IndexOfCoincidence.GetIndexOfCoincidence(s, _alphabet))
                     .ToList();
 
-                bool allCoincidencesAreAboveThreshold = coincidences
-                    .Select(c => c > IndexOfCoincidence.Threshold)
-                    .All(b => b);
+                bool allCoincidencesAreAboveThreshold = coincidences.Average() > IndexOfCoincidence.Threshold;
+                // .Select(c => c > IndexOfCoincidence.Threshold)
+                // .All(b => b);
 
                 if (allCoincidencesAreAboveThreshold) // I've chosen suitable passwordLength 
                 {
@@ -84,7 +92,7 @@ namespace Cryptography.Ciphers.Vigenere
                         decryptedText = TryDecrypt(encryptedText, shifts);
                         password = CreatePasswordFromShifts(shifts);
 
-                        PrintResult(print, decryptedText, formattedText);
+                        PrintResult(print, decryptedText, formattedText, password);
 
                         if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
                         {
@@ -92,8 +100,6 @@ namespace Cryptography.Ciphers.Vigenere
                         }
                     }
                 }
-
-                PrintNewLine(print);
             }
 
             decryptedText = null;
@@ -140,15 +146,7 @@ namespace Cryptography.Ciphers.Vigenere
             return string.Concat(shifts.Select(s => _alphabet[s]));
         }
 
-        private void PrintNewLine(bool print)
-        {
-            if (print)
-            {
-                Console.WriteLine();
-            }
-        }
-
-        private void PrintResult(bool print, string decryptedText, string formattedText)
+        private void PrintResult(bool print, string decryptedText, string formattedText, string password)
         {
             if (print)
             {
@@ -162,6 +160,8 @@ namespace Cryptography.Ciphers.Vigenere
                 {
                     Console.WriteLine(decryptedText);
                 }
+
+                Console.WriteLine($"Password: {password}\n");
             }
         }
 

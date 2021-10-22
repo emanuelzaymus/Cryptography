@@ -11,7 +11,7 @@ namespace Cryptography.ConsoleApp
     {
         internal static void Run()
         {
-            AffineCipherLanguageAnalysisAttack attack = new(Alphabets.ALPHABET_, ProbabilitiesOfLetters.SlovakLanguage);
+            AffineCipherLanguageAnalysisAttack attack = new(Alphabets.ALPHABET_, ProbabilitiesOfLetters.SkTelegraphWithSpace);
 
             // VYRIESIL SOM LAHKU ULOHU
             attack.PrintAttack("LIYGTOGDPOAUPDFQNVPVDAQV", 2);

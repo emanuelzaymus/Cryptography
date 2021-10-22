@@ -19,7 +19,7 @@ namespace Cryptography.Tests.Ciphers.Affine
             AttackChecker attackChecker = new(originalText);
 
             var attack =
-                new AffineCipherLanguageAnalysisAttack(Alphabets.ALPHABET_, ProbabilitiesOfLetters.SlovakLanguage);
+                new AffineCipherLanguageAnalysisAttack(Alphabets.ALPHABET_, ProbabilitiesOfLetters.SkTelegraphWithSpace);
 
             var success = attack.Attack(encryptedText, attackChecker, out string decryptedText,
                 out int? decryptKey1, out int? decryptKey2, 2);
@@ -38,7 +38,7 @@ namespace Cryptography.Tests.Ciphers.Affine
             AttackChecker attackChecker = new(originalText);
 
             var attack =
-                new AffineCipherLanguageAnalysisAttack(Alphabets.ALPHABET_, ProbabilitiesOfLetters.SlovakLanguage);
+                new AffineCipherLanguageAnalysisAttack(Alphabets.ALPHABET_, ProbabilitiesOfLetters.SkTelegraphWithSpace);
 
             var success = attack.Attack(encryptedText, attackChecker, out string decryptedText,
                 out int? decryptKey1, out int? decryptKey2, 3);

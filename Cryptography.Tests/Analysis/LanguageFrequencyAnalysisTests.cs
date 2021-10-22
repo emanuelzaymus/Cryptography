@@ -16,7 +16,7 @@ namespace Cryptography.Tests.Analysis
             var enTelegraph = Texts.GetEnTelegraph(Casing.UpperCase);
             var actual = LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(enTelegraph, Alphabets.ALPHABET_);
 
-            var expected = ProbabilitiesOfLetters.EnglishLanguage;
+            var expected = ProbabilitiesOfLetters.EnTelegraphWithSpace;
 
             Assert.That(actual.Count, Is.EqualTo(expected.Count));
 
@@ -35,7 +35,7 @@ namespace Cryptography.Tests.Analysis
             var skTelegraph = Texts.GetSkTelegraph(new SlovakTextNormalizer(Casing.UpperCase));
             var actual = LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(skTelegraph, Alphabets.ALPHABET_);
 
-            var expected = ProbabilitiesOfLetters.SlovakLanguage;
+            var expected = ProbabilitiesOfLetters.SkTelegraphWithSpace;
 
             Assert.That(actual.Count, Is.EqualTo(expected.Count));
 

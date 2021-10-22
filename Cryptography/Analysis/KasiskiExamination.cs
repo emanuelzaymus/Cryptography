@@ -55,12 +55,13 @@ namespace Cryptography.Analysis
             {
                 for (int j = i + 1; j < text.Length - tupleLength; j++)
                 {
-                    string first = text.Substring(i, tupleLength);
-                    string second = text.Substring(j, tupleLength);
+                    int compare = string.Compare(text, i, text, j, tupleLength);
 
-                    if (first == second)
+                    if (compare == 0)
                     {
-                        distances.Add((first, j - i));
+                        var tuple = text.Substring(i, tupleLength);
+
+                        distances.Add((tuple, j - i));
                     }
                 }
             }

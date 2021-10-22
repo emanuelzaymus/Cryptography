@@ -18,13 +18,15 @@ namespace Cryptography.Tests.Ciphers.Vigenere
         [Test]
         public void Attack_LabsEncryptedText_DecryptedTextWithPassword()
         {
-            VigenereCipherKasiskiAttack attack = new(Alphabets.ALPHABET, ProbabilitiesOfLetters.SlovakLanguage);
+            VigenereCipherKasiskiAttack attack =
+                new(Alphabets.ALPHABET, ProbabilitiesOfLetters.SkTelegraphWithoutSpace);
             const string original =
                 "UROBTEFREKVENCNUANALYZUANGLICKEHOASLOVENSKEHOJAZYKAURCTEPRAVDEPODOBNOSTIVYSKYTOVJEDNOTLIVYCHZNAKOVREFERENCNEHOTEXTUVROZNYCHKODOVYCHABECEDACHTELEGRAFNATELEGRAFNASMEDZEROUASCIILATINURCTEPRAVDEPODOBNOSTIDVOJICAJTROJICZNAKOVNAZAKLADEMERANINAVRHNITENAHODNYGENERATORSLOVDANEHOJAZYKA";
 
             var encryptedText = Texts.GetText1(new TextNormalizer(onlyValidCharacters: Alphabets.ALPHABET));
             var checker = new AttackChecker(original);
-            bool success = attack.Attack(encryptedText, checker, out string decryptedText, out string password, 2);
+            bool success = attack.Attack(encryptedText, checker, out string decryptedText, out string password,
+                3, 8, 2);
 
             Assert.True(success);
             Assert.That(decryptedText, Is.EqualTo(original));
@@ -100,8 +102,10 @@ namespace Cryptography.Tests.Ciphers.Vigenere
                 new() {0, 0, 0, 1},
             };
 
+            // ReSharper disable once PossibleMultipleEnumeration
             Assert.That(list.Take(28), Is.EquivalentTo(expected));
 
+            // ReSharper disable once PossibleMultipleEnumeration
             Assert.That(list.Count(), Is.EqualTo(Math.Pow(3, 4)));
         }
     }

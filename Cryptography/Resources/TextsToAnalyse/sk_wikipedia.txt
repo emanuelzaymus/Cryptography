@@ -1,0 +1,940 @@
+Kryptológia (z gréckeho kryptos= ukrytý + logos = slovo, náuka) je veda o utajení obsahov správ. V súčasnosti sa kryptológia považuje za časť matematiky a počítačových vied, pričom je veľmi pridružená k informatike, počítačovej bezpečnosti a počítačovému inžinierstvu. Kryptológia je používaná v technologicky vyspelých aplikáciách; napríklad v zabezpečení peňažných bankomatov, počítačových hesiel a v elektronickom obchode. Vo všetkých týchto faktoroch zohráva veľkú úlohu práve kryptológia. Kryptológia sa rozdeľuje na kryptografiu, kryptoanalýzu a steganografiu.
+
+Obsah
+1	Terminológia
+2	História kryptografie a kryptoanalýzy
+3	Delenie šifier
+3.1	Substitučné šifrovacie systémy
+3.2	Transpozičné šifrovacie systémy
+3.3	Symetrické šifrovacie systémy
+3.4	Asymetrické šifrovacie systémy
+3.5	Typológia lúštenia
+4	Externé odkazy
+Terminológia
+Až do novoveku kryptológia označovala takmer výlučne šifrovanie, proces zmeny otvoreného obsahu textu do nezrozumiteľnej podoby (zašifrového textu). Dešifrovanie je opačný proces k šifrovaniu, je to zmena zašifrovaného textu na otvorený text. Šifra je dvojica algoritmov (predpisov na spracovanie), ktorými sa vykonáva šifrovanie a dešifrovanie. Šifrovanie je riadené algoritmom a kľúčom. Kľúč je tajný parameter (v zásade je známy iba príjemcovi a odosielateľovi). Kľúče sú dôležité a šifry bez variabilných kľúčov sú ľahko prelomiteľné a preto menej používané. V minulosti sa vykonávalo šifrovanie a dešifrovanie šifry rovnakým predpisom a bez dodatočných overovacích procesov ako autentifikácia alebo integrácia (ochrana pred neoprávnenou modifikáciou).
+
+V hovorovej reči sa termín kód často používa ako metóda šifrovania alebo zatajenia správy. V kryptografii má však kód špecifický význam; Kódovanie znamená zámenu jednotky otvoreného textu (napr. významového slova alebo frázy) s kódovacou jednotkou (napríklad slovo otvoreného textu prst sa zamieňa za slovo poď dole). Medzi najznámejšie príklady kódu sa zaraďuje ASCII a Morseova abeceda. Ak by sa napríklad odosielateľ dohodol s príjemcom na zmene poradia o jeden symbol v Morseovej abecede, v tom prípade by už išlo o šifru a kľúčom by bolo samotné posunutie. Cieľom kódu nie je obsah textu zatajiť, ale modifikovať tak, aby ho bolo možné spracovávať príslušným technickým zariadením.
+
+Kryptografia je oblasť kryptológie, ktorej cieľom je skúmanie a navrhovanie šifrovacích systémov, ktoré budú spĺňať určité podmienky ako autenticitu, dôvernosť, dostupnosť, integritu a pôvod dát. Ich úlohou je teda urobiť určitý obsah správy nečitateľným v prípade jeho zachytenia treťou osobou. Kryptografiou sa zaoberajú kryptografi.
+
+Kryptoanalýza je oblasť kryptológie, ktorej cieľom je skúmanie metód lúštenia šifrovacích systémov, čiže je to rozbor (analýza) zašifrovaných správ a ich metód šifrovania, ktorými sa hľadá spôsob preniknutia do šifrovacieho systému.
+
+Steganografia je oblasť kryptológie, ktorej cieľom je zatajiť existenciu správy. Steganografické metódy obsahujú napríklad používanie neviditeľných atramentov a pod.
+
+História kryptografie a kryptoanalýzy
+
+Skytála používaná v antickom Grécku bola možno prvým zariadením, na ktorom sa realizovalo šifrovanie správ.
+V minulosti kryptológia slúžila výhradne k zatajeniu obsahu správ – zmenu obsahu textu správy z otvoreného textu do zašifrovaného textu a opačne v prípade zachytenia správy nepovolanou osobou alebo špiónom. V posledných desaťročiach, sa oblasť kryptológie rozšírila okrem cieľa utajenia obsahu správy k technikám pre zachovanie integrity správ, autentifikácie, digitálnych podpisov, dôvernosti, dostupnosti a mnohých ďalších.
+
+Najskoršie formy zatajovania obsahov správ vyžadovali trocha viac ako špeciálne pero a model papiera, keď pre väčšinu ľudí boli nečitateľné. Väčšia gramotnosť alebo gramotnosť protivníkov vyžadovala účinnú kryptografiu. Hlavné klasické typy šifier sú transpozičné šifry ktoré spočívajú v zamiešaní poradia písmen otvoreného textu (napr. slovo "pomôž mi" sa zmodifikovalo na "opômž im") a substitučné šifry, ktoré spočívajú v systematickom nahradzovaní jednotlivých symbolov obsahu textu za určené ďalšie symboly alebo skupinu symbolov (napr. substitučná šifra slova "wikipedia" mohla vyzerať ako "xjljrfejb" pričom v tomto spôsobe sa symboly šifrovanej abecedy posunuli o jeden symbol oproti abecede otvoreného textu). Jednoduché verzie oboch šifier však poskytovali v prípade zachytenia správy nepovolanou osobou len malú ochranu a boli ľahko dešifrovateľné. Medzi najstaršie substitučné šifry patrila Cézarova šifra, ktorá spočívala v tom, že každé písmeno n otvoreného textu bolo nahradené písmenom určitej hodnoty n+k. Táto šifra je pomenovaná po Caesarovi, ktorý ju používal s posunutím k o 3 miesta v abecede pri komunikácií s jeho generálmi počas vojenských operácií, a táto šifra je podobná kódu EXCESS-3 v booleanskej algebre.
+
+Kryptografia nepatrí medzi mladé disciplíny, práve naopak. Potreba šifrovať siaha hlboko do minulosti, až do čias faraónov. Prvá zmienka o šifrovaní pochádza z Egypta približne 4000 rokov dozadu.
+
+Medzi ďalšie staršie kryptografické systémy patrí skytála. Skytála bola dômyselný a pritom jednoduchý kryptografický nástroj. Princíp spočíval v použití drevenej paličky istého priemeru, okolo ktorého sa navinul pásik papiera, na ktorý sa napísala krátka správa. Keď sa papier rozvinul, na voľné miesta sa doplnili písmená nesúvisiace so správou. Osoba, ktorej bola takto zašifrovaná správa určená, musela mať paličku rovnakého priemeru, inak bola správa nečitateľná. Tento nástroj sa používal hlavne v Sparte v 5. stor. pred Kr.
+
+Ďalší významný rozvoj v kryptografii nastal začiatkom 20. storočia, keď došlo k vynájdeniu a zavedeniu telegrafu. V roku 1917 bol vynájdený prvý bezpečný kryptosystém Vernam, ktorý bol postavený na prúdovej šifre. Obdobie do konca 50-tych rokov je charakteristické hlavne používaním zložitých mechanických a elektromechanických šifrovacích strojov. Veľký pokrok v kryptografii nastal hlavne počas I. a II. svetovej vojny, keď sa šifrovanie stalo veľmi dôležitou disciplínou. Medzi najvýznamnejšie šifrovacie prístroje tej doby patrila Enigma, ktorá bola používaná Nemcami počas druhej svetovej vojny a dlhý čas predstavovala skutočne „tvrdý oriešok“. Nemci verili, že táto šifra je bez kľúča neprelomiteľná. Šifru však prelomili poľskí matematici Marian Rejewski, Henrik Zygalski a britský matematik Alan Turing. Kód bol prelomený predovšetkým vďaka práci poľských matematikov Mariana Rejewskiho a Henrika Zygalskiho. V roku 1932 Rejewski rozkódoval jeden z jednoduchších typov Enigmy. Bez jeho práce, by aj Alanovi Turingovi, trvalo rozkodovanie enigmy „priveľmi“ dlho a stalo by to mnoho spojeneckých životov. Novší typ Enigmy (tzv. ponorková Enigma) bola rozkódovaná aj vďaka šťastnej náhode, keď bola zajatá nemecká ponorka, ktorá mala na svojej palube jeden prístroj Enigma. Skôr, ako ju Nemci stihli zničiť sa dostala do rúk Angličanom a tí konečne rozlúštili „záhadu neprelomiteľného kódu“ šifrovacieho stroja Enigma.
+
+Delenie šifier
+Postupným vývojom kryptografie dochádalo k deleniu jednotlivých typov kryptografických algoritmov do niekoľkých základných skupín. Najzákladnejšie delenie je na:
+
+symetrické šifry,
+asymetrické šifry
+Delenie možno podrobnejšie rozšíriť na nasledujúce skupiny:
+
+tradičné šifry,
+klasické techniky,
+substitučné šifrovacie systémy,
+transpozičné šifrovacie systémy,
+moderné techniky,
+symetrické šifrovacie systémy,
+šifry s verejným kľúčom,
+asymetrické šifrovacie systémy.
+Substitučné šifrovacie systémy
+Substitučná šifra nahrádza každý znak otvoreného textu iným znakom šifrovaného textu. Aby príjemca získal otvorený text, musí na zašifrovaný text použiť inverznú substitúciu. V klasickej kryptografii existujú štyri typy substitučných šifier:
+
+Jednoduchá substitučná šifra (monoalfabetická šifra) je taká šifra, v ktorej sa každý znak otvoreného textu nahrádza príslušným znakom šifrovaného textu.
+Homofónna substitučná šifra sa podobá jednoduchému substitučnému systému. Jeden znak otvoreného textu môže byť nahradený jedným znakom z niekoľko možných znakov šifrovaného textu. Znak “A” by mohol byť nahradený napr. 5, 13, 25 alebo 56, “B” napr. 7, 19, 31 alebo 42 atď.
+Polygramová substitučná šifra je taká, v ktorej šifrovanie prebieha medzi skupinami znakov. Napríklad skupina “ABA” môže byť nahradená skupinou “RTQ”, “ABB” skupinou “SLL” atď.
+Polyalfabetická substitučná šifra sa skladá z niekoľkých jednoduchých šifier. Napríklad túto šifru môže tvoriť päť rôznych, jednoduchých substitučných šifier; jednotlivé šifry sú postupne aplikované na jednotlivé po sebe idúce znaky otvoreného textu. Medzi substitučné šifry patrí napríklad Caesarova šifra alebo Vernamova šifra.
+Transpozičné šifrovacie systémy
+Pri transpozičných šifrách sa znaky otvoreného textu nemenia, mení sa iba ich usporiadanie. Pri jednoduchej stĺpcovej transpozičnej šifre sa otvorený text zapisuje horizontálne na štvorčekovaný papier a zašifrovaný text sa získava jeho vertikálnym čítaním. Pri dešifrovaní sa šifrovaný text zapíše vertikálne opäť na štvorčekovaný list papiera rovnakej šírky a číta sa horizontálne.
+
+Otvorený text: jednoduchastlpcovatranspozicnasifra; Šifrovaný text: jloepzdcinocovndaautscrihafanrssatp
+
+Pretože znaky šifrovaného aj otvoreného textu sú rovnaké, bude sa frekvenčný výskyt jednotlivých znakov šifrovaného textu približne rovnať frekvenčnému výskytu znakov v príslušnom národnom jazyku. Navyše je tento systém náročný na pamäť a niekedy aj obmedzuje dĺžku správ. Sem patria napríklad: Cardanova mriežka, Richelieuova šifra.
+
+Symetrické šifrovacie systémy
+V základnom delení bolo spomínané, že medzi tradičné šifrovacie systémy patria symetrické šifry. Využívajú vhodne zvolené kombinácie substitučných a transpozičných algoritmov. Tento šifrovací systém sa nazýva symetrický preto, lebo šifrovací kľúč je možné odvodiť z dešifrovacieho a naopak. Väčšina symetrických algoritmov má rovnaký šifrovací aj dešifrovací kľúč. Tieto algoritmy označované ako algoritmy tajného kľúča vyžadujú, aby sa príjemca aj odosielateľ vopred dohodli na kľúči, ktorý budú používať. Bezpečnosť je založená na utajení kľúča. Ak sa používa dlhšiu dobu, vzniká nebezpečenstvo, že kľúč padne do nepovolaných rúk a obsah utajovaných informácií sa prezradí. Preto sa kľúče často obmieňajú – nazývame ich aj “kľúče pre sedenie” (session – relácia).
+
+Symetrické algoritmy sa môžu deliť na dve kategórie a to na:
+
+prúdové,
+blokové.
+V dnešných algoritmoch je typická dĺžka 64 bitov. V minulosti sa otvorený text šifroval po jednom znaku. Najbežnejšie používané symetrické algoritmy sú Rivest Cipher 5 (RC5), Data Encryption Standard (DES), International Data Encryption Algorithm (IDEA), Blowfish Skipjack a AES.
+
+Asymetrické šifrovacie systémy
+Využívajú dva kľúče – verejný na šifrovanie, ktorý môže byť šírený verejne, a súkromný, ktorý slúži na dešifrovanie a je tajný. Zrejme najznámejším a najpoužívanejším z asymetrických šifrovacích systémov je RSA.
+
+
+
+Politika
+Politika (z neskorolat. politice < gr. slova politiké – umenie správy štátu < gr. pólis – mesto (-ský štát), občianstvo) je proces a metóda záväzného rozhodovania určitej skupiny ľudí smerujúceho k dosiahnutiu určitého cieľa. V užšom slova zmysle sa pojem politika vzťahuje na kolektívne rozhodovanie zamerané na dosiahnutie alebo udržanie štátnej alebo obecnej moci.
+
+V rámci takýchto kolektívnych rozhodnutí je politika umením spravovať veci verejné, umením riadiť štát a obhajovať záujmy jedného štátu voči druhému, vytvárať a udržovať vzťahy medzi týmito štátmi. Prostriedkom politiky je politická moc, ktorú je možné získať buď demokratickými prostriedkami alebo násilím. V demokratickej spoločnosti vstupujú do politiky politické subjekty politickým presviedčaním a vyjednávaním, a tak vytvárajú politické rozhodnutia. Medzi takéto subjekty môžu patriť jednotlivci (občania) alebo organizácie (politické strany a hnutia, mimovládne organizácie a iné záujmové skupiny). Vynútiteľnost politického rozhodnutia je zaistená autoritou, ktorá vykonáva politickú moc. Politika v antickom Grécku bola chápaná ako správa vecí verejných.
+
+Veda o politike sa nazýva politológia (presnejšie politické vedy, ide o viac odborov).
+
+Obsah
+1	Vývoj politiky
+2	Definície
+3	Štruktúra
+4	Názory na politiku
+5	Druhy politiky
+6	Pozri aj
+7	Zoznam literatúry
+8	Iné projekty
+Vývoj politiky
+Politika sa zo svojej pôvodnej podoby v staroveku ako komplexného občianskeho spolužitia od začiatku nášho letopočtu až do 18. storočia stále silnejšie zužovala len na otázky moci a vládnutia a na ovládanie väčšiny menšinami, a až od 18. storočia má opäť tendenciu zahrnovať riešenie hospodárskych, sociálnych a kultúrnych problémov a emancipáciu spoločnosti. Vyvíja sa teda opäť smerom k akejsi novej komplexite. Rastie opäť počet faktorov, ktoré ľudia politicky zasahujú, rastie i zodpovednosť jedinca za vývoj mnohých otázok ľudského spolužitia, prehlbuje sa rôznorodosť názorov. Opozičné názory a činnosti sú normálnou súčasťou politického spektra. Zásluhou masovokomunikačných prostriedkov a vývoja školstva vzrastá občianska informovanosť i schopnosť s informáciami pracovať.
+
+Definície
+Definícií politiky je mnoho. Mnohí politici a teoretici prízvukujú známu myšlienku nemeckého politika a vojvodcu z 19. storočia Bismarcka – „Politika nie je exaktná veda... je to umenie možného“. Mnohí považujú politiku za plánovité, organizované a cieľavedomé sociálne konanie, ktoré je zamerané na vybudovanie, udržiavanie alebo zmenu spoločenského poriadku. Iní chápu politiku ako umenie spravovať veci verejné, resp. riadiť štát a realizovať jeho ciele. Podľa ďalších je politika úsilím o získanie moci, jej udržanie, alebo úsilím o získanie podielu na moci.
+
+Štruktúra
+Ako každý politický jav, má aj politika svoju vlastnú štruktúru. V prvom rade je to existencia sociálno-ekonomickej základne, t. j. existencia sociálnych skupín, profesií, náboženstiev, rôznych lokálnych a regionálnych skupín, národov, národností, z ktorých každá má svoje politické záujmy, ktoré sa stretávajú v politike, kde nachádzajú potrebný rámec pre ich riešenie. Ďalším prvkom štruktúry politiky sú aj politické idey. Politickými sa stávajú len tie idey, ktoré dokážu osloviť aj ostatných jednotlivcov, dokážu ich získať k spoločnej akcii, t. j. musia mať nadindividuálny obsah. Moralizovanie, alebo prázdne „filozofovanie“ samé osebe nie je ešte politikou.
+
+Dôležitou súčasťou politiky je aj praktické konanie. Politickými sa idey, myšlienky a názory začínajú stávať vtedy, keď sa s nimi začíname obracať sa na iných a hľadať spojencov, keď začíname vytvárať názorový konsenzus, robiť prvé rozhodnutia. Znamená to, že začíname vytvárať spoločnú vôľu určitej skupiny, tvoriť program, začíname zápas o realizáciu vlastných programových cieľov. Len samotné idey a praktická činnosť by ešte nebola dostačujúca pre realizáciu politiky, preto jej súčasťou sú aj politické inštitúcie (štát, politické strany a hnutia, odborové zväzy, záujmové združenia a pod).
+
+Politika vzniká, funguje a je rozvíjaná v konkrétnom čase a priestore konkrétnymi ľuďmi, tento proces označujeme pojmom politický život. Tu ľudia vstupujú do politiky, tu dochádza ku vzniku politických interakcií, politických vzťahov a činností, tu ľudia nachádzajú politické nástroje a formy svojho pôsobenia, a realizujú svoje politické potreby, záujmy, hodnoty a ciele. Jeho konkrétny obsah tvoria rôzne politické orgány, organizácie a inštitúcie, politické vzťahy, duchovné javy a procesy a politická kultúra.
+
+Názory na politiku
+Politika podľa D. Millera je proces, v ktorom skupina ľudí, ktorých názory a záujmy sú spočiatku odlišné, dosahuje kolektívne rozhodnutia, ktoré sú všeobecne považované pre skupinu za záväzné a presadzujú sa ako spoločný spôsob konania.
+Podľa J. Vajdu je politika spolu s morálkou a právom regulátor správania sa ľudí. Politika reguluje vzťahy medzi sociálnymi skupinami z aspektu moci, podriadenosti či nadriadenosti jednej skupiny voči druhej.
+
+
+
+Slovensko
+Slovensko, dlhý tvar Slovenská republika, je vnútrozemský štát v strednej Európe. Má rozlohu 49 036 km² a žije tu približne 5 464 060 obyvateľov.[5] Na severozápade hraničí s Českom, na juhozápade s Rakúskom, na severe s Poľskom, na východe s Ukrajinou a na juhu s Maďarskom.[6] Krajina je prevažne hornatá, pretože väčšinu povrchu zaberajú vysočiny. Zo severu sem z mohutného oblúka zasahujú Karpaty, na juhu sa rozprestiera Panónska panva. Hlavným mestom je Bratislava, úradným jazykom je slovenčina.
+
+Prvý štátny útvar Slovanov na území dnešného Slovenska bola Samova ríša (7. storočie), neskôr Nitrianske kniežatstvo (začiatok 9. storočia), ktorého spojením s Moravským kniežatstvom vznikla v roku 833 Veľká Morava. Od polovice 10. do konca 11. storočia sa územie Slovenska postupne začlenilo do Uhorska, ktoré sa v roku 1526 stalo súčasťou habsburskej monarchie, od roku 1867 nazývanej Rakúsko-Uhorsko. Po rozpade Rakúsko-Uhorska v roku 1918 bolo Slovensko súčasťou Česko-Slovenska až do konca roku 1992 (okrem obdobia vojnovej Slovenskej republiky). Dňa 1. januára 1993 vznikla zánikom Česko-Slovenska samostatná Slovenská republika. Od 1. mája 2004 je Slovensko členom Európskej únie, od 21. decembra 2007 je členom Schengenského priestoru. Od 1. januára 2009 je 16. členom Eurozóny, oficiálnou menou sa stalo euro.
+
+Slovensko je parlamentná demokracia s demokratickými inštitúciami. V hospodárstve sa vyznačuje modernizovaným priemyslom a rozvíjajúcim sa sektorom služieb, ktorý prevažuje v podiele tak hrubého domáceho produktu, ako aj pracovnej sily. Dopravná infraštruktúra je vzhľadom na geografický profil krajiny redšie rozložená, no v súčasnosti dochádza k jej rozšíreniu a modernizácii.
+
+Z okolitých štátov má Slovensko pevné zväzky predovšetkým s Českom. Predtým konfliktné vzťahy s Maďarskom sa v posledných rokoch zlepšili. Na Slovensku žije silná maďarská a rómska menšina. Slovensko má bohatú kultúrnu tradíciu, ako i množstvo prírodných a historických pamiatok.
+
+Obsah
+1	Etymológia
+2	Dejiny
+2.1	Staršie dejiny
+2.2	Novodobé dejiny
+3	Geografia
+3.1	Povrch
+3.2	Podnebie
+3.3	Vodstvo
+3.3.1	Podzemná voda
+3.4	Pôdy
+3.5	Geografické zaujímavosti
+4	Geológia
+4.1	Geologická stavba
+4.2	Geologický vývoj
+4.3	Nerastné bohatstvo
+4.4	Jaskyne
+5	Príroda
+5.1	Rastlinstvo
+5.2	Živočíšstvo
+5.3	Ochrana prírody
+6	Obyvateľstvo
+6.1	Etnické zloženie
+6.2	Jazyky
+6.3	Materinský jazyk
+6.4	Náboženské zloženie
+6.5	Práca
+6.6	Sídla
+7	Sociálna starostlivosť
+7.1	Zdravotníctvo
+7.2	Školstvo a vzdelanie
+8	Politika
+8.1	Politický systém
+8.1.1	Legislatíva
+8.1.2	Exekutíva
+8.1.3	Justícia
+8.2	Administratívne členenie
+8.3	Ozbrojené sily
+8.4	Zahraničné vzťahy
+9	Ekonomika
+9.1	Poľnohospodárstvo
+9.2	Priemysel
+9.3	Služby
+9.4	Cestovný ruch
+9.5	Veda a výskum
+10	Doprava
+10.1	Cestná doprava
+10.2	Železničná doprava
+10.3	Vodná doprava
+10.4	Letecká doprava
+10.5	Potrubná doprava
+11	Komunikácie
+11.1	Rozhlas
+11.2	Televízia
+11.3	Tlač
+12	Kultúra
+12.1	Architektúra
+12.2	Výtvarné umenie
+12.3	Literatúra
+12.4	Hudba a tanec
+12.5	Divadlo
+12.6	Kinematografia
+12.7	Kuchyňa
+13	Šport
+13.1	Futbal
+13.2	Hokej
+13.3	Ostatné športy
+14	Poznámky
+15	Referencie
+16	Iné projekty
+17	Externé odkazy
+Etymológia
+Vznik názvu Slovensko a etnonymá Slováci je pevne spätý s existenciou uhorského štátu. Tým, že sa vo väčšej miere spolu stýkali jednotlivé neslovanské národy Uhorska s pôvodnou slovenskou populáciou, došlo k vytvoreniu zárodkov slovenského povedomia. V oficiálnych prameňoch boli obyvatelia dnešného Slovenska nazývaní Slavus či Sclavus, aby tak boli odlíšení od ostatných slovanských národov. Toto označenie sa prvýkrát objavilo v roku 1029 a potom v rôznych variantoch a jazykoch často od 15. storočia. Pri starších výskytoch podobných tvarov je sporné, či sa myslí slovanské alebo slovenské územie. Moderný slovenský tvar Slovensko je prvýkrát doložený v roku 1675 v žiadosti broumovského panstva, adresovanej hajtmanovi kraja v Uhorskom Hradišti.[7]
+
+Dejiny
+Bližšie informácie v hlavnom článku: Dejiny Slovenska
+Pozri články: Vanniovo kráľovstvo, Samova ríša, Nitrianske kniežatstvo, Veľká Morava, Uhorsko, Autonómne Slovensko, Rakúsko-Uhorsko, Česko-Slovensko, Slovenská ľudová republika, Slovenská republika rád, Prvá Slovenská republika, Slovenská socialistická republika, Politický vývoj Slovenska od roku 1989
+
+Slovenská republika síce patrí do skupiny mladších štátov Európy, ale územie krajiny má dlhú a pohnutú históriu, po ktorej zostalo množstvo pamiatok. Máloktorá európska krajina si prešla zložitejším historicko-politickým vývojom ako práve Slovensko.
+
+Staršie dejiny
+
+Rímsky nápis na hradnej skale v Trenčíne
+Prvé známky o osídlení Slovenska pochádzajú z konca paleolitu približne spred 250 tis. rokov. O rozkvete ľudských spoločností na území Slovenska svedčí mnoho archeologických pamiatok ako napríklad nález lebky neandertálca v Gánovciach. Bohatšie doklady o živote prehistorických ľudí sa vzťahujú k neolitu. Našli sa zvyšky ich obydlí, keramiky, ale aj ich duchovného života vo forme obetných darov alebo kultových predmetov akými boli pravdepodobne aj venuše z Nitrianskeho Hrádku, Moravian nad Váhom a ďalších miest. Približne 5000-4000 rokov pred Kr. sa vyskytujú prví roľníci (zachované nálezy kamenných sekier, klinov, škrabadiel a nádob – jaskyňa Domica). Etnická príslušnosť týchto pravekých ľudí je však nejasná.
+
+Od konca 4. storočia pred Kr. prichádzajú Kelti, ktorých možno považovať za prvé historicky známe etnikum na území dnešného Slovenska. O prítomnosti Keltov existujú písomné zmienky v rímskych prameňoch. V 1. storočí pred Kr. prichádzajú na Slovensko Dákovia, Kelti ustupujú ďalej na sever, dochádza k miešaniu keltského a dáckeho obyvateľstva a kultúry. Na prelome letopočtov sú dácke a keltské kmene vytláčané kmeňmi Germánov. Na dnešnom slovenskom území dočasne vzniklo napríklad ich Vanniovo kráľovstvo. Dunaj tvoril hranicu s Rímskou ríšou. V 2. storočí nášho letopočtu boli na území Slovenska rozmiestnené rímske vojenské posádky. Následne sa juhozápad Slovenska stal súčasťou rímskej provincie Pannonia.[8]
+
+Koncom 4. storočia sa začalo sťahovanie národov, na Slovensku sa vystriedalo veľmi veľa národov. S utváraním Slovenska a Slovákov ako národa je spojený najmä príchod Slovanov. Prvé slovanské obyvateľstvo osídlilo hlavné územie Slovenska asi v 5. storočí. V druhej polovici 6. storočia sa Slovania dostali do područia kočovných kmeňov Avarov, v prvej polovici 7. storočia bolo miestne územie pripojené k Samovej ríši.
+
+
+Socha svätého Cyrila a Metoda v Žiline
+
+Stredoveké centrum Bardejova
+Prvým štátnym útvarom na väčšine územia Slovenska bolo Nitrianske kniežatstvo, ktoré sa roku 833 pripojilo k Veľkej Morave. V roku 862 veľkomoravský panovník Rastislav požiadal Byzanciu o kresťanských misionárov, byzantský cisár Michal III. na Veľkú Moravu poslal misiu vedenú solúnskymi bratmi Konštantínom (mníšskym menom sv. Cyril) a sv. Metodom, ktorí zostavili písmo hlaholiku, preložili Sväté písmo, bohoslužobné texty a ďalšie knihy do staroslovienčiny a pomáhali organizovať cirkevnoprávne pomery na Veľkej Morave.
+
+Po zániku Veľkomoravskej ríše vtedajšie územie Slovenska ovládli Maďari (koniec 9. storočia), ktorí sa v tom čase presídlili do strednej Európy. V polovici 10. storočia postupne vznikol nový feudálny štát – Uhorské kráľovstvo (Uhorsko). Založila ho síce pôvodom maďarská dynastia Arpádovcov, ale krajina zostávala mnohonárodnostná a mnohojazyčná, jazykom šľachty a kráľovského dvora bola latinčina. Po bitke pri Moháči roku 1526 sa Slovensko a západné Uhry stali súčasťou habsburskej ríše. V rokoch 1540-1541 Uhorskú nížinu obsadili Turci a juh Slovenska bol začlenený do Osmanskej ríše.[8]
+
+
+Obliehanie tureckej pevnosti Nové Zámky v roku 1685
+
+Maľba generála Milana Rastislava Štefánika
+Následne po tureckej expanzii sa územie bývalého Uhorska v 16. a 17. storočí dočasne zredukovalo prakticky len na Slovensko, dnešný Burgenland a západné Chorvátsko (tzv. Kráľovské Uhorsko), čím sa Slovensko stalo jadrom tohto habsburského štátu. Bratislava sa stala hlavným (1536 – 1784/1848), korunovačným (1563 – 1830) mestom a sídlom snemu (1542 – 1848) Kráľovského Uhorska resp. neskôr Uhorska. Trnava sa stala sídlom ostrihomského arcibiskupa, čím sa stala centrálnym miestom uhorskej rímskokatolíckej cirkvi. Dlho trvajúce vojny s Osmanskou ríšou na dlhšiu dobu ukončil v roku 1711 Satmársky mier. Najznámejším národným hrdinom, ktorého nájdeme v slovenskej mytológii z tohto obdobia, je zbojnícky kapitán Juraj Jánošík (1688 – 1713) z Terchovej. Legenda hovorí, že bohatým bral a chudobným dával.[9]
+
+Počas 18. storočia začalo slovenské národné obrodenie. Obhajcom slovenských práv sa stáva kňazská inteligencia, ktorá bola rozdelená na dva prúdy: na katolíkov (na čele Anton Bernolák) a evanjelikov (hlavní predstavitelia Ján Kollár a Pavol Jozef Šafárik). Evanjelici presadzovali koncepciu slovanskej jednoty. Naopak katolíci zastávali názor, že Slováci sú svojbytný národ a potrebujú vlastný jazyk. V roku 1787 kodifikoval Anton Bernolák prvú spisovnú slovenčinu založenú na západoslovenskom nárečí (nazývaná bernolákovčina).
+
+V polovici 19. storočia sa do popredia dostáva tzv. štúrovská generácia. Roku 1843 kodifikoval Ľudovít Štúr spisovnú slovenčinu na základe stredoslovenského nárečia, ktorá je s malými úpravami používaná dodnes. Štúrovci viedli boj za slovenskú svojbytnosť a právo sebaurčenia Slovákov. V revolúcii z rokov 1848 – 1849 bolo vyhlásené Autonómne Slovensko v rámci Uhorska a Slováci sa pridali na stranu Rakúšanov, aby sa oddelili od Uhorska ako samostatná časť Rakúskej monarchie, čo sa im žiaľ nepodarilo a slovenská samospráva v roku 1849 zanikla. Najhoršiemu tlaku maďarizácie čelili Slováci po rakúsko-uhorskom vyrovnaní v rokoch 1867 – 1918. S Rakúsko-Uhorskom malo Slovensko spoločný osud až do začiatku 20. storočia.
+
+Novodobé dejiny
+
+Územie Československa v rokoch 1928 – 1938
+V 20. storočí sa situácia začala meniť. Predstavitelia slovenského a českého národa využili porážku Rakúsko-Uhorska v 1. svetovej vojne. V októbri 1918 spojením Slovenska, českých krajín a Podkarpatskej Rusi vzniklo Česko-Slovensko (Československá republika), o jej založenie sa zaslúžil aj slovenský politik Milan Rastislav Štefánik. Slováci sa k novovznikajúcemu štátu prihlásili Martinskou deklaráciou (30. októbra 1918). Slovensko bolo po uzatvorení mierovej zmluvy v Trianone prvýkrát vyčlenené ako samostatné územie, hoci v rámci Česko-Slovenska. Postavenie Slovenska v novom štáte však časť jeho obyvateľov a politikov neuspokojovala. Koncom 30. rokov 20. storočia na Slovensku silneli separatistické tendencie.[8]
+
+Od roku 1918 mala na Slovensku veľký vplyv katolícka Slovenská ľudová strana (Andrej Hlinka), ktorá žiadala autonómiu Slovenska. Národnostné rozdiely v krajine využil nemecký diktátor Adolf Hitler, ktorý najprv pripravil Česko o pohraničné územia a následne rokoval so slovenskými politikmi. Dňa 19. novembra 1938 bol schválený zákon o autonómii Slovenska v rámci Česko-Slovenska. Územie Slovenska bolo výrazne oklieštené v rámci 1. viedenskej arbitráže, ktorou muselo odstúpiť Maďarsku južné územia. Za týchto okolností bol pod nátlakom Nemecka nakoniec 14. marca 1939 vyhlásený samostatný Slovenský štát (neskôr oficiálne Slovenská republika) – jeden zo satelitov nacistického Nemecka, v ktorom sa ustanovil totalitný politický systém.
+
+Slovensko počas 2. svetovej vojny vystupovalo ako spojenec Nemeckej ríše. Snaha po vlastnej štátnosti bola čoskoro prekrytá odporom voči fašizmu a nacizmu, ktoré zostrovali perzekúciu židovského a rómskeho obyvateľstva. Behom holokaustu, na ktorom sa Slovensko podieľalo vyvezením väčšiny Židov do nacistických koncentračných táborov, bolo usmrtených približne 75 000 slovenských Židov.[10] Reakciou na vstup nemeckej armády na Slovensko vypuklo v auguste 1944 Slovenské národné povstanie, ktorého politickým a vojenským centrom bola Banská Bystrica. Keď Nemci povstanie porazili, povstalci prešli na partizánsky spôsob boja. Na začiatku roku 1945 oslobodenie Slovenska Červenou armádou, armádou Rumunska a 1. česko–slovenským armádnym zborom ukončilo existenciu slovenského štátu.
+
+
+Vpád vojsk Varšavskej zmluvy do Česko-Slovenska v auguste 1968
+Po 2. svetovej vojne bolo Slovensko znovu začlenené do obnovenej Československej republiky (obnovená republika už zahŕňala len územie dnešného Česka a Slovenska. Podkarpatská Rus bola pričlenená k územiu Sovietskeho zväzu). Postupne sa dostalo do sféry vplyvu ZSSR medzi krajiny východného bloku za železnú oponu. Dňa 25. februára 1948, kedy sa moci ujala Komunistická strana Československa, došlo k znárodneniu súkromných podnikov, slovenský roľnícky vidiek zasiahla kolektivizácia poľnohospodárstva. Komunistický režim zaviedol vedúcu úlohu KSČ, ktorá sa potvrdzovala voľbami s jednotnou kandidátkou Národného frontu. Inak zmýšľajúci boli prenasledovaní ŠtB, väznení aj popravení. Pre hospodárske zaostávanie a nespokojnosť s politikou komunistickej strany došlo v roku 1968 k významným politickým zmenám politika Dubčeka. Dňa 21. augusta 1968 boli tieto procesy potlačené vpádom vojsk Varšavskej zmluvy. Došlo k tzv. normalizácii a nástupu brežnevskej politiky. Od 1. januára 1969 sa ČSSR skladala z dvoch socialistických republík, ČSR a SSR.
+
+V roku 1989 Nežná revolúcia ukončila komunistický režim a Česko-Slovensko sa stalo opäť demokratickým štátom. Slovensko vzniklo 1. januára 1993 ako jeden z nástupníckych štátov Česko-Slovenska. Stalo sa tak po 75 rokoch existencie spoločného štátu Čechov a Slovákov, na základe ústavného zákona schváleného Federálnym zhromaždením ČSFR. Krajina sa začala otvárať svetu, demokratizovať a väčšmi spolupracovať s inými štátmi. Od 19. januára 1993 je Slovensko členom OSN, od 29. marca 2004 členom NATO, od 1. mája 2004 členom Európskej únie, od 21. decembra 2007 je členom Schengenského priestoru. a od 1. januára 2009 je 16. členom Európskej menovej únie – eurozóny a oficiálnou menou sa stalo euro, ktoré vystriedalo slovenskú korunu.
+
+Geografia
+Bližšie informácie v hlavnom článku: Geografia Slovenska
+
+Fyzická mapa Slovenska
+
+Fyzická mapa Slovenska s popisom
+Slovenská republika sa nachádza na severnej pologuli o niečo bližšie k severnému pólu ako k rovníku. Na Slovensku sa používa stredoeurópsky čas, ktorý o 1 hodinu predbieha svetový čas (čas nultého poludníka). Slovensko leží v Strednej Európe, akoby v srdci Európy. Je vnútrozemským štátom, neleží na brehu mora. Najbližšie more je Jadranské, vzdialené približne 365 km. Slovensko hraničí s piatimi štátmi. Na východe susedí s Ukrajinou (97,8 km), na juhu s Maďarskom (654,8 km), na juhozápade s Rakúskom (106,7 km), na severozápade s Českom (251,8 km) a na severe s Poľskom (541,1 km). Slovenské hranice väčšinou tvoria prirodzené prírodné útvary (rieky a hrebene hôr). Štátne hranice vedú aj nížinami a kotlinami, najmä na úsekoch hraníc s Maďarskom a Ukrajinou. Celková dĺžka hraníc je 1 652,2 km.[6]
+
+Krajina je charakterizovaná hornatým reliéfom na severe a nížinami na juhu. Všetky povrchové celky Slovenska patria do Panónskej panvy a Karpát. Svojou územnou rozlohou 49 036 km2 sa Slovensko zaraďuje medzi menšie štáty európskeho kontinentu. Tvar územia Slovenska je podlhovastý v rovnobežkovom smere (východ – západ). Slovenskom vedie hlavné európske rozvodie, rozhranie území, z ktorých rieky odvádzajú vodu do dvoch morí (Baltského a Čierneho mora).
+
+Povrch
+
+Panoráma Vysokých Tatier
+
+Rieka Dunaj v Bratislave
+
+Obilné polia v Chvojnickej pahorkatine na Záhorí
+
+Kriváň, neoficiálny symbol Slovenska
+
+Spišský hrad na travertínovom hradnom vrchu
+
+Veľké Hincovo pleso
+
+Trojhraničný stĺp (Slovensko, Poľsko, Ukrajina) na vrchu Kremenec, najvýchodnejší bod Slovenska
+Povrch Slovenska je prevažne hornatý – pohoria a vysočiny zaberajú približne tri pätiny územia. Rozsiahle horské pásmo Karpát vypĺňa mnoho pohorí a kotlín. Jednotlivé skupiny pohorí sa líšia podľa vzniku a hornín, z ktorých sú zložené. Okolo stredného toku Hrona sa rozkladá skupina sopečných pohorí – Kremnické vrchy, Vtáčnik, Poľana, Javorie, Štiavnické vrchy a ďalšie. Sopečného pôvodu sú aj Slanské a Vihorlatské vrchy na východe. Pásma vrásových pohorí sa ťahajú od Malých Karpát na juhozápade cez stredné a severné Slovensko. Najvyššie sa vypínajú pohoria Malá Fatra, Veľká Fatra, Nízke Tatry a Vysoké Tatry. V Tatrách sa týči najvyšší vrch Slovenska – Gerlachovský štít, vysoký 2 655 m n. m. Ďalšie známe vrchy sú Lomnický štít (2632 m), symbol Slovenska Kriváň (2492 m) a Rysy (2499 m). Najrozsiahlejšie pohorie je Slovenské rudohorie.[11]
+
+Jednotlivé pohoria oddeľujú doliny riek a kotliny. Najväčšie sú Košická, Juhoslovenská, Hornonitrianska, Turčianska, Žilinská a ďalšie. Nížiny sa rozprestierajú na juhozápade, juhu a východe. Patria do rozľahlej zníženiny Panónskej panvy. Najväčšia a najúrodnejšia je Podunajská nížina. Jej južná časť so Žitným ostrovom, kde sú najväčšie zásoby podzemných vôd, je Podunajská rovina. Severnejšie prechádza do Podunajskej pahorkatiny rozčlenenej dolnými tokmi riek – Váh, Nitra, Žitava, Hron a Ipeľ. Druhá najväčšia je Východoslovenská nížina. Pretekajú ňou viaceré rieky – Topľa, Ondava, Laborec, Uh, Latorica, ktorých vody odvádza Bodrog a Tisa. Medzi Malými Karpatami a riekou Moravou leží rozlohou najmenšia Záhorská nížina.[11]
+
+
+Mapa klimatických pásiem Slovenska podľa Köppena
+
+Meteorologická stanica na Lomnickom štíte
+Podnebie
+Na Slovensku panuje mierne podnebie prechodného typu, s častejším striedaním vlhkého oceánskeho a suchého pevninského vzduchu (v lete horúceho, v zime studeného). Preto na území Slovenska prevládajú teplé letá a chladné vlhké zimy s veľkou oblačnosťou. Rozdiely v podnebí zapríčiňuje predovšetkým nadmorská výška. Najteplejšie a najsuchšie sú nížiny (okolo 570 mm zrážok ročne) a nižšie položené kotliny. S rastúcou nadmorskou výškou klesá teplota a viac prší a sneží. Najchladnejšie sú najvyššie pohoria, kde spadne aj najviac zrážok (Tatry vyše 2 000 mm ročne). Viac zrážok majú náveterné strany pohorí. Priemerná teplota vo vyšších polohách, najmä v Tatrách, činí okolo -4°C a naopak v nížinách sa pohybuje okolo 10°C. Čo sa týka vetra, v ročnom chode prevláda západné prúdenie.
+
+Na Slovensku sú tri klimatické oblasti: teplá, mierne teplá a chladná. Teplá oblasť je v nížinách a nízko položených kotlinách, približne do 350 m n. m. Mierna teplá oblasť má subkontinentálny ráz a tvoria ju časti Slovenska do 800 m n. m (nižšie pohoria a úpätia vyšších hôr). Chladná oblasť sa rozprestiera nad 800 m n. m. vo vyšších častiach pohorí.
+
+Vodstvo
+Rieky na Slovensku takmer z celého územia (96 %) patria do úmoria Čierneho mora, kam ich odvádza rieka Dunaj s prítokmi. Ostatné územie odvodňuje Poprad s Dunajcom do Baltského mora. Najdlhšie rieky sú Váh (403 km), Hron, Ipeľ, Nitra, Hornád. Najviac jazier na území Slovenska je v Tatrách (asi 200) a nazývajú sa plesá. Vznikli po ústupe ľadovca. Najväčšie a najhlbšie (53 m) je Veľké Hincovo pleso, známe sú Štrbské, Popradské a Skalnaté pleso.
+
+V krajine je situovaných množstvo umelých priehradných nádrží. Najviac priehrad (celkom 19) je na rieke Váh, kde tvoria Vážsku kaskádu. Sú to napr. Liptovská Mara, Sĺňava, Kráľová, Nosice a iné. Najväčšia priehrada je Oravská priehrada s rozlohou 35 km², ďalej Zemplínska šírava a Liptovská Mara. Účel priehrad je hydroenergetický, protizáplavový, slúžia na zavlažovanie, rekreáciu alebo zásobovanie pitnou vodou. K najväčším vodným nádržiam patrí Vodné dielo Gabčíkovo na Dunaji. V minulosti sa na Slovensku budovali rybníky (chov rýb), tajchy (banská činnosť) a klauzy (splavovanie dreva).
+
+Podzemná voda
+Najväčšie zásoby podzemných vôd sú v riečnych usadeninách a najmä na Žitnom ostrove. Slovensko je bohaté na minerálne a termálne vody (skoro 1 500 prameňov). Využívajú sa ako stolové vody a na liečebné účely v kúpeľoch Piešťany, Trenčianske Teplice, Sliač, Dudince, Bojnice, Bardejove a iných. Najznámejšie stolové vody sú Fatra, Slatina, Salvator, Cígeľka, Santovka, Mitická a Rajec. Podzemná voda nasýtená minerálmi má aj rekreačný význam (termálne kúpaliská – Bešeňová, Podhájska, Dunajská Streda, Veľký Meder a i.).[11]
+
+Pôdy
+Pôdny kryt na území Slovenska je vďaka pestrej geologickej stavbe a členitému reliéfu veľmi rôznorodý. Pôda predstavuje rozhodujúci prírodný zdroj a jeden z hlavných prírodných potenciálov Slovenska. Z celkovej rozlohy pôdy tvorí orná pôda 39,5 %, lúky a pasienky 16,2 % a lesy 44,3 % územia. Najviac sú zastúpené hnedé lesné pôdy, v krasových oblastiach sú typické rendziny. Najúrodnejšie pôdy, černozeme a hnedozeme, nájdeme v nížinách. Problémom je ohrozenie pôd eróziou a svahovými pohybmi. Veľké sú i úbytky pôd v prospech zastavaných plôch.[12]
+
+Geografické zaujímavosti
+Svetové strany
+najsevernejší bod: Babia hora (obec Oravská Polhora) na štátnej hranici (49° 37' s. z. š., 19° 28' v. z. d.)
+najjužnejší bod: Patince (47° 44' s. z. š., 18° 17' v. z. d.)
+najzápadnejší bod: Záhorská Ves (48° 23' s. z. š., 16° 50' v. z. d.)
+najvýchodnejší bod: Kremenec (hraničný trojmedzník) (obec Nová Sedlica) (49° 05' s. z. š., 22° 34' v. z. d.)
+Nadmorská výška
+najvyšší bod: Gerlachovský štít (2 654,4 m n. m.)
+najnižší bod: hladina rieky Bodrog pri Strede nad Bodrogom (94 m n. m.)
+Stredy
+stred Slovenska: kóta Ľubietovský Vepor-Hrb (+/− 5 – 10 km) (48° 44' s. z. š., 19° 28' v. z. dĺžky)
+geometrický stred Slovenska: kóta Hájny grúň (1 207,7 m n. m.), ťažisko štátneho územia
+stred Európy (zemepisný): kostol sv. Jána v Kremnických Baniach (+/− 5 – 10 km)(48° 45' s. z. š., 18° 55' v. z. d.)
+Vzdialenosti (vzdušné)
+najväčšia dĺžka: 428,8 km medzi obcami Záhorská Ves a Nová Sedlica
+najkratšia šírka: 77,6 km medzi obcami Orlov a Hosťovce
+Geológia
+Bližšie informácie v hlavnom článku: Geológia Slovenska
+
+Mapa geologickej stavby Slovenska
+
+Kamenný vodopád Somoška v Cerovej vrchovine, najznámejší vulkanický útvar na Slovensku
+
+Magnezit z Lubeníka, minerál patrí medzi najvýznamnejšie suroviny v súčasnosti ťažené na Slovensku
+
+Jaskyňa Domica
+Geologické pomery sú veľmi pestré. Územie Slovenska zaberajú z väčšej časti Karpaty, ktoré na juhu lemujú nížiny Panónskej panvy. Karpaty sa zaraďujú do alpsko-himalájskej sústavy. Vytvorili ju vrásnenia koncom druhohôr a v treťohorách, preto majú výraznú príkrovovú stavbu. Jednotlivé pásma sú na seba nasúvané, približne smerom z juhu na sever.
+
+Geologická stavba
+Geologická stavba Slovenska je rozmanitá. Pohoria karpatského horského systému majú výraznú príkrovovú geologickú stavbu a tvoria ich rozmanité kryštalinické aj usadené horniny, čím sa výrazne odlišujú od nížin Panónskej panvy (ktoré obsahujú najmä vrstvy piesku, štrku a ílu). Na území Slovenska utvárajú Karpaty rozsiahly oblúk, ktorý možno rozdeliť na Západné a Východné Karpaty. Väčšinu povrchu zaberajú Západné Karpaty.
+
+Západné Karpaty sa tiahnu v dvoch pásmach: vonkajšom a vnútornom. Vonkajšie Karpaty tvorí najmä flyšové pásmo, ktoré sa rozprestiera na severe a severozápade Slovenska. Tvoria ho prevažne hraničné pohoria, ktoré sú vybudované flyšom (striedanie pieskovcov, ílovcov a bridlíc). Začína Bielymi Karpatami, pokračuje cez Kysuce a Oravu na východné Slovensko až po pohorie Čergov. Hranicu medzi vonkajšími a vnútornými Západnými Karpatami predstavuje bradlové pásmo. Tvoria ho odolné vápence (bradlá) vyčnievajúce bralnaté z menej odolných ílov a pieskovcov (napr. Vršatské bradlá).
+
+Vnútorné pásmo Západných Karpát tvorí mnoho pohorí a kotlín. Podľa stavby a vzhľadu ich možno rozdeliť do štyroch skupín: 1. jadrové pohoria, 2. sopečné pohoria, 3. Slovenské rudohorie, 4. karpatské kotliny a nížiny. Jadrové pohoria budujú tvrdé jadrá (žuly, ruly, svory) a obalové horniny (vápence, pieskovce a bridlice). Patria k nim pohoria Malé Karpaty, Strážovské vrchy, Súľovské vrchy, Malá Fatra, Veľká Fatra, Chočské vrchy, Nízke Tatry a Tatry. Sopečné pohoria sa nachádzajú južnejšie od jadrových pohorí. Na ich stavbe sa podieľa najmä andezit a ryolit, menej čadič. Najvýznamnejšie sopečné pohoria Slovenska sú Poľana, Kremnické vrchy, Vtáčnik, Javorie, Štiavnické vrchy a Slanské vrchy. Slovenské rudohorie tvorí akúsi klenbu odlišného zloženia (hlavne slabo premenené horniny fylity a metabazalty), o ktorú sa opierajú jadrové pohoria zo severu a sopečné zo západu. K pásmu Slovenského rudohoria patria aj vápencové pohoria: Slovenský kras, Slovenský raj a Muránska planina. V nich vzniklo činnosťou vody mnoho jaskýň. Pohoria Západných Karpát oddeľujú doliny a kotliny. Najväčšie sú Košická, Juhoslovenská, Hornonitrianska, Turčianska kotlina, Horehronské podolie a i.[13]
+
+Východné Karpaty sa rozprestierajú na severovýchode Slovenska. Ich vonkajšia časť (Nízke Beskydy a Poloniny – Bukovské vrchy) sa podobá na flyšové Západné Karpaty, ale má nižšie nadmorské výšky. Vnútornú časť Východných Karpát vypĺňajú sopečné Vihorlatské vrchy.
+
+Geologický vývoj
+Geologický vývoj prebiehal vo viacerých etapách dávno predtým, ako sa tu objavili v štvrtohorách prví ľudia. V období prvohôr pred asi 400 - 300 miliónmi rokov vznikli v hlbinách zeme počas tzv. variského/hercýnskeho vrásnenia premenené horniny ruly, svory a amfibolity. Miestami intrudovali variské granitoidy. Územie budúceho Slovenska vtedy tvorilo súčasť kontinentu Pangea. Do konca prvohôr bolo staré hercýnske pohorie postupne zarovnané a zmenené na rozsiahlu púšť. Začiatkom druhohôr v triase prevažnú časť dnešného Slovenska zalievalo prevažne plytké more. Iba v najjužnejších oblastiach sa nachádzajú zvyšky triasovo-jurského tzv. Meliatskeho oceánu (súčasť väčšieho oceánu Tethys). Na dne mora sa milióny rokov hromadili vápenaté schránky živočíchov. Na väčšine územia sa usadzovali vápence a dolomity. V jure a kriede hlavne vápence. Koncom druhohôr územie budúceho Slovenska postihli rozsiahle horotvorné pohyby (orogenéza a tektogenéza). Vznikli vnútrokarpatské príkrovy, ktoré sa sunuli smerom zo severu na juh. V mladších treťohorách sa zemská kôra rozlámala na kryhy. Z vyzdvihnutých krýh vznikli pohoria, z poklesnutých krýh vznikli neogénne kotliny a nížiny. Zasahovalo sem more Paratethys. V treťohorách vnikli na území dnešného Slovenská viaceré sopky. Vulkanická aktivita bola intenzívna hlavne na strednom a východnom Slovensku. Príkladom veľkých sopiek sú Štiavnický stratovulkán, najväčšia sopka v Európe pred 15 miliónmi rokov, Poľana, či Vihorlat. Posledná sopka, ktorá eruptovala na Slovensku, je Putikov vŕšok pri Novej Bani. Jej vek odhadujú vedci na 102 tisíc rokov.[14] Horotvorný proces pokračoval od záverečnej fázy treťohôr pozvoľným dvíhaním celého priestoru. K sformovaniu dnešnej tvárnosti georeliéfu prispela i činnosť štvrtohorných ľadovcov a nadmerná erózia. Vo štvrtohorách sa objavuje človek a sopečná činnosť postupne ustáva.
+
+Slovensko sa nachádza na eurázijskej litosférickej platni, resp. na časti označovanej Alcapa. Tektonické zlomy, ktoré pretínajú miestne územie, nie sú v súčasnosti veľmi aktívne. Preto sa na Slovensku vyskytujú zemetrasenia pomerne zriedkavo a majú malú intenzitu.[15] Celkovo sa seizmická aktivita najviac prejavuje v okolí Komárna, v oblasti Malých Karpát od Bratislavy po Vrbové, v oblasti Horehronia východne od Banskej Bystrice a na východnom Slovensku približne medzi Humenným a Užhorodom. Zdrojom zemetrasení je aj oblasť severne od Tatier na poľskom území v okolí mesta Zakopané.[16] Najsilnejšie historicky doložené zemetrasenie zasiahlo Slovensko 28. júna 1763 pri Komárne a jeho magnitúdo bolo 5,8 (zomrelo pri ňom 63 ľudí).[17] Slovensko je seizmicky a vulkanicky stabilná oblasť.
+
+Nerastné bohatstvo
+Ťažba nerastných surovín predstavuje jeden zo základov hutníckej výroby, chemického a stavebného priemyslu a ovplyvňuje výrazne aj ďalšie priemyselné odvetvia. V roku 2009 dosiahla hodnota ťažby nerastných surovín na Slovensku 329,59 miliónov € v bežných cenách, čo predstavuje asi 0,52 % HDP.[18]
+
+Spomedzi energetických surovín sa dnes na území Slovenska ťažia ropa, zemný plyn, hnedé uhlie a lignit. Ťažba ropy pokrýva iba okolo 1 % a ťažba zemného plynu 3 % domácej spotreby. Ťažba hnedého uhlia pokrýva 80 % domácej spotreby, zvyšok je podobne ako celá spotreba čierneho uhlia zabezpečená dovozom z Česka. Ďalšie energetické suroviny ako antracit, bitumenózne bridlice a neživičné plyny nie sú pri dnešných cenách vhodné na rentabilnú ťažbu. Ekonomicky zaujímavé zásoby uránu sa nachádzajú napr. na ložisku Jahodná (Kurišková), ale k ich ťažbe zatiaľ nedošlo. Spomedzi rúd bola na Slovensku donedávna ťažená už iba železná ruda (siderit), ktorej ťažba pokrývala 11 % domácej spotreby. V priebehu leta 2008 však ťažba ustala. Na Slovensku sa na rozdiel od okolitých krajín nachádzajú zásoby antimónu, ktorý sa však v súčasnosti neťaží. V minulosti patrili medzi významné ložiská tohto polokovu Dúbrava v Nízkych Tatrách a Pezinok v Malých Karpatoch. Krajina má značné zásoby nerudných surovín, z ktorých veľký význam má hlavne ťažba magnezitu, ktorý je exportovaný a predstavuje okolo 6 % svetovej ťažby tejto suroviny. Z celosvetového meradla je významná aj ťažba perlitu a zeolitov. Významným je i novo otvárané ložisko mastenca pri Gemerskej Polome. Medzi ostatné na Slovensku ťažené nerudné suroviny patrí barit, bentonit, kaolín (pokrýva asi 26 % domácej spotreby), keramické íly, petrurgický bazalt, stavebný a obkladový kameň, dolomit, vápenec, kamenná soľ (pokrýva asi 20 % domácej spotreby), anhydrit (pokrýva asi 45 % domácej spotreby), živce, kremenné piesky a ďalšie. V minulosti bola krajina významným producentom zlata, striebra, medi a ďalších rúd, ktorých ložiská sú v dnešnej dobe vyťažené. V malej miere pokračuje iba ťažba zlata v Banskej Hodruši (Hodruša-Hámre).[19]
+
+Jaskyne
+Vzhľadom ku geologickej stavbe nie je divu, že tu nájdeme rozvinuté krasové útvary, ktoré právom patria medzi veľké prírodné pozoruhodnosti. Krasová a erózna činnosť vytvorili viac než 7 500 jaskýň, pričom 13 z nich je sprístupnených verejnosti. Medzi tie najvýznamnejšie a najcennejšie patria jaskyne Slovenského krasu a Dobšinská ľadová jaskyňa, ktoré boli zapísané do Zoznamu svetového dedičstva UNESCO. Unikátnu hodnotu má predovšetkým Ochtinská aragonitová jaskyňa, jediná svojho druhu v Európe.[20] Jaskyne svojimi pozoruhodnosťami oslovujú širokú verejnosť i odborníkov rôzneho zamerania.
+
+Príroda
+
+Palcmanská Maša, Národný park Slovenský raj
+
+Svišť vrchovský tatranský
+Slovensko sa vďaka svojim prírodných danostiam môže pochváliť nedotknutou a divokou prírodou. Geografická poloha Slovenska podmieňuje bohatstvo diverzity fauny a flóry. Na celom jeho území bolo dosiaľ popísaných viac než 11 tisíc druhov rastlín, takmer 29 tisíc živočíšnych druhov a cez tisíc druhov prvokov. Častá je i endemická biodiverzita.[21]
+
+Rastlinstvo
+Bližšie informácie v hlavnom článku: Rastlinstvo Slovenska
+Územie Slovenska sa rozprestiera v oblasti listnatých a zmiešaných lesov mierneho pásma. S meniacou sa nadmorskou výškou sa menia rastlinné aj živočíšne spoločenstvá, ktoré takto tvoria výškové stupne (dubový, bukový, smrekový stupeň, kosodrevina, alpínske lúky a podsnežné pásmo). Lesy pokrývajú 44,3 % územia Slovenska (2,17 milióna hektárov).[22] Až 60 % lesných porastov tvoria listnáče a 40 % ihličnany, prevládajú 60- až 100-ročné porasty. Medzi drevinami je najviac zastúpený v nížinách dub, na úpätiach hôr buk a vo vyšších polohách smrek. Približne 60 % výmery lesných pozemkov obhospodarujú štátne organizácie. Na výslnných svahoch v najteplejších oblastiach Slovenska sa vyskytujú tzv. skalné stepi a lesostepi. Rastie v nich veľa vzácnych druhov bylín a žijú tam i vzácne teplomilné druhy živočíchov.
+
+Živočíšstvo
+Bližšie informácie v hlavnom článku: Živočíšstvo Slovenska
+Výskyt živočíšnych druhov sa pevne viaže na príhodné typy rastlinných spoločenstiev. Na území Slovenska sa vyčleňujú živočíšne spoločenstvá stepí (jarabica, zajac, bažant, hraboš, drop), listnatých lesov (diviak, tetrov, jeleň, medveď, vlk, líška, srnčia zver, veverica, jazvec, rys ostrovid), vysokohorských polôh (svišť, kamzík), vôd, močiarov a ich brehov (kapor, pstruh, 6 druhov skokanov, dva druhy ropúch, 6 druhov volaviek). Z vtákov obýva Slovensko pravidelne 10 druhov sov, 3 druhy orlov, 6 druhov sokolov, 3 druhy myšiakov, v jaskyniach, stromových dutinách a v budovách žije 28[23] rôznych druhov netopierov. Mnoho druhov fauny sa prispôsobilo podmienkam vo viacerých spoločenstvách. Z hľadiska druhového zloženia je najpestrejšie a najpočetnejšie spoločenstvo listnatých lesov. Najmenej živočíchov sa prispôsobilo chladným vysokohorským podmienkam.[13]
+
+Ochrana prírody
+Na Slovensku zabezpečuje veľkoplošnú ochranu prírody 9 národných parkov a 14 chránených krajinných oblastí (CHKO). Najstarší a rozlohou najväčší je Tatranský národný park. Medzi ďalšie národné parky sa zaraďujú Pieninský národný park, Nízke Tatry, Slovenský raj, Slovenský kras, Malá Fatra, Veľká Fatra, Poloniny a Národný park Muránska planina. Celkom je na Slovensku vyhlásených 1 098[24] maloplošných chránených území, 41 chránených vtáčích území a 642 území európskeho významu. Chránené územia zaberajú asi 23 % rozlohy štátu.[25][26]
+
+V posledných rokoch narastajú environmentálne problémy. Slováci svojou činnosťou životné prostredie menia priaznivo i nepriaznivo. Na znečisťovaní ovzdušia sa najviac podieľajú tepelné elektrárne a iné vykurovacie zariadenia spaľujúce pevné palivá, hutnícky a chemický priemysel a automobilová doprava. Do vzduchu vypúšťajú zvýšené množstvo škodlivých látok. Ich pôsobením vznikajú kyslé dažde a za bezvetria aj mestský smog. Slovenskú prírodu taktiež poškodzujú víchrice, snehové kalamity, zosuvy pôdy, škodcovia, požiare, povodne a nepovolený výrub (dokonca aj v národných parkoch). Odpadové vody z tovární a sídlisk znečisťujú povrchové a podzemné vody. Vo všetkých mestách vznikajú problémy s odstraňovaním odpadu. Postupne sa však robí triedený zber odpadových surovín (plastov, skla, papiera, kovov, textilu ap.) a ich opätovné spracovanie a využitie – recyklácia. Časť nespracovaných odpadov sa spaľuje, ostatné sa sústreďujú na skládkach odpadov.
+
+
+Kamzík vrchovský tatranský v Tatranskom národnom parku
+
+ 
+
+Pieninský národný park
+
+ 
+
+Pohľad na Nízke Tatry z vrchu Ďumbier
+
+ 
+
+Vrch Veľký Rozsutec je symbolom pohoria a Národného parku Malá Fatra
+
+ 
+
+Národný park Slovenský raj
+
+ 
+
+Lokalita Studňa v Národnom parku Muránska planina
+
+ 
+
+Výhľad z Ďurkovca smerom do Sedla pod Ďurkovcom a na Pľašu (vpravo) v Národnom parku Poloniny
+
+ 
+
+Zádielska tiesňava v Národnom parku Slovenský kras
+
+ 
+
+Vrch Rakytov v Národnom parku Veľká Fatra
+
+Obyvateľstvo
+Bližšie informácie v hlavnom článku: Demografia Slovenska
+
+Graf populačného vývoja v rokoch 1993 – 2010
+
+Hustota obyvateľstva Slovenska (2019)
+
+Veková pyramída Slovenska (2017)
+
+Veková pyramída Slovenska (2020)
+Slovensko má vyše 5,4 miliónov obyvateľov. Najvyšší počet obyvateľov majú kraje Prešovský, Košický a Nitriansky. Počet obyvateľov sa v ostatných rokoch zvyšuje iba málo, pretože je nízky počet narodených. Prirodzený prírastok dosahuje -0,02 % (k roku 2018).[27] Najväčší úbytok obyvateľstva je v Bratislavskom, Myjavskom, Košickom, Medzilaborskom a Sobraneckom okrese. Najväčší prírastok obyvateľstva je na Spiši, Orave, Above a Zemplíne.[28]
+
+Územie Slovenska je nerovnomerne zaľudnené, čo súvisí najmä s prírodnými danosťami. Priemerná hustota zaľudnenia je 110 obyvateľov na km². Obyvateľstvo sa sústreďuje v husto zaľudnených mestách, ktoré sa nachádzajú v nížinách západného Slovenska (Bratislavský, Trenčiansky a Trnavský kraj). Oveľa menej sú zaľudnené pohoria.
+
+Demografický vývoj silne ovplyvňuje migrácia. Predovšetkým v minulosti vlny sťahovania smerovali do USA, Česka, Srbska (Vojvodina), Maďarska, Rakúska a do niektorých ďalších krajín. Momentálne sú vo vnútornej migrácii charakteristické pohyby z východu krajiny na západ a sťahovanie obyvateľstva na krátke vzdialenosti – medzi mestom a zázemím, predovšetkým za prácou. Negatívnym fenoménom je odliv kvalifikovanej pracovnej sily, ktorý pretrváva v menšej miere dodnes.
+
+Veková štruktúra obyvateľov Slovenska je priaznivá. Najpočetnejšiu skupinu tvoria obyvatelia v produktívnom veku (ženy vo veku 15-59, muži vo veku 15-61). Naopak, najmenej početná je skupina predproduktívnych obyvateľov (0- až 14-roční obyvatelia), čo z dlhodobého hľadiska nie je priaznivá situácia. V krajine i naďalej rastie počet poproduktívnych obyvateľov (ženy vyše 60 rokov, muži vyše 62 rokov). Preto dochádza aj k zvyšovaniu priemerného veku obyvateľov Slovenska (38,7 rokov). Stredná dĺžka života obyvateľov pri narodení je u žien vyššia (79 rokov) ako u mužov (72 rokov). Súvisí to s kvalitným zdravotníctvom a vysokou životnou úrovňou.[29]
+
+Etnické zloženie
+
+Etnická štruktúra obcí a miest Slovenskej republiky, podľa sčítania z roku 2011
+V súčasnosti je populácia na území Slovenska národnostne takmer jednotná. Z celkového počtu obyvateľstva je až 80 % etnických Slovákov. Najvýraznejšie zastúpenie majú na severe Slovenska. Po slovenskej sú najviac zastúpení obyvatelia maďarskej národnosti, ktorí žijú najmä na juhu pri hraniciach s Maďarskom. Druhou najpočetnejšou menšinou sú Rómovia, ktorí obývajú najmä regióny na východnom Slovensku (Spiš, Šariš a Gemer). Podiel rómskeho obyvateľstva sa postupne zvyšuje. Časť obyvateľstva na západe Slovenska sa hlási k českej, moravskej a sliezskej národnosti. Na východe a severovýchode je početne zastúpená aj rusínska a ukrajinská národnosť, na severe pri hraniciach s Poľskom poľská.[29] Nemci na Slovensku, ktorí sami seba nazývali Karpatskí Nemci, kedysi tvorili významnú národnostnú menšinu. Nemecky hovoriace obyvateľstvo v roku 1930 tvorilo viac ako 4%. Po roku 1945 bolo evakuovaných a čiastočne násilne deportovaných 84 % Nemcov zo Slovenska (v rámci Vysídlenia Nemcov z Česko-Slovenska), čím sa nemecká menšina (v 2011 sa 4 690 hlásilo k nemeckej národnosti) dostala na úroveň asi jedno promile (0,1%) obyvateľstva.
+
+Podľa údajov za sčítania z roku 2011 etnickú štruktúru Slovenska tvoria:
+
+Slováci – 80,7 %, Maďari – 8,5 %, Rómovia – 2,0 %, ostatní – 1,8 %, nezistení – 7 %.
+
+Národnosť	2011[30]	2001[30]	1991[30]	1980[31]	1970[31]	1961[31]	1950[31]	1940*[31]	1930 [32]
+Slovenská	4 352 775 (80,65%)	4 614 854 (85,79%)	4 519 328 (85,69%)	4 317 010 (86,49%)	3 876 190 (85,47%)	3 560 216 (85,29%)	2 980 616 (86,59%)	2 214 475 (86,25%)	2 252 128 (67,64%)
+Česká	30 367 (0,56%)	44 620 (0,83%)	52 884 (1%)	57 191 (1,15%)	48 140 (1,06%)	45 721 (1,1%)	40 365 (1,17%)	3 024 (0,12%)	120 926 (3,63%)
+Moravská	3 286 (0,06%)	2 348 (0,04%)	6 037 (0,11%)
+Maďarská	458 467 (8,49%)	525 280 (9,76%)	567 296 (10,76%)	559 491 (11,21%)	552 007 (12,17%)	518 782 (12,43%)	356 441 (10,35%)	46 689 (1,82%)	592 337 (17,79%)
+Rómska	105 738 (1,96%)	89 920 (1,67%)	75 801 (1,44%)				3 757 (0,11%)	37 096 (1,44%)	31 188 (0,94%)
+Rusínska	33 482 (0,62%)	24 201 (0,45%)	17 197 (0,33%)	36 849 (0,74%)	38 959 (0,86%)	35 435 (0,85%)	48 231 (1,4%)	61 762 (2,41%)	95 359 (2,86%)
+Ukrajinská	7 430 (0,14%)	10 814 (0,2%)	13 281 (0,25%)
+Ruská	1 997 (0,04%)	1 590 (0,03%)	1 389 (0,03%)	2 411 (0,05%)
+Nemecká	4 690 (0,09%)	5 405 (0,1%)	5 413 (0,1%)	2 917 (0,06%)	4 759 (0,1%)	6 259 (0,15%)	5 179 (0,15%)	129 552 (5,05%)	154 821 (4,65%)
+Poľská	3 084 (0,06%)	2 602 (0,05%)	2 659 (0,05%)	2 053 (0,04%)			1 808 (0,05%)		7 023 (0,21%)
+Chorvátska	1 022 (0,02%)	890 (0,02%)					1 798 (0,05%)		1 084 (0,03%)
+juhoslovanská
+
+Srbská	698 (0,01%)	434 (0,01%)					
+Židovská	631 (0,01%)	218 (0,004%)	134 (0,003%)				307 (0,01%)	74 438 (2,9%)	72 678 (2,18%)
+Bulharská	1 051 (0,02%)	1 179 (0,02%)	1 400 (0,03%)				1 798 (0,05%)		
+Rumunská									427 (0,01%)
+Ostatné	9 852 (0,18%)	5 350 (0,1%)	2 732 (0,05%)	2 897 (0,06%)	5 434 (0,12%)	4 503 (0,11%)	832 (0,02%)	517 (0,02%)	1 822 (0,05%)
+Nezistená	382 493 (7,09%)	54 502 (1,01%)	8 782 (0,17%)	10 349 (0,21%)	6 549 (0,14%)	3 130 (0,07%)	1 786 (0,05%)	88 072 (3,43%)
+Spolu	5 397 036	5 379 455	5 274 335	4 991 168	4 535 316	4 174 046	3 442 317	2 567 555	3 329 793
+* = územie prvej Slovenskej republiky (bez územia na juhu a východe Slovenska, ktoré bolo počas Viedenskej arbitráže a Malej vojny odstúpené Maďarsku).
+
+Jazyky
+Úradným a vzdelávacím jazykom Slovenska je slovenčina, ktorá patrí do skupiny západoslovanských jazykov. Kodifikácia spisovného slovenského jazyka prebehla v roku 1843 na základe stredoslovenského nárečia. Slovenčina používa abecedu zloženú zo 46 modifikovaných latinských písmen. Popri spisovnom jazyku sa v jednotlivých oblastiach Slovenska používajú rozličné dialekty, čiže nárečia.[33] Z tradičných nárečí sú najtypickejšie východoslovenské (jeho viaceré varianty), záhorácke, stredoslovenské a západoslovenské. Menšinové jazyky sa môžu používať v styku s úradmi v obciach, kde podiel obyvateľstva prevyšuje 20 %. V praxi sa to týka vyše stovky maďarských obcí, desiatky rusínskych/ukrajinských a rómskych obcí a jednej nemeckej obce.
+
+
+Jazyková štruktúra obcí a miest Slovenskej republiky, podľa sčítania z roku 2011
+
+Jazyková štruktúra (materinský jazyk) obcí a miest Slovenskej republiky, podľa sčítania z roku 2011
+
+Slovenská abeceda sa skladá zo 46 písmen
+Materinský jazyk
+Slovenčina – 80,7 %, maďarčina – 8,5 %, rómčina – 2,0 %, ostatné – 1,8 %, nezistené – 7,0 %.
+
+Údaje sú čerpané zo sčítania z roku 2011.
+
+Materinský jazyk[34]	Počet 2011[30]	2001[30]	1910[31]	1900[31]	1890[31]	1880[31]
+slovenský	4 240 453	4 512 217	1 688 152	1 702 349	1 603 642	1 502 571
+maďarský	508 714	572 929	885 646	749 556	633 422	546 458
+rómsky	122 518	99 448				
+rusínsky	55 469	54 907	97 047	84 559	84 335	78 402
+ukrajinský	5 689	7 879				
+český	35 216	48 201	7 947			
+nemecký	5 186	6 343	198 387	215 816	228 860	228 584
+poľský	3 119	2 731				
+chorvátsky	1 234	988	3 480	4 023	2 787	3 431
+srbský	834		722	180	136	
+rumunský	414		1 905	896	281	259
+slovinský			54		94	
+jidiš	460	17				
+bulharský	132		50			
+ruský	2 909					
+vietnamský	1 562					
+anglický	1 447					
+posunková reč	693					
+taliansky	551		213			
+arabský	434					
+francúzsky	433					
+albánsky	382					
+španielsky	372					
+grécky	115					
+ostatné	3 439	6 735	35 704	29 209	24 494	18 455
+nezistené	405 261	66 056				83 300
+Najčastejšie používaný jazyk v domácnosti: Slovenčina – 73,3 %, maďarčina – 8,7 %, rómčina – 2,4 %, ostatné – 2,1 %, nezistené – 13,5 %.
+
+Najčastejšie používaný jazyk na verejnosti: Slovenčina – 80,4 %, maďarčina – 7,3 %, ostatné – 2,8 %, nezistené – 9,5 %.
+
+Údaje sú čerpané zo sčítania z roku 2011.
+
+Náboženské zloženie
+
+Náboženské zloženie obcí SR, podľa sčítania z roku 2011
+
+Náboženské zloženie obcí Slovenska, podľa sčítania z roku 2001
+
+Katedrála svätého Martina v Bratislave
+
+Dóm svätej Alžbety v Košiciach
+Slovensko je prevažne kresťanská krajina, najpočetnejšia skupina obyvateľstva je rímskokatolíckeho vierovyznania. Kresťania žijú takmer vo všetkých obciach Slovenska, pričom najvýraznejšie postavenie má na severe krajiny (Orava, Kysuce). Ostatné cirkvi sú v priestore sústredené do vybratých regiónov (evanjelická cirkev augsburského vyznania, gréckokatolícka cirkev a reformovaná kresťanská cirkev). Okrem týchto cirkví pôsobí na Slovensku viacero ďalších s menším počtom veriacich (pravoslávna cirkev, Náboženská spoločnosť Jehovovi svedkovia, Evanjelická cirkev metodistická a i.). Nepočetné minority tvoria ostatné vyznania, vrátane islamu a judaizmu. Na Slovensku sa však nenachádza žiadna verejná mešita.[35] Približne pätina obyvateľstva sa nehlási k žiadnemu registrovanému náboženstvu. Najmenej veriacich žije v mestách, najmä na západnom Slovensku.[29]
+
+Rímskokatolíci – 62,0 %, Gréckokatolíci – 3,8 %, Evanjelici a.v. – 5,9 %, Reformovaní – 1,8 %, Ateisti – 13,4 %, ostatní – 2,5 %, nezistení – 10,6 %.
+
+Údaje čerpané zo sčítania z roku 2011.
+
+Náboženské vyznanie	2011[36]	2001 [30]	1991[30]	1930 [32]
+Rímskokatolícka cirkev	3 347 277▼	3 708 120	3 187 383	2 384 355
+Evanjelická cirkev a.v	316 250▼	372 858	326 397	400 258
+Gréckokatolícka cirkev	206 871▼	219 831	178 733	214 725
+Reformovaná kresťanská cirkev	98 797▼	109 735	82 545	145 829
+Pravoslávna cirkev	49 133▼	50 363	34 376	9 076
+Jehovovi svedkovia	17 222▼	20 630	10 501	–
+Evanjelická cirkev metodistická	10 328▲	7 347	4 359	152
+Kresťanské zbory	7 720▲	6 519	700	–
+Apoštolská cirkev	5 831▲	3 905	1 116	–
+ostatné kresťanské cirkvi	3 728▲	812	1 220	–
+Bratská jednota baptistov	3 486▼	3 562	2 465	1 745
+Cirkev bratská	3 396▲	3 217	1 861	29
+Cirkev adventistov siedmeho dňa	2 915▼	3 429	1 721	–
+ostatné nekresťanské cirkvi	2 703▲	2 030	3 625	–
+budhizmus	2 530▲	1 663	–	–
+Židovské náboženské obce	1 999▼	2 310	912	136 737
+Islam	1 934▲	1 212	180	–
+Starokatolícka cirkev	1 687▼	1 733	882	–
+Cirkev československá husitská	1 782▲	1 696	625	11 495
+Bahájske spoločenstvo	1 065	–	–	–
+Cirkev Ježiša Krista Svätých neskorších dní (Mormóni)	972▲	58	91	–
+hinduizmus	255▲	193	–	–
+Novoapoštolská cirkev	166▲	22	188	–
+scientologizmus	134▲	15	–	–
+Hnutie zjednotenia	63▲	73	–	–
+Českobratská cirkev evanjelická	45▼	169	813	–
+iné	11 941	–	–	–
+bez vyznania	725 362▲	697 308	515 551	16 890
+nezistené	571 437▲	160 598	917 835	–
+
+Rómska osada pri obci Richnava
+Práca
+Vyše polovice pracovne činného obyvateľstva zamestnávajú služby, viac než tretinu priemysel, poľnohospodárstvo len okolo 5 %. Pracovné miesta na Slovensku síce nie sú vzácne, ale mzdy sú nízke. Minimálna mzda pre rok 2019 predstavuje 520 €.[37] Pracuje sa často na zmeny, celkom 48 hodín týždenne. Problémom je vo viacerých oblastiach nezamestnanosť (4,8 % v roku 2018). Vznikla po zániku mnohých priemyselných závodov, najmä strojárskych. Zároveň dochádza k prehlbovaniu rozdielu životnej úrovne vo väčších mestách a vidieckych regiónoch.
+
+
+Vidiecke sídlo Valaská
+Sídla
+Slovensko má pomerne hustú sieť osídlenia. Nachádza sa tu okolo 7 000 sídel. Tie sú zoskupené do 2 890 samostatných obcí (vrátane 3 vojenských obvodov), z nich 141 má štatút mesta.[38] Najväčší počet obcí tvoria vidiecke sídla (2 753 – 95 %), žije v nich menej ako polovica obyvateľstva. Z geografického hľadiska ich delíme na kompaktné vidiecke sídla (dediny) a rozptýlené sídla – samoty (majú regionálne názvy ako kopanice, lazy, štále, rale). Miest na Slovensku je len 141. Najviac miest je v Banskobystrickom samosprávnom kraji (24), v Prešovskom (23), v Žilinskom (19), v Trenčianskom (18), v Košickom a v Trnavskom (17), v Nitrianskom (16) a v Bratislavskom (7). Urbanizácia Slovenska je nižšia ako európsky priemer, postupne sa však zväčšuje. V mestách žije približne 54 % populácie.[39] Najväčším mestom podľa počtu obyvateľov (na základe údajov ŠÚ SR k 31. decembru 2018) je Bratislava, nasledujú Košice, Prešov, Žilina, Banská Bystrica a Nitra.[40] Podľa rozlohy dominuje Bratislava, nepatrne menšie je mesto Vysoké Tatry, tretie sú Košice. Hlavným mestom je Bratislava.
+
+Bratislava Panorama R01.jpg
+Bratislava
+
+View over Old Town from St. Elisabeth Cathedral Bell Tower - Kosice - Slovakia (36428414991).jpg
+
+Košice
+
+Presov13Slovakia519.JPG
+
+Prešov
+
+Poradie	Mesto	Kraj	Okres	Počet obyvateľov	Main square of Žilina.JPG
+Žilina
+
+Main square of Banská Bystrica, Slovakia.jpg
+
+Banská Bystrica
+
+Nitra - Panorama 01.JPG
+
+Nitra
+
+1	Bratislava	Bratislavský kraj	Bratislava I, II, III, IV, V	432 864
+2	Košice	Košický kraj	Košice I, II, III, IV	238 757
+3	Prešov	Prešovský kraj	Prešov	88 680
+4	Žilina	Žilinský kraj	Žilina	80 810
+5	Banská Bystrica	Banskobystrický kraj	Banská Bystrica	78 327
+6	Nitra	Nitriansky kraj	Nitra	76 655
+7	Trnava	Trnavský kraj	Trnava	65 207
+8	Trenčín	Trenčiansky kraj	Trenčín	55 333
+9	Martin	Žilinský kraj	Martin	54 618
+10	Poprad	Prešovský kraj	Poprad	51 304
+11	Prievidza	Trenčiansky kraj	Prievidza	46 059
+12	Zvolen	Banskobystrický kraj	Zvolen	42 321
+13	Považská Bystrica	Trenčiansky kraj	Považská Bystrica	39 569
+14	Michalovce	Košický kraj	Michalovce	39 050
+15	Nové Zámky	Nitriansky kraj	Nové Zámky	37 899
+16	Spišská Nová Ves	Košický kraj	Spišská Nová Ves	37 194
+17	Komárno	Nitriansky kraj	Komárno	33 927
+18	Humenné	Prešovský kraj	Humenné	33 191
+19	Levice	Nitriansky kraj	Levice	33 082
+20	Bardejov	Prešovský kraj	Bardejov	32 449
+Sociálna starostlivosť
+Sociálna starostlivosť vo všeobecnosti predstavuje systém, ktorého úlohou je zabezpečiť plnohodnotný život občanom štátu. Životná úroveň obyvateľov je relatívne vysoká. Štát sa neustále usiluje vytvoriť predpoklady na zlepšenie podmienok, v ktorých žijú slovenskí obyvatelia. Každý Slovák má prístup ku kvalitnej pitnej vode a základným potravinám dennej potreby.[27] Do štátom zabezpečovaných služieb patrí zdravotníctvo, školstvo, veda a výskum.
+
+Zdravotníctvo
+Zdravotníctvo a lekárske ošetrenie sú platené. Úroveň, vybavenie a hygiena slovenského zdravotníctva dosahuje európsky priemer. Okrem zdravotníckych zariadení, ktoré zväčša spravuje štát, zdravotnú starostlivosť poskytuje aj súkromný sektor. V rezorte zdravotníctva ústavnú starostlivosť vykonávajú nemocnice, polikliniky, sanatóriá, hospice, liečebne atď. Počet lekárov je 246 na 100 000 obyvateľov (k roku 2016). Počet postelí v zdravotníckych zariadeniach je 595,8 na 100 000 obyvateľov (k roku 2015). Výdaje na zdravotníctvo tvoria 8,1 % HDP.[27]
+
+
+Historická budova auly Univerzity Komenského v Bratislave na Šafárikovom námestí
+Školstvo a vzdelanie
+Systém školských zariadení na Slovensku utvára sieť predškolských zariadení (detské jasle a materské školy) a školských zariadení (základné, stredné a vysoké školy). Ďalšiu vzdelávaciu úlohu plnia aj rôzne ústavy, laboratóriá a ďalšie inštitúcie.[41] Vzdelávanie je poskytované bezplatne, dokonca aj v jazykoch viacerých národnostných menšín. Výdaje na školstvo predstavujú 4,6 % HDP. Negramotnosť obyvateľstva sa pohybuje okolo 0,6 % populácie nad 15 rokov.[27]
+
+Povinná, pôvodne 6-ročná školská dochádzka bola na území dnešného Slovenska zavedená v roku 1868. V priebehu éry socializmu bola rozšírená na 10-ročnú povinnú školskú dochádzku. Sieť základných škôl je rovnomerne rozložená po celom území Slovenska a stredné školy sú prevažne v mestách. Základnú školu navštevujú deti od 6 (alebo 7) po 14 (alebo 15) rokov.
+
+Vysoké školstvo v roku 2010 pozostáva z verejných (20), štátnych (3) a súkromných škôl (10). Z nich sa medzi 500 najlepšími univerzitami na svete drží dlhšie iba Univerzita Komenského.[42] Medzi najlepšie hodnotené univerzity a vysoké školy v rámci východoeurópskeho regiónu (podľa hodnotenia vedeckého publikovania na internete) na Slovensku patria Technická univerzita v Košiciach, Slovenská technická univerzita v Bratislave, Slovenská poľnohospodárska univerzita v Nitre a Univerzita Pavla Jozefa Šafárika v Košiciach.[43] Na Slovensku majú pobočky aj niektoré zahraničné vysoké školy. Trendom je zvyšovanie počtu študentov vysokých škôl. V roku 2006 absolvovalo vysokoškolské štúdium 34 535 absolventov.[44]
+
+Politika
+
+Zuzana Čaputová, prezidentka
+
+Eduard Heger,
+predseda vlády
+Pozri aj Politický vývoj Slovenska od roku 1989, Vláda Slovenskej republiky od 1. apríla 2021
+
+Prezidentka: Zuzana Čaputová
+Predseda parlamentu: Boris Kollár (SME RODINA)
+Predseda vlády: Eduard Heger (OĽANO)
+Podpredsedovia parlamentu: Gábor Grendel, Milan Laurenčík, Juraj Blanár
+Podpredsedovia vlády: Štefan Holý, Veronika Remišová, Richard Sulík, Igor Matovič
+Zloženie vlády: OĽANO, SME RODINA, SaS, ZA ĽUDÍ
+Opozičné parlamentné strany: SMER, ĽSNS
+
+Budova Národnej rady Slovenskej republiky v Bratislave
+
+Grasalkovičov palác v Bratislave, sídlo prezidenta Slovenskej republiky
+
+Budova Ústavného súdu Slovenskej republiky v Košiciach
+Politický systém
+Slovenská republika je pluralitná demokracia parlamentného typu – parlamentná republika. Presnejšie, podľa odbornej literatúry (Prusák, Jozef.: Teória práva. Bratislava: 1999, s. 137) ide o hybridnú, parlamentno-prezidentskú republiku, nakoľko prijala niektoré prvky prezidentskej republiky (správne súdnictvo, priama voľba prezidenta, právo veta). Krajina má povahu unitárneho štátu. Základným zákonom štátu je ústava, ktorú tvorí preambula, 9 hláv a 156 článkov. Zakotvuje štruktúru a vzťahy štátnych orgánov, definuje ich právomoci a kompetencie. V druhej hlave deklaruje základné ľudské práva a slobody. Ústava SR bola prijatá 1.septembra 1992, účinnosť nadobudla 1. januára 1993. Štátna moc sa rozdeľuje na: zákonodarnú moc (legislatívu), výkonnú moc (exekutívu) a súdnu moc (justíciu).[45]
+
+Nemecká nadácia Bertelsmann Stiftung a americká organizácia Freedom House konštatovali, že sa na Slovensku konajú slobodné voľby a funguje oddelenie štátnych mocí. Podľa ich názoru ale v slovenskej spoločnosti naďalej pretrváva silná korupcia.[46][47]
+
+Legislatíva
+Parlament (NR SR) je najvyšším legislatívnym orgánom štátu. Určuje normy správanie všetkého, čo je v štáte. Má 150 členov – poslancov volených v demokratických voľbách, ktoré sa konajú (okrem prípadu predčasných volieb) raz za štyri roky. Volebný systém pre Voľby do Národnej rady Slovenskej republiky je pomerný, výsledky volieb a prerozdelenie hlasov na poslanecké kreslá teda do veľkej miery kopírujú pomer hlasov voličov. Poslanci svoj mandát získavajú ako jednotlivci na kandidátke, nemôže im teda by byť odobratý v prípade, že sa ich názory rozchádzajú s názorovou líniou strany, t. j. neexistuje tu imperatívny mandát. Slovensko má jednokomorový parlament. K jeho základným právomociam patrí uznášať sa na ústave a zákonoch, rokovať o programovom vyhlásení vlády, kontrolovať činnosť vlády, schvaľovať štátny rozpočet, voliť a odvolávať sudcov.[45]
+
+Exekutíva
+Vláda sa skladá z ministrov, ktorí vzišli z politických strán, ktoré vytvorili väčšinovú koalíciu, t. j. takú, ktorá má viac ako 75 poslancov v pléne NR SR. Na čele vlády stojí premiér, ktorý nedisponuje vlastnou ministerskou agendou.[48] Vláda je zodpovedná Národnej rade. Jej funkciou je navrhovať zákony, vydávať vládne nariadenia a stanovovať programové vyhlásenia. Pre súhlas zákonov je nutná nadpolovičná väčšina, pre zmenu ústavy 3/5 väčšina hlasov. Vládu aktuálne vedie Eduard Heger za stranu OĽANO.
+
+Prezident Slovenskej republiky je spolu s premiérom a predsedom parlamentu najvyšším ústavným činiteľom v krajine. Prezident je hlavou štátu a má osobitné postavenie. Je volený v priamych voľbách na 5 rokov. Funkcia prezidenta je skôr reprezentatívna. Medzi jeho právomoci patrí napríklad poverovanie budúceho premiéra zostavením vlády, ktorú následne vymenuje. Ďalej disponuje tzv. malým vetom, to značí, že môže vrátiť zákon na opätovné posúdenie Národnou radou. Prezident je veliteľom ozbrojených síl, okrem toho podpisuje medzinárodné zmluvy, menuje ústavných sudcov, vymenúva a odvoláva parlament, vyhlasuje referendum či udeľuje amnestiu. Súčasnou prezidentkou republiky je Zuzana Čaputová.[49]
+
+Justícia
+Súdna moc kontroluje zákonodarnú a výkonnú moc. Podáva výklad ústavy a rieši konflikty. Súdnu moc Slovenskej republiky tvorí Ústavný súd SR a sústava súdov: Najvyšší súd SR, krajské a okresné súdy. Najvyššiu právomoc má práve Ústavný súd, tvorený 13 sudcami menovanými prezidentom na 12 rokov. Posudzuje, či zákony a rozhodnutia vlády nie sú v rozpore s ústavou. Ďalej tiež kontroluje, či parlament a výkonné orgány dodržiavajú ústavnosť.[45] Súdny systém ako celok je veľmi zaťažený, dôsledkom čoho mnohé súdne procesy trvajú nepomerne dlhú dobu.
+
+Administratívne členenie
+Bližšie informácie v hlavnom článku: Administratívne členenie Slovenska
+
+Mapa zobrazujúca kraje Slovenska
+
+Mapa zobrazujúca okresy Slovenska
+
+Trenčín, slovenské mesto módy
+Administratívne členenie Slovenska sa v priebehu dejín často menilo. Napriek tomu, že určitá tradícia administratívneho členenia pretrváva, vyčlenené územné celky podliehajú zmenám. Nové územné a správne usporiadanie je výsledkom niekoľkoročného úsilia o zmenu priestorového usporiadania štátnej správy v SR.
+
+Samosprávne územné celky SR sú obce a vyššie územné celky (VÚC, samosprávne kraje). Počet obcí nie je stabilný, vďaka územným zmenám sa mení. V posledných rokoch počas prebiehajúcej dezintegrácie obcí sa ich počet na Slovensku zvyšoval. Úspešné referendum v obci rozhodlo o územných zmenách i o zmenách názvov.
+
+Administratívne celky v SR sú kraje a okresy. Od roku 1996 je Slovensko rozdelené na osem krajov a 79 okresov. Kraje sú od roku 2002 zároveň samosprávnymi krajmi. Pomenovanie dostali podľa sídla kraja.
+
+Názov kraja	Krajské mesto	Populácia (2019)[50]
+Coat of Arms of Bratislava Region.svg Bratislavský kraj	Coat of Arms of Bratislava.svg Bratislava	669 592
+Coat of Arms of Trnava Region.svg Trnavský kraj	Coat of Arms of Trnava.svg Trnava	564 917
+Coat of Arms of Nitra Region.svg Nitriansky kraj	Coat of Arms of Nitra.svg Nitra	674 306
+Coat of Arms of Trenčín Region.svg Trenčiansky kraj	Coat of Arms of Trenčín.svg Trenčín	584 569
+Coat of Arms of Žilina Region.svg Žilinský kraj	Coat of Arms of Žilina.svg Žilina	691 509
+Coat of Arms of Banská Bystrica Region.svg Banskobystrický kraj	Coat of Arms of Banská Bystrica.svg Banská Bystrica	645 276
+Coat of Arms of Prešov Region.svg Prešovský kraj	Coat of Arms of Prešov.svg Prešov	826 244
+Coat of Arms of Košice Region.svg Košický kraj	Coat of Arms of Košice.svg Košice	801 460
+
+Regióny cestovného ruchu Slovenska
+Slovensko sa oddávna členilo na menšie územné celky, ktoré tvorili väčšinou jednotlivé kotliny, doliny alebo rôzne pohoria. V nich sa udržiavali osobité zvyky, medzi sebou sa odlišovali nárečím aj odevom (krojmi). Aj to umožňovalo, aby obyvatelia vedeli, že niekto je z nich kraja alebo z iného regiónu.
+
+Osobité, ale svojrázne územné celky boli súčasťou väčších regiónov. V rôznych obdobiach v minulosti sa nazývali župy, komitáty či stolice. Dodnes takto vyčlenené regióny používajú na svoje odlíšenie od ostatných častí Slovenska buď vžité, alebo historické označenie.[13]
+
+Historické župy na Slovensku
+Župy v Česko-Slovensku (1918–1928)
+Krajinské zriadenie 1928–1938 a 1945–1948
+Župy počas Slovenskej republiky (1939 – 1945)
+Krajské zriadenie (1949–1960) a (1960 – 1990)
+Medzi známe historické regióny cestovného ruchu patria:[13]
+
+na východe Slovenska: Zemplín, Šariš, Abov, Spiš, Zamagurie
+na severe Slovenska: Liptov, Orava, Kysuce, Horné Považie
+na juhu Slovenska: Gemer, Novohrad, Hont a Malohont, Pohronie
+v strede Slovenska: Turiec, Horehronie, Horná Nitra, Podpoľanie
+na západe Slovenska: Záhorie, Podunajsko, Ponitrie, Považie, Tekov
+Ozbrojené sily
+Bližšie informácie v hlavnom článku: Ozbrojené sily Slovenskej republiky
+
+Príslušníci 5. pluku špeciálneho určenia počas cvičenia vo vojenskom priestore Lešť
+Ozbrojené sily Slovenskej republiky (do roku 2002 Armáda Slovenskej republiky) predstavujú ozbrojenú moc krajiny. Slúžia predovšetkým na ochranu bezpečnosti štátu, slobody a zvrchovanosti. Ich nezanedbateľným významom je pomoc pri odstraňovaní následkov živelných pohrôm alebo iných mimoriadnych udalostí. Od januára 2006, keď došlo k zrušeniu povinnej vojenskej služby pre obdobie mieru, sú slovenské ozbrojené sily plne profesionálnou armádou.[51] Vek pre dobrovoľný vstup do armády je pre mužov od 18 do 30 rokov. V armáde smú slúžiť aj ženy. Organizačne sa Ozbrojené sily SR delia na Pozemné a Vzdušné sily. Na ozbrojené sily Slovensko dáva ročne dlhodobo menej ako 2 % HDP (v roku 2011 asi 1,1 %).[52] V roku 2015 mali ozbrojené sily k dispozícii 15 996 príslušníkov ozbrojených síl a 3 967 civilných zamestnancov.
+
+Polícia je rozdelená na lokálnu a štátnu a tak ako napríklad v Česku bola silne zaťažená rozvojom kriminality v priebehu demokratizácie a liberalizácie zeme. Podľa nadácie Bertelsmann Stiftung nedochádza k ovplyvňovaniu vlády zo strany bezpečnostných síl – všetci významní politickí aktéri rešpektujú legitimitu demokratických inštitúcií.[46]
+
+Zahraničné vzťahy
+
+Vlajka Slovenska s vlajkou EÚ
+Od roku 2004 je Slovensko členom NATO a Európskej únie, o tri roky neskôr sa stalo súčasťou Schengenského priestoru. Taktiež za viac ako dvadsaťročnú existenciu získalo členstvo v mnohých nadnárodných spoločenstvách ako je Organizácia spojených národov (OSN), Svetová obchodná organizácia (WTO), Organizácia pre hospodársku spoluprácu a rozvoj (OECD) a Organizácia pre bezpečnosť a spoluprácu v Európe (OSCE). Vedľa toho sa slovenská vláda angažuje napr. vo Vyšehradskej štvorke, ktorá združuje vlády Poľska, Česka, Slovenska a Maďarska s cieľom presadzovania spoločných záujmov a prehlbovaním spolupráce. Zo svojich susedov udržuje Slovenská republika viac-menej korektné vzťahy s Rakúskom, Českom a Poľskom. Kedysi konfliktné vzťahy s Maďarskom sa v ostatnom čase zlepšili. Vzťahy s Ukrajinou nehrajú po dlhú dobu v slovenskej zahraničnej politike významnú úlohu.
+
+Ekonomika
+Bližšie informácie v hlavnom článku: Ekonomika Slovenska
+
+Obchodné centrum Eurovea v Bratislave
+
+Štruktúra vývozu Slovenska z roku 2017
+Slovenská republika je priemyselno-poľnohospodársky štát s trhovou ekonomikou. Patrí medzi hospodársky vyspelejšie krajiny. Podobne ako ostatné pridružené štáty Európskej únie uskutočňuje rozsiahle ekonomické zmeny. V ostatných rokoch dosahuje miestna ekonomika vďaka reformám a zahraničným investíciám najvyššie tempá rastu v regióne.[53] Na prelome milénia došlo k stabilizácii bankového sektora. Zákonom uznávanou menovou jednotkou je euro (€). Inflácia vykazuje 1,3 % (k roku 2017).[27]
+
+Ekonomika krajiny sa delí na odvetvia: poľnohospodárstvo, priemysel, doprava, obchod, služby a cestovný ruch. Ročný hrubý domáci produkt na obyvateľa činí 35 130 $ (k roku 2018). Najväčší podiel na tvorbe HDP má sektor služieb (62 %) a priemysel (35 %), poľnohospodárstvo má klesajúci význam (4 %). V posledných rokoch má veľmi dôležitú pozíciu v ekonomike nevýrobná sféra a cestovný ruch. Jeden z najväčších problémov Slovenska, ktorý bude viditeľný ešte mnohé roky, sú veľké rozdiely medzi regiónmi a príliš jednostranné zameranie na automobilový priemysel. Najvýznamnejšie hospodárske centrá sú v metropolitných oblastiach Bratislava a Košice – Prešov, v oblasti Považia od Trenčína po Liptovský Mikuláš, Pohronia (Banská Bystrica – Zvolen) a regióne Podunajskej nížiny (Trnava – Nitra).[15]
+
+Významné postavenie v ekonomike má zahraničný obchod. V štruktúre zahraničného obchodu prevláda vývoz nad dovozom (kladná platobná bilancia). Zo Slovenska sa vyvážajú priemyselne spracované výrobky, stroje a prepravné zariadenia (automobily). Dovážajú sa najmä priemyselné suroviny. Otvorenosť trhovej ekonomiky umožňuje spoluprácu so zahraničnými firmami. Najväčšími obchodnými partnermi Slovenska sú Česko, Nemecko, Rusko, Maďarsko, Francúzsko, Poľsko, Rakúsko a iné. Celkovo je miestne hospodárstvo veľmi úspešné.
+
+Poľnohospodárstvo
+
+Žatva pri obci Dubodiel
+
+Chov dojníc na družstve v obci Novoť
+Slovensko má rozvinuté poľnohospodárstvo, ktoré využíva 19 350 km² poľnohospodárskej pôdy (39,5 % povrchu krajiny). Ešte na začiatku 20. storočia zamestnávalo 60 % obyvateľstva. Dnes poľnohospodárstvo, poľovníctvo a súvisiace odvetvia zamestnávajú asi 4,9 % ekonomicky činného obyvateľstva (asi 100 050 zamestnancov).[54] Úrodné pôdy sú vhodné pre rastlinnú výrobu. Najväčšie osevné plochy zaberajú obilniny (vyše polovice), hlavne pšenica, kukurica a jačmeň. Rozširujú sa osevné plochy zeleniny, strukovín a olejnín (slnečnica, repka olejná). Vo vyššie položených kotlinách sa dopestujú zemiaky, raž a jedno alebo viacročné krmoviny. Na Slovensku má dlhodobú tradíciu ovocinárstvo a vinohradníctvo, ktorého produkty sú známe aj v zahraničí. Väčšina hrozna a iného ovocia sa pestuje na západnom Slovensku (Modra, Pezinok) a vo Východoslovenskej nížine (Tokajská oblasť).[55]
+
+V živočíšnej výrobe sa postupne znižuje počet hospodárskych zvierat. Najvýraznejšie klesajú stavy ošípaných a hovädzieho dobytka. Chov oviec je už trvalo nízky. Najpočetnejšie sú stavy hydiny. Väčšia časť živočíšnej výroby je sústredná v nížinách, kde sa nachádzajú dostatočné zdroje krmovín. Na chov dobytka a oviec sa často využívajú aj pasienky a horské lúky. Rybolov má zatiaľ iba lokálny význam, realizuje sa predovšetkým na miestnych riekach a vodných nádržiach.
+
+K 31. decembru 2009 sa na Slovensku chovalo:[56]
+
+Druh	Počet kusov v tisícoch
+Hovädzí dobytok	471
+Ošípané	740
+Ovce	376
+Kozy	35
+Kone	7
+Hydina (z toho sliepky)	13 583 (6 252)
+Štruktúra pôdneho fondu na Slovensku v rokoch 2007–2012 bola nasledovná (všetky údaje v ha k 1. januáru daného roku):[57]
+
+Rok	Spolu	Poľnohospodárska
+pôda	Orná pôda	Chmeľnice	Vinice	Záhrady	Ovocné
+sady	TTP	Lesná pôda	Vodné
+plochy	Zastavané
+plochy	Iné
+2007	4 903 397	2 430 683	1 427 357	534	27 314	76 813	17 792	880 873	2 006 939	93 325	227 092	145 357
+2008	4 903 573	2 428 899	1 425 896	530	27 243	76 720	17 590	880 920	2 007 142	93 656	227 931	145 945
+2009	4 903 704	2 423 478	1 421 852	520	27 258	76 636	17 360	879 853	2 008 257	94 575	229 059	148 335
+2010	4 903 717	2 417 933	1 417 983	519	27 140	76 563	17 257	878 470	2 008 843	94 645	229 941	152 356
+2011	4 903 644	2 414 291	1 416 633	520	27 091	76 529	17 034	876 484	2 011 250	94 761	230 589	152 753
+2012	4 903 613	2 410 812	1 415 653	517	26 997	76 563	16 858	874 224	2 012 336	94 764	231 967	153 733
+Priemysel
+
+Chladiace veže atómových elektrární v Mochovciach
+
+Kia Sportage, model auta vyrábaný v žilinskom závode Kia Motors Slovakia
+Priemysel je základným odvetvím hospodárstva. Rozvinul sa najmä na baníckej ťažbe. Slovensko disponuje však malými zásobami palív, dovážajú sa preto z iných štátov (čierne uhlie z Česka, ropa a zemný plyn z Ruska). Viac než polovicu elektrickej energie dodávajú jadrové elektrárne (Jaslovské Bohunice, Mochovce), potom tepelné a vodné elektrárne (z vodných najviac Gabčíkovo na Dunaji). Hutníctvo spracúvalo aj domáce, dnes už len dovážané suroviny (U.S. Steel Košice, Železiarne Podbrezová, hlinikárne Žiar nad Hronom – bývalé Závody SNP) pre potreby strojárstva.[11]
+
+Nízke náklady na pracovnú silu a daňová reforma sa na začiatku 21. storočia stali atraktívne pre zahraničných investorov, najmä z automobilového priemyslu, ktorý má v slovenskej ekonomike výraznú pozíciu. Na Slovensku je vyrobených najviac áut na svete na jedného obyvateľa. Nachádzajú sa tu závody spoločnosti Volkswagen v Bratislave, Stupave a Martine, PSA Peugeot-Citroën v Trnave, Jaguar v Nitre a Kia v Žiline. Na Slovensku sa v roku 2011 vyrobilo 926 555 automobilov, čo je najviac automobilov na svete v prepočte na jedného obyvateľa, konkrétne 171 áut na tisíc obyvateľov. V roku 2013 výroba mierne stúpla na približne 980 000 vozidiel.[58] Krajina si výrobou automobilov získala prívlastok Detroit Európy a po rozvoji ekonomiky aj tatranský tiger.[59]
+
+Druhý najdôležitejší priemysel je elektrotechnický priemysel. Pri Nitre má továreň spoločnosť Sony, pri Galante spoločnosť Samsung. Významná je výroba strojov na strednom a hornom Považí. Najväčšie strojárske podniky sú v Bratislave (automobily), Galante (televízory a domáce spotrebiče), Poprade (vagónka, práčky), Tlmačoch (stroje pre energetiku). Najväčšie chemické závody sú v Bratislave (Slovnaft, Istrochem), Šali (Duslo) a Novákoch (Fortischem). Ďalšie závody vyrábajú plasty a syntetické vlákna, lieky a gumárenské výrobky (Continental Matador Rubber).
+
+Najrovnomernejšie rozloženým priemyslom na Slovensku je potravinárstvo, ktoré je zamerané prevažne na domácu spotrebu. Poľnohospodárske produkty sa spracúvajú v pekárňach, mliekarňach, mäsokombinátoch, cukrovaroch, pivovaroch či vinárskych závodoch. Dôležitú pozíciu v slovenskom hospodárstve má spracovanie dreva (píly, drevokombináty, nábytok), výroba celulózy a papiera (Ružomberok, Žilina, Štúrovo, Harmanec). Vyváža sa mnoho surového, čiže nespracovaného dreva.
+
+Výrazný útlm zaznamenal textilný a odevný priemysel (závody v Trenčíne a Púchove). Dôvodom je dovoz lacnejších výrobkov najmä z ázijských krajín. Do popredia sa dostávajú firmy zamerané na produkciu textílií a šitia poťahov pre automobilový priemysel (napr. v Liptovskom Mikuláši). Okrem toho je zastúpený aj obuvnícky a sklársky priemysel.[11] Do štátnej pokladnice prispievajú remeslá ako drotárstvo, hrnčiarstvo (výroba majoliky v Modre), rezbárstvo (výroba valašiek, hudobných nástrojov), tkanie látok a pod. Mnoho artefaktov končí ako suvenír turistov.
+
+Služby
+Pre hospodárstvo Slovenska majú význam služby, ako napríklad bankovníctvo a finančníctvo. Financie a štátny rozpočet Slovenska schvaľuje každoročne parlament. Emisnou bankou je štátna banka, ktorá vykonáva zúčtovanie platieb ako medzi miestnymi organizáciami, tak voči zahraničiu. Bankový sektor pozostáva zo štátnej národnej banky a viacerých komerčných bánk. V štruktúre bankového systému na Slovensku je na čele Národná banka Slovenska.[60] Od roku 2009 je platnou menou euro (€), deliace sa na 100 centov. Tok peňazí prebieha voľne, ale je pomerne stabilný.
+
+Cestovný ruch
+
+Lyžiarske stredisko Chopok Jasná
+
+Termálne kúpalisko v Bešeňovej
+
+Vihorlatský prales, lokalita Svetového dedičstva UNESCO
+Slovensko má pre cestovný ruch veľmi dobré predpoklady. Turistov lákajú pekné pohoria, jaskyne, jazerá, historické mestá, kúpele, hrady a zámky. Z veľkého množstva kultúrnych a prírodných pozoruhodností Slovenska je do Zoznamu svetového dedičstva UNESCO zapísaných sedem – dve prírodné (jaskyne Slovenského krasu a pralesy Východných Karpát) a päť kultúrnych (pamiatková rezervácia ľudovej architektúry Vlkolínec, mestská pamiatková rezervácia Bardejov, historické centrum Levoča a Spišský hrad, drevené kostolíky slovenskej časti Karpát, Banská Štiavnica a jej technické pamiatky jej okolia).[61]
+
+Návštevnosť však stále limituje na európske pomery o čosi nižšia kvalita služieb v niektorých regiónoch krajiny. V roku 2013 navštívilo Slovensko celkovo 4 048 505 osôb, z toho zahraničných bolo 169 484. Najviac zahraničných návštevníkov prichádza z Česka (asi 26 %), Poľska (15 %) a Nemecka (11 %). Medzi najnavštevovanejšie destinácie patrilo hlavné mesto, pohorie Tatry a región Liptov.[62][63] Väčší rozvoj cestovného ruchu závisí od zvýšenia celkovej úrovne služieb, vrátane dopravnej infraštruktúry.
+
+V roku 2018 navštívilo Slovensko 5,6 milión turistov. Okrem toho, že najviac zahraničných turistov prichádza aj naďalej z Česka, Poľska a Nemecka, zaznamenal sa aj nárast turistov z iných krajín, napr. z Izraela (+52%), Islandu (+50%), a Ruska (+22%).[64] Slovensku má rozvinutú infraštruktúru pre pešiu turistiku. Existuje viac ako 15 000 km značkovaných turistických chodníkov pre pešiu a viac ako 500 km pre lyžiarsku turistiku (stav k roku 2019).[65]
+
+Veda a výskum
+Veda a výskum sú na Slovensku spojené najmä so štátom financovanými vysokými školami, odbornými ústavmi a Slovenskou akadémiou vied (založená v roku 1953). Súkromný sektor sa vo sfére vedy a výskumu zatiaľ prakticky nevyskytuje. Slovenskí vedci sú v Európe veľmi uznávaní. Všeobecne kvalitnú úroveň, porovnateľnú so svetovou majú technické odbory a fyzika. Výdavky na vedu a výskum napriek snahám o zvýšenie na hranicu 3 % HDP do roku 2010 na Slovensku nestúpajú a už niekoľko rokov sa pohybujú okolo 0,5 % HDP, pričom podiel mierne klesá a v roku 2008 bol 0,47 %. Veľká pozornosť je tiež venovaná podpore múzejníctva a budovaniu verejných knižníc.
+
+Prvým veľkým vedcom, ktorý sa dá považovať za slovenského, bol lekár Ján Jesenský. Zakladateľ modernej slovenskej vzdelanosti bol osvietenec Matej Bel. Najväčšie úspechy dosiahol fyzik a vynálezca Aurel Stodola, ktorý rozvinul technológiu parných turbín. Významný slovenský konštruktér bol Ján Bahýľ. K rozvoju optiky výrazne prispel Josef Maximilián Petzval. Na konštrukcii padáku pracoval Štefan Banič. Priekopníkom bezdrôtovej komunikácie bol Jozef Murgaš. Zo súčasných výskumníkov je významný astronóm Peter Kušnirák, ktorý objavil cez 230 planétok. V Bratislave sa narodil nemecký nositeľ Nobelovej ceny za fyziku a nacistický exponent Philipp Lenard.
+
+Doprava
+
+Diaľnica D1 pri Trnave
+
+Elektrická poschodová jednotka radu 671 na osobnom vlaku Železničnej spoločnosti Slovensko na trati Žilina – Košice
+Slovensko bolo odpradávna križovatkou ciest medzi Jadranským a Baltským morom a medzi Severným a Čiernym morom. Prechod územím Slovenska umožňujú dôležité horské sedlá a priesmyky. Vedú nimi v súčasnosti významné európske cestné a železničné koridory, aj keď viaceré Slovensko i obchádzajú okolitými, rovinatejšími štátmi. Významná je medzinárodná plavebná dráha po Dunaji. Vďaka strategickej polohe vedú Slovenskom aj trasy ropovodov a plynovodov z Ruska do západnej Európy.[13]
+
+Cestná doprava
+Doprava osôb a preprava nákladov má väčšinou tranzitný charakter a uskutočňuje sa najmä po cestách. Celková dĺžka cestných komunikácií je 42 993 km. S tvrdým povrchom 37 533 km (vrátane 415,5 km diaľnic a 259 km rýchlostných ciest) a s nespevneným povrchom 5 460 km. Kategórie cestných komunikácií: cesty I. triedy, cesty II. triedy, cesty III. triedy, rýchlostné komunikácie, diaľnice (D1, D2, D3, D4). Cestná sieť sa v ostatnom čase rýchlo vylepšuje (výstavba diaľnic), stále však kvalitou nedosahuje požadované parametre. V štáte ešte neexistuje prepojenie diaľnicou z hlavného mesta do východnej metropoly, do Košíc. Kvalitné cestné spojenia však urýchľujú ekonomický rozvoj.[15]
+
+Železničná doprava
+Železnice stoja tiež pred obdobím radikálnej modernizácie. Ich dĺžka, podobne ako u cestnej siete, je nadpriemerná.  V železnične doprave prevláda preprava tovarov nad osobnou prepravou. Na Slovensku osobnú železničnú dopravu zabezpečujú Železničná spoločnosť Slovensko (ZSSK) aj súkromní prepravcovia RegioJet, Leo Expres a Arriva. ŽSR spravujú 3 690 kilometrov (2007)[66] tratí normálneho, širokého a úzkeho rozchodu tratí a 1 923 km tratí so zabezpečovacím zariadením. Ďalej majú v správe 1 159 priecestí so signalizáciou, 8 773 výhybiek, 76 tunelov s dĺžkou 43,3 km, 2 283 mostov s dĺžkou 46,7 km a 2 344 železničných priecestí. Spoločnosť ŽSR je podľa zákona prevádzkovateľom dráh na území Slovenska.
+
+Najdôležitejšími železničnými uzlami sú: Bratislava, Trnava, Galanta, Žilina, Vrútky, Košice, Zvolen, Leopoldov a Nové Zámky. Najdlhší železničný tunel na Slovensku a aj v bývalom Česko-Slovensku je Čremošniansky tunel s dĺžkou 4 697 m, ktorý sa nachádza na trati ŽSR č. 170 Vrútky – Turčianske Teplice – Banská Bystrica – Zvolen osobná stanica.
+
+Železničná doprava má na Slovensku dlhú tradíciu. Medzi technické pamiatky patrí Čiernohronská železnica v Čiernom Balogu a úvraťová Kysucko-oravská lesná železnica na Vychylovke, ktorá bola v prevádzke v rokoch 1926 až 1971, dnes jej časť slúži ako turistická atrakcia. Osobitné postavenie v železničnej doprave má mesto Čierna nad Tisou (prekladisko Ukrajiny do Ruska). Nedostatkom železničnej dopravy je jej pomalosť a zastaralá infraštruktúra.
+
+Vodná doprava
+
+Mapa Slovenska s vyznačenými administratívnymi hranicami, mestami, cestnou a riečnou sieťou
+Vodná doprava sa na Slovensku vykonáva na riekach: Dunaj (172 km), Váh (78,8 km), Bodrog (7,8 km) a Topľa (20 km). Riečna doprava je najlacnejší a ekologicky najvýhodnejší druh dopravy, nevýhodou je pomalosť a závislosť od vodného stavu riek. Osobná vodná doprava sa využíva prevažne na rekreáciu a výlety, nákladná doprava má význam pre zahraničný obchod. Riečne prístavy sa nachádzajú v mestách Bratislava a Komárno. Na ostatných vodných plochách sa vykonáva prevažne rekreačná a technologická plavba. Z časti je realizovaný projekt Vážskej vodnej cesty s medzinárodným významom, ktorá by mala prepojiť Dunaj cez Váh s Odrou a Vislou.[67] Pod slovenskou vlajkou sa plaví cca 60 lodí, pričom Slovensko nevlastní žiadnu z nich.
+
+Letecká doprava
+
+Lietadlá slovenských leteckých spoločností Go2Sky a AirExplore na Letisku M. R. Štefánika v Bratislave
+Význam leteckej dopravy neustále narastá. Na Slovensku sa nachádza 36 letísk (z toho 20 s tvrdým povrchom).[27] Slovensko má celkovo 6 medzinárodných letísk, konkrétne v Bratislave, Košiciach, Piešťanoch, Poprade, Sliači a Žiline. Najväčšie letisko na Slovensku je Letisko Milana Rastislava Štefánika v Bratislave. V roku 2016 prepravilo 1 756 808 cestujúcich.[68] Letecká doprava má význam najmä v medzinárodnom styku a v cestovnom ruchu.
+
+Počet letísk podľa dĺžky vzletových a pristávacích dráh:[27]
+
+viac ako 3 047 m: 1
+od 2 438 do 3 047 m: 3
+od 1 524 do 2 437 m: 3
+od 914 do 1 523 m: 12
+menej ako 914 m: 17
+Potrubná doprava
+Potrubná doprava je orientovaná najmä na dovoz surovín z Ruska a tým je zraniteľná. Cez Slovensko prechádzajú dva ropovody – Družba (506,6 km) a Adria (8,5 km). Krajinou taktiež prechádza plynovod Bratstvo, na ktorý je nadviazaný slovenský distribučný systém plynovodov o dĺžke vyše 30 560 km.[69] K zemnému plynu má vďaka plynovodom prístup 95 % obyvateľov krajiny.[69] Významné sú aj vodovody, ktoré na mnohých miestach umožňujú zásobovanie obyvateľstva vodou zo vzdialených vodných nádrží.
+
+Komunikácie
+
+Sídlo Slovenského rozhlasu
+
+Sídlo Slovenskej televízie v Mlynskej doline v Bratislave
+Telekomunikácie sa od počiatku nového tisícročia významne modernizujú a rozvíjajú, predovšetkým využitie mobilných telefónov. K roku 2009 bolo v krajine používaných celkom 5,9 miliónov mobilných telefónov a cez 4 milióny ľudí používalo internet.[70] Celkovo je rozšírenie týchto služieb porovnateľné s ostatnými krajinami v regióne. Na Slovensku vysiela celkom asi 40 národných, regionálnych a miestnych televíznych staníc, väčšinou v súkromnom vlastníctve. Tri celonárodné televízne programy sú vysielané pod taktovkou spoločnosti Rozhlas a televízia Slovenska, ktorá vznikla v januári 2011. Má dve organizačné zložky: Slovenský rozhlas a Slovenskú televíziu, ktoré pred vznikom RTVS fungovali samostatne.[71] Na Slovensku funguje zhruba 20 rádiových programov. Napriek tomu je v krajine naďalej používaný analógový systém, postupne sa prechádza na digitálne vysielanie. Zavádza sa tiež využitie optických vláken.[72]
+
+Rozhlas
+Najpočúvanejšie rádiá na Slovensku sú (2. + 3. kvartál 2017) Rádio Expres (19,25 %), Rádio Slovensko (SRo 1, 17,03 %), Fun rádio (11 %), Rádio Jemné (7,3 %), Rádio Europa 2 (6,86 %), Rádio Regina (SRo 4, 6,26 %), Rádio Vlna (5,34 %), Rádio Anténa Rock (2,97 %), Rádio FM (SRo 3, 2,56 %) a Rádio Lumen (2,5 %).[73]
+
+Verejnoprávny Slovenský rozhlas vysiela už viac ako 85 rokov a má 9 okruhov. Terestriálne vysielajú: Rádio Slovensko, Rádio Regina, Rádio Devín, Rádio FM, Rádio Patria a Radio Slovakia International. Digitálne cez internet a od roku 2015 aj v digitálnej sieti DAB+[74] vysiela: Rádio Klasika, Rádio Litera a Rádio Junior. Sídlo Slovenského rozhlasu je na Mýtnej ulici v Bratislave.
+
+Televízia
+Televízne vysielanie pokrýva celé územie Slovenska. Je zabezpečené verejnoprávnymi i súkromnými médiami s rôznym regionálnym dosahom. Od zániku Česko-slovenskej televízie vysiela na Slovensku verejnoprávna – Slovenská televízia, ktorá má tri kanály Jednotka, Dvojka a Trojka. Jednotka (do roku 2004 STV 1) vysiela od roku 1956 všeobecný program, filmy, seriály, relácie a spravodajstvo. Dvojka (do roku 2004 STV 2) vysiela od roku 1970 prevažne slovenské dokumenty, šport, programy pre deti, slovenské a nekomerčné zahraničné filmy. Trojka začala vysielať v roku 2008 ako športový kanál až do roku 2011. V roku 2019 obnovila svoje vysielanie a v súčasnosti vysiela filmy a relácie z archívu.
+
+Roku 1996 začala vysielať aj komerčná TV Markíza, ktorá je najsledovanejšou televíziou. Jej riaditeľom je Matthias Settele. Televízia spustila druhý, pre ženy určený kanál TV Doma, tretí, pre mužov, s názvom TV Dajto, aj štvrtý kanál TV Foor, ktorý zanikol v roku 2014.
+
+Z televízie Global vznikla v roku 2002 TV JOJ, ktorá spustila vysielanie druhého okruhu Plus a v roku 2013 ďalšie dva programy TV WAU a TV Senzi. Neskôr pribudli detské kanály Ťuki TV a TV RiK. Pre Česko bol spustený program JOJ FAMILY a premiérový kanál JOJ CINEMA pre Slovensko. Generálnym riaditeľom je Marcel Grega.
+
+Okrem týchto televízií s terestriálnym vysielaním sú na Slovensku aj spravodajská televízia TA3, monotematická TVA (obchodné správy), Nautik TV (pôvodne podmorský svet, v súčasnosti predovšetkým interaktívne relácie), Music Box (hudobná stanica), ako aj ďalšie miestne a lokálne televízie. Poradie televízií podľa sledovanosti (október 2017): TV Markíza (19,5 %), TV JOJ (16,2 %), Jednotka (10,1 %), TV Doma (4 %), TV Dajto (3,1 %), Plus (3 %), TV WAU (2,8 %), Dvojka (2,2 %) a TA3 (1,6 %).[75]
+
+Televízia je dnes na Slovensku dôležitým spoločenským javom, je prostriedkom masovej komunikácie, má strategický význam pre hospodárstvo a zároveň má i kultúrnotvorný charakter. Pôsobí priamo na zmysly a to je jeden zo základných ukazovateľov jej komunikačnej funkcie. Ponúka svojim poslucháčom poučenie i zábavu, informácie, estetický zážitok, vychováva i vzdeláva. Široký záber pôsobenia televízie formuje celkový životný štýl Slovákov. Na Slovensku sa začali pravidelne vysielať televízne programy v roku 1953.[76]
+
+Tlač
+Slovenská tlač má dlhoročnú tradíciu vo vydávaní časopisov a kníh. Vydavateľstvá a tlač plnia veľkú kultúrnu a vzdelávaciu úlohu. Zabezpečujú vydávanie novín, časopisov, kníh a ďalších tlačových materiálov. Najväčšie tlačiarne sú v Bratislave, Martine, Skalici, Komárne, Košiciach a ďalších mestách. Najčítanejšie periodiká na Slovensku sú (k roku 2016):[77]
+
+Denníky – Nový Čas (15 %), SME (6 %), Pravda (6 %), Plus JEDEN DEŇ (5 %), Šport (4 %), Korzár (3 %) a Hospodárske noviny (3 %).
+Týždenníky – Plus 7 dní (8 %), Život (6 %), Nový Čas pre ženy (6 %), Báječná Žena (6 %), Eurotelevízia (4 %), Slovenka (4 %) a Katolícke noviny (4 %).
+Mesačníky – Záhradkár (8 %), Zdravie (7 %), Eva (5 %), EMMA (5 %), Nový čas Krížovky (4 %), Auto motor a šport (3 %) a Auto magazín (3 %).
+Kultúra
+Bližšie informácie v hlavnom článku: Slovenská kultúra
+
+Slováci v tradičných krojoch
+
+Drevená vidiecka architektúra v dedinke Vlkolínec
+Slovensko patrí do európskeho kultúrneho regiónu. Hoci sa miestna kultúra vyvíjala súbežne s kultúrou ostatných slovanských národov, zachovala si svoju originalitu. Každý slovenský región má pestré ľudové zvyky a tradície, ktoré sa viazali k životu a práci človeka. Pre všetky sú spoločné kresťanské a v niektorých prípadoch aj predkresťanské sviatky a obrady. Najvýznamnejšie sú vianočné tradície, trojkráľové sviatky, Hromnice, veľkonočné sviatky, Všetkých svätých a i. V jednotlivých regiónoch sa pripravovali typické jedlá, nápoje, spievali sa svojrázne pesničky a tancovali jedinečné tance. Aj dnes na mnohých miestach nájdeme ľudové kroje, ktoré bežne nosia hlavne starší obyvatelia. Ľudové tradície nám dnes približujú aj folklórne festivaly, napr. vo Východnej, v Detve, na Myjave, v Zuberci a inde. Folklórne súbory ako SĽUK či Lúčnica preslávili Slovensko nielen doma, ale aj v zahraničí.[13][33]
+
+Tradičná ľudová kultúra Slovenska vychádza z kolektívnych vkusových noriem. Tie sa vyvíjali pomaly. Odovzdávali sa ústnym podaním z generácie na generáciu.[76] Ústna ľudová slovesnosť má pôvod hlboko v minulosti, kedy do istej miery kompenzovala domácu písanú literatúru. S každodenným životom sa spájali spevy k rôznym príležitostiam ako boli svadby, narodenie dieťaťa, pohreby a oslavy sviatkov. Slovenská ľudová lyrika obsahuje junácke či milostné piesne; zaznamenané sú porekadlá, príslovia a hádanky. V epike sú to predovšetkým rozprávky a balady.
+
+Architektúra
+
+Bratislavský hrad
+
+Bojnický zámok
+Stavby sa budovali z rôznych stavebných materiálov s charakteristickou architektúrou. V hornatejších častiach Slovenska to bolo často drevo, ktorého je tam aj v súčasnosti dostatok. Stavby drevenej architektúry (drevenice) sú postavené ako zrub, kladením jednotlivých trámov po obvode. Strechy sa pokrývali dreveným šindľom a zdobenými štítmi. Na stavbu jednoduchších obydlí sa používala aj nepálená hlina so slamou. Takéto budovy boli typické najmä pre južné časti Slovenska, Záhorie a Považie. Hlinené stavby sa stavali technológiou "nabíjania", keď sa navozená čerstvá hlina utláčala, nabíjala kolmi medzi doskové debnenie, čím vznikli obvodové i priečne steny domu.[76]
+
+Typickú architektúru jednotlivých regiónov uchovávajú pamiatkové rezervácie ľudovej architektúry. Najznámejšie sú Veľké Leváre, Brhlovce, Sebechleby, Čičmany, Špania Dolina, Vlkolínec, Podbiel a Ždiar. Príkladom uchovávania nielen stavebných pamiatok, ale aj možností hospodárenia našich predkov sú skanzeny, múzeá v prírode. Na Slovensku je v súčasnosti 10 skanzenov, ktoré prezentujú pamiatky ľudovej stavebnej kultúry, život ľudí a v neposlednom rade aj technické pamiatky, ktoré sa v minulosti používali.[78] Nachádzajú sa v rôznych častiach našej vlasti: Múzeum slovenskej dediny v Martine na Turci, Vychylovka na Kysuciach, Zuberec na Orave, Pribylina na Liptove, Svidník na Šariši, Humenné na Zemplíne, Nitra v Podunajsku atď.[13]
+
+Na Slovensku sa nachádza tiež mnoho hradov, zámkov, kostolov, kaštieľov a ďalších kultúrnych pamiatok. Krajina má podľa niektorých zdrojov najväčšiu koncentráciu hradov na jedného obyvateľa. Pri ich výstavbe sa používal trvanlivejší kameň. Zaujímavé sú i mestské pamiatkové rezervácie, ktoré sú vo väčšine našich historických miest – Bratislava, Banská Štiavnica, Košice, Bardejov, Levoča, Banská Bystrica a i. Neodmysliteľnou súčasťou slovenskej architektúry sú drevené kostolíky, ktoré sa na miestnom území stavali od druhej polovice 15. storočia. Sú obrazom vnímania náboženského života a praktizovania viery dedinských ľudí. V súčasnosti môžeme na Slovensku vidieť okolo 40 drevených kostolov. Nie všetky sú sprístupnené a niektoré z nich sú súčasťou skanzenov.[79]
+
+Výtvarné umenie
+
+Interiér múzea Andyho Warhola v Medzilaborciach
+Korene výtvarného umenia na území Slovenska siahajú hlboko do minulosti. Najstarším umeleckým dielom sú napríklad venuše z doby kamennej, kresby neolitických ľudí, šperky a ďalšie nájdené predmety. Najvýznamnejším stredovekým tvorcom bol Majster Pavol z Levoče, tvorca najvyššieho dreveného oltára na svete, ktorý sa nachádza v levočskom Chráme sv. Jakuba.[80] Začiatkom 20. storočia začína na Slovensku tvoriť generácia orientovaná na nové umelecké postupy. Slovenský umelecký život výrazne ovplyvnil maliar Gustáv Mallý či sochár Ján Koniarek. Po prvej svetovej vojne umelci vychádzali z domácich tradícií a nové formálne poznatky využívajú ako tvárny výrazový prostriedok. Rozbiehal sa spolkový život, tvorba bola rozmanitejšia.[76]
+
+Spomedzi desiatok výtvarníkov dosiahli mnohí úspechy. Priekopníkom modernistickej maľby bol Martin Benka, v jeho stopách šli Mikuláš Galanda, Ľudovít Fulla a Janko Alexy. Ako grafici sa preslávili Koloman Sokol či Albín Brunovský a sochár Arpád Račko. Nemožno obísť obdobie socialistického realizmu. Jeho princípy boli do umenia násilne implantované, ale osobnosti sa s nimi vysporadúvali rôzne. Najvýznamnejším výtvarným umelcom, narodeným slovenským emigrantom v USA, bol bezpochyby zakladateľ pop-artu Andy Warhol. V roku 1991 bolo neďaleko rodnej dediny jeho rodičov, v meste Medzilaborce, otvorené múzeum venované jeho tvorbe.[81]
+
+Súčasné výtvarné umenie vytvárajú stovky autorov, väčšinou absolventov bratislavskej Vysokej školy výtvarných umení. Výtvarné dianie organizuje hlavne Slovenská výtvarná únia a okrem nej i Spolok výtvarníkov Slovenska a Umelecká beseda Slovenska, ktorá nadväzuje na tradície jedného z najstarších spolkov v krajine. Možnosť prezentácie súčasného výtvarného umenia poskytuje sieť galérií a výstavných siení. Obraz výtvarného diania na Slovensku je neobyčajne pestrý. Prelína sa v ňom úsilie niekoľkých generačných vrstiev. Kvality závesného maliarstva tak rozvíjajú príslušníci staršej generácie výtvarníkov, zatiaľ čo mladšia generácia hľadá nové možnosti výtvarnej transformácie. V oblasti súčasného umenia pôsobí napríklad Blažej Baláž.[82] Faktom zostáva, že umenie na Slovensku prekvitá a môže sa porovnávať so zahraničím.
+
+Literatúra
+
+Ľudovít Štúr, kodifikátor slovenského spisovného jazyka
+Slovenská literatúra má bohatú históriu, tiahnucu sa od dôb Veľkej Moravy prvým dielom Proglas od sv. Cyrila. Najstaršou listinnou ručne písanou pamiatkou na území Slovenska je Nitriansky kódex (1083), latinský evanjeliár. V humanizme a renesancii tvorili na území dnešného Slovenska hlavne v latinčine a češtine. Roku 1784 Jozef Ignác Bajza, René mládenca príhody a skúsenosti prvý román v slovenskej literatúre napísaný v jazyku, ktorý si autor sám vytvoril na základe západoslovenského nárečia. Ďalším veľmi významným obdobím bol romantizmus, počas ktorého sa podarilo v podstate definitívne kodifikovať spisovnú slovenčinu, ktorá sa s malými úpravami používa dodnes. Zaslúžili sa o to najmä štúrovci na čele s Ľudovítom Štúrom. Za základ si vybrali stredoslovenské nárečie, ktoré bolo jazykom ľudu. V romantizme tvorili slovenskí autori najmä poéziu – Ján Kollár, Pavol Jozef Šafárik, Andrej Sládkovič, Samo Chalupka, Janko Kráľ, Ján Botto, Janko Matúška a i. V realizme sa do popredia dostala próza. Napriek tomu, Pavol Országh Hviezdoslav, jeden z najznámejších slovenských básnikov, písal v tomto období poéziu.
+
+Po rozpade Uhorska nastáva pre slovenskú literatúru obdobie zvané slovenská moderna, v ktorom dochádza k novému zvýrazneniu reálneho sociologického a psychologického rozmeru literatúry. Medzivojnové obdobie reagovalo na 1. svetovú vojnu v tvorbe plurality nových smerov, autori: Ján Smrek, Laco Novomeský, Jozef Cíger-Hronský, Margita Figuli, František Švantner a iní. V druhej polovici 20. storočia sa výrazne presadil Ladislav Mňačko a Milan Rúfus. Medzi súčasnú slovenskú literatúru sa radia napr. Jana Bodnárová, Dušan Dušek, Daniel Hevier, Vincent Šikula či významný predstaviteľ detektívnej literatúry Dominik Dán.
+
+Hudba a tanec
+
+Prezentácia modernej hudby na festivale Pohoda v Trenčíne
+Vývoj slovenskej hudby predstavuje tisícročný proces, bezprostredne súvisiaci s dejinnými udalosťami na Slovensku a ich kultúrno-spoločenským vývojom. K najstarším umeleckým prejavom zaraďujeme ľudové piesne, ktoré sú súčasťou obradového folklóru. Patria sem rôzne vinše, vianočné a veľkonočné koledy, fašiangové veselice, zaklínadlá, popevky a pod. Ťažký život si slovenskí predkovia spríjemňovali spevom aj tancom. V slovenskom folklóre hovoríme o niekoľkých štýlových vrstvách ľudových piesní. Rozšírené sú piesne tzv. starej kultúry, kde zaraďujeme rituálne piesne (nápevky svadobných piesní, plačky atď.), piesne roľníckej a pastierskej kultúry (napr. trávnice, žatevné piesne). Novú piesňovú kultúru reprezentujú najmä piesne s ľúbostnou a vojenskou tematikou. Typickým prvkom hudobných tradícií sú viachlasné mužské spevy, ktoré sú na Slovensku jedinečné. Zaujímavými hudobnými nástrojmi Slovákov sú fujara, ozembuch či gajdy.[76]
+
+Počiatky slovenskej modernej hudby sa datujú do obdobia povojnového Československa (1918). Pred hudobnými umelcami stála náročná úloha, ktorej cieľom bolo prekonať tradičnú zaostalosť krajiny i po stránke hudobného umenia. Kvôli vytvoreniu národnej novodobej hudby sa Slováci vydali cestou profesionalizácie hudobného života. Začali sa vytvárať hudobné školy, konzervatóriá a opery. Slovenský skladateľ Mikuláš Schneider-Trnavský sa zaslúžil o založenie Hudobnej a dramatickej akadémie v Bratislave. Postupne sa menil hudobný sloh z melodicko-harmonického na sónický, zvukovo bohatý. Najstarším predstaviteľom slovenskej hudobnej moderny bol Alexander Moyzes, ktorého mladším súčasníkom bol Eugen Suchoň a Ján Cikker. Medzi priekopníkov slovenskej populárnej hudby patrili Gejza Dusík a František Krištof Veselý. Výrazne sa presadili aj operné speváčky Edita Gruberová, Lucia Poppová, Gabriela Beňačková, z mužov Peter Dvorský.
+
+Kráľovnou česko-slovenského šansónu sa stala Hana Hegerová. V 80. rokoch 20. storočia prišla silná vlna slovenskej pop-music: Karol Duchoň, Marika Gombitová, Miroslav Žbirka, Peter Nagy, Richard Müller, Pavol Hammel, skupiny Elán (Vašo Patejdl, Jožo Ráž), Team (Pavol Habera) či Tublatanka. Po rozpade federácie sa objavili aj nové hviezdy, ako sú speváčky Katarína Knechtová, Kristína, Zuzana Smatanová, Jana Kirschner, Nela Pocisková, Mária Čírová, Sima Martausová, spevák Peter Cmorík, Marián Čekovský alebo skupiny IMT Smile, No Name, Hex a Desmod.
+
+
+Slovenský ľudový tanec
+S rôznosťou hudby súvisí i veľká rozmanitosť tancov. Tanec bol v minulosti často súčasťou náboženských obradov, ale i prostriedkom zábavy. V každej obci boli približne dve-tri tanečné zábavy počas roka (tzv. "muziky"). Tanečný prejav je poznamenaný striedaním rýchleho, a hneď pomalého tempa. Medzi známe ľudové tance patrí verbunk, odzemok, palicový tanec, klobúkový tanec, zvykoslovné tance (napr. s kosou, o vienok, grošové a i.). Jedinečné sú dupavé tance – ženy často tancujú do kruhu, pre mužov je charakteristický šórový tanec v dvoch radoch oproti sebe.[76]
+
+Divadlo
+
+Historická budova Slovenského národného divadla
+Divadelné predstavenie na území Slovenska existovalo už v ranom stredoveku vo forme náboženskej drámy. Najstaršie divadelné aktivity sa viažu na činnosť ochotníckych súborov a dramatikov (napr. Jozef Gregor Tajovský, Božena Slančíková-Timrava). Prvé profesionálne divadlo vzniklo v marci 1920 v Bratislave. Profesionálny divadelný súbor uvádzal väčšinu svojho repertoáru po česky. Slovenské hry sa v repertoári divadla vyskytovali len zriedkavo a navyše hrali ich českí herci. Skutočným prelomom v slovenskom divadelníctve bol vznik Slovenskej činohry SND (1932).[83]
+
+Po roku 1945 sa zaznamenal aj rozvoj regionálneho divadelného života, ktorý sa zavŕšil dobudovaním rozsiahlejšej siete profesionálnych divadiel, vrátane divadiel národnostných menšín a bábkových divadiel. Významnými osobnosťami boli Jozef Budský a Ján Jamnický. V roku 1979 rozhodli príslušné miesta o výstavbe novej budovy SND. Novú budovu otvorili 14. apríla 2007.[83] Súčasnú divadelnú sieť na Slovensku vytvárajú viac ako dve desiatky stálych divadiel. V uplynulých rokoch sa začala rozvíjať i sféra nezávislých divadelných súborov. Medzi najvýznamnejšie a najdlhšie pôsobiace neštátne súbory patrí Radošinské naivné divadlo v Bratislave. V Banskej Bystrici pôsobí neštátne divadlo pre mentálne postihnutých hercov – Divadlo z Pasáže.
+
+Kinematografia
+Filmová tvorba na Slovensku sa ako jedna z najmladších národných kinematografií zrodila až po druhej svetovej vojne. Od konca 40. rokov 20. storočia sa prikročilo k premietaniu krátkych reportážnych a dokumentárnych filmov. Prvý slovenský film natočil Eduard Schreiber ešte pred rokom 1910. Vyvrcholením Schreiberovej filmárskej činnosti sa stala hraná dobrodružná anekdota zvaná Únos.[82]
+
+K dnešným úspechom nemalým dielom prispela nová generácia režisérov a scenáristov. Ján Kadár je prvým a dosiaľ jediným Slovákom, ktorý získal filmovú cenu Oscar. K tzv. československej novej vlne patri Štefan Uher. Netradičné režisérske postupy úspešne realizuje Juraj Jakubisko. V Hollywoode sa presadil Ivan Reitman, režisér mnohých populárnych komédií (Krotitelia duchov, Dvojčatá, Policajt zo škôlky, Junior a i.).
+
+V hereckej práci sú tendencie stotožniť herca s autentickým správaním človeka v životnej realite. Ešte počas éry federácie sa preslávila rada slovenských hercov: Marián Labuda, Emília Vášáryová, Milan Lasica, Július Satinský, Milan Kňažko, Ladislav Chudík, Michal Dočolomanský, Jozef Kroner, Štefan Kvietik, Zdena Studenková, Július Pántik, Božidara Turzonovová, Martin Huba, Kamila Magálová, Emil Horváth, Maroš Kramár, Miroslav Noga, Richard Stanke, Jana Oľhová, Marián Geišberg, Štefan Skrúcaný, Jozef Vajda či Táňa Radeva. Po rozpade federácie na domácej scéne vynikajú televízni a divadelní herci ako Tatiana Pauhofová, Zuzana Mauréry, Tomáš Maštalír, Petra Polnišová, Vlado Kobielsky, Diana Mórová, Ján Koleník, Vica Kerekes, Michal Hudák, Helena Krajčiová, Zuzana Šebová, Dano Heriban, Branislav Deák, Monika Hilmerová, Michal Kubovčík, Ján Jackuliak, Lukáš Latinák, Juraj Kemka, Karin Haydu, Marek Majeský, Zuzana Porubjaková a iní. V zahraničných produkciách sa presadila Barbora Bobuľová, v modelingu Adriana Karembeu. Slovenských predkov má slávna americká herečka a filmárka Angelina Jolie.
+
+Kuchyňa
+Bližšie informácie v hlavnom článku: Slovenská kuchyňa
+
+Bryndzové halušky, kapustnica a tmavé pivo Zlatý Bažant – príklad kaloricky bohatej slovenskej kuchyne
+Slovenská kuchyňa je relatívne ťažká a regionálne rôznorodá. Vidiecke obyvateľstvo sa muselo stravovať v súlade s ťažkou fyzickou prácou, aby mohlo prežiť. Impulzy dávala a dostávala od okolitých kuchýň, najmä českej, poľskej, rakúskej a maďarskej. Každodenná strava sa skladá z lokálnych surovín, v minulosti sa často jedávala najmä obilná kaša. Pre severné oblasti Slovenska sú typické jedlá pastierskeho pôvodu ako bryndzové halušky a zemiakové placky na rozdiel od juhu Slovenska, kde sú zastúpené jedlá spoločné s maďarskou a rakúskou kuchyňou, ako napríklad guláš, lečo, plnená paprika, viedenský rezeň. Najtradičnejšou polievkou na Slovensku je kapustnica vyrobená obvykle z kyslej kapusty, húb a údeného mäsa.
+
+Obľúbeným nápojom slovenských predkov bola žinčica, vyrobená z ovčieho mlieka, ktorá sa pridávala k bryndzovým haluškám. Z alkoholických nápojov je najtradičnejšie červené a bielo víno, pivo, z destilátov slivovica a borovička.
+
+Medzi slovenské výrobky patria[84]:
+
+syrové výrobky ako parenica, ovčí syr (ovčí hrudkový syr – salašnícky, ovčí salašnícky údený syr), syrové korbáčiky (oravský a zázrivský korbáčik“), oštiepok, bryndza, tekovský salámový syr
+mäsové výrobky ako spišské párky, špekáčiky, liptovská saláma, lovecká saláma
+pekárske výrobky ako skalický trdelník, bratislavský rožok
+Šport
+Vzhľadom na to, že Slovensko sa nachádza v miernom podnebnom pásme, je možné vykonávať športy s letným aj zimným zameraním. V krajine sa budujú štadióny, športové siene a ihriská. Medzi populárne športy na Slovensku patria futbal, ľadový hokej, tenis, atletika, plávanie, hádzaná, basketbal, volejbal, vodný slalom, cyklistika, nohejbal, hokejbal, florbal, lyžovanie, biatlon a ďalšie.
+
+Futbal
+
+Národný futbalový štadión v Bratislave
+Slovenská národná futbalová reprezentácia nepatrila k absolútnej svetovej, či európskej špičke, ale futbal je na Slovensku populárny. Slovenský futbalový zväz riadi slovenský futbal a pod jeho záštitou sa organizujú oficiálne futbalové súťaže na Slovensku ako Fortuna liga, II. liga a ďalšie. Slovenský tím sa v roku 2010 dostal do osemfinále na MS vo futbale v Juhoafrickej republike, a to prvýkrát v ére samostatnosti. Na Majstrovstvá Európy vo futbale sa prvý raz kvalifikoval na rok 2016. Medzi najznámejšie slovenské futbalové tímy patria ŠK Slovan Bratislava, AS Trenčín, MŠK Žilina a FC Spartak Trnava. Z futbalistov sa najviac presadili Marek Hamšík, Martin Škrteľ, Milan Škriniar a Róbert Vittek. Taktiež pod vlajkou Česko-Slovenska uspela rada športovcov (Ján Popluhár, Adolf Scherer, Jozef Adamec, Viliam Schrojf, Titus Bubeník, Ladislav Kubala a i.).
+
+Hokej
+
+Slovenské národné hokejové mužstvo oslavuje výhru v zápase proti Švédsku na ZOH 2010 vo Vancouveri v Kanade
+Slovenská národná reprezentácia v ľadovom hokeji má za sebou viacero úspechov (napr. zlatá medaila v roku 2002, strieborná medaila na majstrovstvách sveta v roku 2000 a 2012, či bronz v roku 2003). Slovenský zväz ľadového hokeja je hlavný riadiaci orgán slovenského ľadového hokeja. Slovensko má viacero oficiálnych mužských hokejových súťaží, napr. Tipsport ligu, 1. hokejovú ligu, zastúpený je aj ženský hokej v 1. lige žien a juniorský a dorastenecký hokej v príslušných ligách. V rokoch 2011 a 2019 sa v Bratislave a v Košiciach uskutočnili Majstrovstvá sveta v ľadovom hokeji. Majstrovstvá Európy v ľadovom hokeji 1925 sa uskutočnili na prírodných klziskách vo Vysokých Tatrách. Najlepším hokejistom Slovenska 20. storočia bol Vladimír Dzurilla, slávni boli aj Jozef Golonka, Vincent Lukáč, Marián Šťastný, Peter Šťastný a Stan Mikita. Titul majstra sveta v hokeji vybojovali okrem iných Miroslav Šatan, Peter Bondra, Žigmund Pálffy či Ján Lašák, dve striebra má Zdeno Chára. Trojnásobným víťazom Stanley Cupu je Marián Hossa, v NHL uspel aj Marián Gáborík a Pavol Demitra. Zlatú olympijskú medailu získal krasokorčuliar Ondrej Nepela.
+
+Ostatné športy
+Slovensko má dobré výsledky v tenise, v roku 2002 Slovensko vyhralo Pohár federácie. Najlepší slovenskí tenisti sa dlhodobo pohybujú v TOP 100 svetového rebríčka (napr. Daniela Hantuchová, Dominika Cibulková, Martin Kližan, Dominik Hrbatý, kedysi Miloslav Mečíř). Centrom slovenského tenisu je Národné tenisové centrum v Bratislave. V posledných rokoch získava veľkú mediálnu popularitu cestná cyklistika najmä vďaka úspechom Petra Sagana. Najvýraznejšou postavou slovenskej dráhovej cyklistiky bol Anton Tkáč.
+
+Významné úspechy dosahujú aj slovenskí vodní športovci, hlavne v rýchlostnej kanoistike a vodnom slalome. Majstrovstvá vo vodnom slalome sa usporadúvajú na divokej vode v Čunove pri Bratislave. Tri zlaté olympijské medaile majú kanoisti Pavol Hochschorner a Peter Hochschorner, dve zlaté ich kolegovia Michal Martikán a Elena Kaliská a tiež Ladislav Škantár a Peter Škantár vybojovali olympijské zlato. V oblasti atletiky získal ešte za éry Československa zlatú olympijskú medailu chodec Jozef Pribilinec. Dnes výrazné úspechy v atletike dosahuje chodec Matej Tóth, olympijský víťaz v chôdzi na 50 km na LOH 2016.
+
+Na Slovensku sú veľmi obľúbené zimné športy, vrátane lyžovania. V lyžiarskom areáli Štrbského plesa sa nachádzajú dva skokanské mostíky, na ktorých sa konali Majstrovstvá sveta v skokoch na lyžiach (1935, 1970) a viaceré svetové poháre. Strediskom biatlonu je malá obec Osrblie, kde sa konali v roku 1997 Majstrovstvá sveta v biatlone. Zo zimných športov Slovensko vzorne reprezentuje lyžiarka Petra Vlhová, ktorá nadviazala na úspechy slalomárky Veroniky Velez-Zuzulovej a biatlonistka Paulína Fialková. Paulína so sestrou Ivonou, Teréziou Poliakovou a Veronikou Machyniakovou tvoria biatlonový tím po ukončení kariéry šesťnásobnej medailistky z OH Anastasie Kuzminovej.

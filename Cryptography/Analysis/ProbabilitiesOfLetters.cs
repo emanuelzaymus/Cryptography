@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using Cryptography.Alphabet;
+using Cryptography.Analysis.TextNormalization;
+using Cryptography.Utilities;
 
 namespace Cryptography.Analysis
 {
     public static class ProbabilitiesOfLetters
     {
-        public static readonly List<LetterProbability> EnglishLanguage = new()
+        public static readonly List<LetterProbability> EnTelegraphWithSpace = new()
         {
             new('A', 0.0657),
             new('B', 0.0126),
@@ -35,7 +38,7 @@ namespace Cryptography.Analysis
             new(' ', 0.1580)
         };
 
-        public static readonly List<LetterProbability> SlovakLanguage = new()
+        public static readonly List<LetterProbability> SkTelegraphWithSpace = new()
         {
             new('A', 0.0995),
             new('B', 0.0118),
@@ -65,5 +68,15 @@ namespace Cryptography.Analysis
             new('Z', 0.0175),
             new(' ', 0.1283)
         };
+
+        public static List<LetterProbability> EnTelegraphWithoutSpace =>
+            LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(Texts.GetEnTelegraph(), Alphabets.ALPHABET);
+
+        public static List<LetterProbability> SkTelegraphWithoutSpace =>
+            LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(
+                Texts.GetSkTelegraph(new SlovakTextNormalizer(Casing.UpperCase)), Alphabets.ALPHABET);
+
+        public static List<LetterProbability> SkWikipedia => LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(
+            Texts.GetSkWikipedia(new SlovakTextNormalizer(Casing.UpperCase)), Alphabets.ALPHABET);
     }
 }
