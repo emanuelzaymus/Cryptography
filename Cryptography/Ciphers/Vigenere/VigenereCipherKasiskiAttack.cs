@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using Cryptography.Alphabet;
@@ -8,6 +9,7 @@ using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Vigenere
 {
+    [SuppressMessage("ReSharper", "InvalidXmlDocComment")]
     public class VigenereCipherKasiskiAttack
     {
         private readonly string _alphabet;
@@ -22,33 +24,28 @@ namespace Cryptography.Ciphers.Vigenere
         }
 
         /// <summary>
-        /// 
+        /// Performs attack on <paramref name="encryptedText"/> using <c>Kasiski Examination</c> and language analysis.
         /// </summary>
-        /// <param name="encryptedText"></param>
-        /// <param name="attackChecker"></param>
-        /// <param name="decryptedText"></param>
-        /// <param name="password"></param>
-        /// <param name="minPasswordLength"></param>
-        /// <param name="maxPasswordLength"></param>
-        /// <param name="tryCombinationsCount"></param>
-        /// <returns></returns>
+        /// <param name="minPasswordLength">Minimal password length inclusive</param>
+        /// <param name="maxPasswordLength">Maximal password length inclusive</param>
+        /// <param name="tryCombinationsCount">How many combinations of generated shifts should be tried</param>
+        /// <returns>Ture if success, false otherwise</returns>
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out string password, int minPasswordLength, int maxPasswordLength, int tryCombinationsCount)
+            out string password, int minPasswordLength, int maxPasswordLength, int tryCombinationsCount = 1)
         {
             return Attack(encryptedText, attackChecker, out decryptedText, out password, false, null,
                 minPasswordLength, maxPasswordLength, tryCombinationsCount);
         }
 
         /// <summary>
-        /// 
+        /// Performs attack on <paramref name="encryptedText"/> using <c>Kasiski Examination</c> and language analysis.
         /// </summary>
-        /// <param name="encryptedText"></param>
-        /// <param name="formattedText"></param>
-        /// <param name="minPasswordLength"></param>
-        /// <param name="maxPasswordLength"></param>
-        /// <param name="tryCombinationsCount"></param>
+        /// <param name="formattedText">Original encrypted text without normalization containing formatting characters</param>
+        /// <param name="minPasswordLength">Minimal password length inclusive</param>
+        /// <param name="maxPasswordLength">Maximal password length inclusive</param>
+        /// <param name="tryCombinationsCount">How many combinations of generated shifts should be tried</param>
         public void PrintAttack(string encryptedText, string formattedText, int minPasswordLength,
-            int maxPasswordLength, int tryCombinationsCount)
+            int maxPasswordLength, int tryCombinationsCount = 1)
         {
             Attack(encryptedText, null, out _, out _, true,
                 formattedText, minPasswordLength, maxPasswordLength, tryCombinationsCount);
@@ -75,7 +72,7 @@ namespace Cryptography.Ciphers.Vigenere
                 IEnumerable<List<LetterProbability>> allLetterProbabilities = dividedStrings
                     .Select(s => LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(s, _alphabet));
 
-                // Calculate for every string the smallest differences of letter probabilities (take 5 smallest)
+                // Calculate for every string the smallest differences of letter probabilities
                 List<List<(int Shift, double Difference)>> allDifferences = allLetterProbabilities
                     .Select(AllLettersProbabilitiesDifferenceForEveryShift).ToList();
 
@@ -195,7 +192,7 @@ namespace Cryptography.Ciphers.Vigenere
                     Console.WriteLine(decryptedText);
                 }
 
-                Console.WriteLine($"Password: {password}\n");
+                Console.WriteLine($"Password: {password}\n\n");
             }
         }
     }

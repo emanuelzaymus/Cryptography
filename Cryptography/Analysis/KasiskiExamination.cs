@@ -35,20 +35,18 @@ namespace Cryptography.Analysis
                 .Select(e => (e.Length, e.DivisorsCount));
         }
 
-        public static List<(string Trinity, int Distance)> GetTrinityDistances(string text)
+        public static IEnumerable<(string Trinity, int Distance)> GetTrinityDistances(string text)
         {
             return GetTupleDistances(text, 3);
         }
 
-        private static List<(string Tuple, int Distance)> GetTupleDistances(string text, int tupleLength)
+        private static IEnumerable<(string Tuple, int Distance)> GetTupleDistances(string text, int tupleLength)
         {
             if (tupleLength < 1)
                 throw new ArgumentOutOfRangeException(nameof(tupleLength), "Tuple length must be positive number.");
 
             if (text is null || text.Length < tupleLength + 1)
                 throw new ArgumentException("Text is null or is too short.", nameof(text));
-
-            List<(string, int)> distances = new();
 
             for (int i = 0; i < text.Length - tupleLength; i++)
             {
@@ -60,12 +58,10 @@ namespace Cryptography.Analysis
                     {
                         var tuple = text.Substring(i, tupleLength);
 
-                        distances.Add((tuple, j - i));
+                        yield return (tuple, j - i);
                     }
                 }
             }
-
-            return distances;
         }
 
         private record Estimation(int Length, int DivisorsCount)
