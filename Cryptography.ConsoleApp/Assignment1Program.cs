@@ -36,7 +36,7 @@ namespace Cryptography.ConsoleApp
             var normalizer = new TextNormalizer(Casing.UpperCase, Alphabets.ALPHABET);
             var normalized = normalizer.Normalize(text);
 
-            attack.PrintAttack(normalized, text, 20, 29, 1);
+            attack.PrintAttack(normalized, text, 20, 29);
         }
     }
 }
