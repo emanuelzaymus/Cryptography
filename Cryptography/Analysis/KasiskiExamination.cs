@@ -6,7 +6,7 @@ namespace Cryptography.Analysis
 {
     public static class KasiskiExamination
     {
-        public static List<(int Length, int DivisorsCount)> GetPasswordLengthEstimations(string text,
+        public static IEnumerable<(int Length, int DivisorsCount)> GetPasswordLengthEstimations(string text,
             int minPasswordLength, int maxPasswordLength)
         {
             var trinityDistances = GetTrinityDistances(text);
@@ -32,8 +32,7 @@ namespace Cryptography.Analysis
             return estimations
                 .OrderByDescending(e => e.DivisorsCount)
                 .ThenBy(e => e.Length)
-                .Select(e => (e.Length, e.DivisorsCount))
-                .ToList();
+                .Select(e => (e.Length, e.DivisorsCount));
         }
 
         public static List<(string Trinity, int Distance)> GetTrinityDistances(string text)
