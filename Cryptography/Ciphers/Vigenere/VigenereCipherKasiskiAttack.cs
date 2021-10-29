@@ -80,7 +80,7 @@ namespace Cryptography.Ciphers.Vigenere
                     decryptedText = TryDecrypt(encryptedText, shifts);
                     password = CreatePasswordFromShifts(shifts);
 
-                    PrintResult(print, decryptedText, formattedText, password);
+                    PrintResult(print, decryptedText, formattedText, $"Password: {password}");
 
                     if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
                     {
@@ -171,25 +171,6 @@ namespace Cryptography.Ciphers.Vigenere
         private string CreatePasswordFromShifts(List<int> shifts)
         {
             return string.Concat(shifts.Select(s => Alphabet[s]));
-        }
-
-        private void PrintResult(bool print, string decryptedText, string formattedText, string password)
-        {
-            if (print)
-            {
-                if (formattedText is not null)
-                {
-                    var formatted = Utils.FormatString(decryptedText, formattedText, Alphabet);
-
-                    Console.WriteLine(formatted);
-                }
-                else
-                {
-                    Console.WriteLine(decryptedText);
-                }
-
-                Console.WriteLine($"Password: {password}\n\n");
-            }
         }
     }
 }

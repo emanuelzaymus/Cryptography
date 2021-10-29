@@ -1,5 +1,4 @@
-﻿using System;
-using Cryptography.Analysis;
+﻿using Cryptography.Analysis;
 using Cryptography.RandomNumberGenerators;
 using Cryptography.Utilities;
 
@@ -26,6 +25,7 @@ namespace Cryptography.Ciphers.Stream
             Attack(encryptedText, null, out _, out _, true, formattedText, indexOfCoincidenceThreshold);
         }
 
+        // TODO: print output into file
         private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
             out int? usedSeed, bool print, string formattedText, double indexOfCoincidenceThreshold)
         {
@@ -57,32 +57,6 @@ namespace Cryptography.Ciphers.Stream
             decryptedText = null;
             usedSeed = null;
             return false;
-        }
-
-        // TODO: put into antecedent
-        private void PrintResult(bool print, string decryptedText, string formattedText,
-            params object[] additionalParameters)
-        {
-            if (print)
-            {
-                if (formattedText is not null)
-                {
-                    var formatted = Utils.FormatString(decryptedText, formattedText, Alphabet);
-
-                    Console.WriteLine(formatted);
-                }
-                else
-                {
-                    Console.WriteLine(decryptedText);
-                }
-
-                foreach (var parameter in additionalParameters)
-                {
-                    Console.WriteLine(parameter);
-                }
-
-                Console.WriteLine("\n\n");
-            }
         }
     }
 }
