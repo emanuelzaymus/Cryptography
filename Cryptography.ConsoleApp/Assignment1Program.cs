@@ -11,22 +11,22 @@ namespace Cryptography.ConsoleApp
     {
         internal static void RunText1()
         {
-            Run(Texts.GetAssignment1Text1(), ProbabilitiesOfLetters.SkWikipedia);
+            Run(Texts.Assignment1Text1, ProbabilitiesOfLetters.SkWikipedia);
         }
 
         internal static void RunText2()
         {
-            Run(Texts.GetAssignment1Text2(), ProbabilitiesOfLetters.SkWikipedia);
+            Run(Texts.Assignment1Text2, ProbabilitiesOfLetters.SkWikipedia);
         }
 
         internal static void RunText3()
         {
-            Run(Texts.GetAssignment1Text3(), ProbabilitiesOfLetters.SkWikipedia);
+            Run(Texts.Assignment1Text3, ProbabilitiesOfLetters.SkWikipedia);
         }
 
         internal static void RunText4()
         {
-            Run(Texts.GetAssignment1Text4(), ProbabilitiesOfLetters.EnTelegraphWithoutSpace);
+            Run(Texts.Assignment1Text4, ProbabilitiesOfLetters.EnTelegraphWithoutSpace);
         }
 
         private static void Run(string text, List<LetterProbability> probabilitiesOfLetters)

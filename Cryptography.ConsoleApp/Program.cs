@@ -13,7 +13,12 @@
             // Assignment1Program.RunText3();
             // Assignment1Program.RunText4();
 
-            StreamCipherProgram.Run();
+            // StreamCipherProgram.Run();
+
+            // Assignment3Program.RunText1();
+            // Assignment3Program.RunText2();
+            // Assignment3Program.RunText3();
+            Assignment3Program.RunText4();
         }
     }
 }

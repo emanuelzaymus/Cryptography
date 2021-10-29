@@ -7,11 +7,11 @@
         private readonly int _m;
 
         private int _seed;
-        private int _lastValue;
+        private long _lastValue;
 
-        public int PeriodLength => _m - 1;
+        public int PeriodLength => _m;
 
-        public LinearCongruentialRng(int a, int b, int m, int seed)
+        public LinearCongruentialRng(int a, int b, int m, int seed = 0)
         {
             _a = a;
             _b = b;

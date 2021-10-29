@@ -15,29 +15,32 @@ namespace Cryptography.Ciphers.Stream
         }
 
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out int? usedSeed)
+            out int? usedSeed, double indexOfCoincidenceThreshold)
         {
-            return Attack(encryptedText, attackChecker, out decryptedText, out usedSeed, false, null);
+            return Attack(encryptedText, attackChecker, out decryptedText, out usedSeed, false, null,
+                indexOfCoincidenceThreshold);
         }
 
-        public void PrintAttack(string encryptedText, string formattedText)
+        public void PrintAttack(string encryptedText, string formattedText, double indexOfCoincidenceThreshold)
         {
-            Attack(encryptedText, null, out _, out _, true, formattedText);
+            Attack(encryptedText, null, out _, out _, true, formattedText, indexOfCoincidenceThreshold);
         }
 
         private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out int? usedSeed, bool print, string formattedText)
+            out int? usedSeed, bool print, string formattedText, double indexOfCoincidenceThreshold)
         {
             StreamCipher streamCipher = new(Alphabet, _rng);
 
             for (usedSeed = 0; usedSeed < _rng.PeriodLength; usedSeed++)
             {
                 _rng.SetSeedAndRestart(usedSeed.Value);
+
+                // var dec = new char[encryptedText.Length]; // TODO: maybe i could store decrypted text in an array instead of a string
                 decryptedText = streamCipher.Decrypt(encryptedText);
 
                 double indexOfCoincidence = IndexOfCoincidence.GetIndexOfCoincidence(decryptedText, Alphabet);
 
-                if (indexOfCoincidence > IndexOfCoincidence.HigherThreshold)
+                if (indexOfCoincidence > indexOfCoincidenceThreshold)
                 {
                     PrintResult(print, decryptedText, formattedText, $"Index of coincidence: {indexOfCoincidence}",
                         $"Used seed: {usedSeed}");

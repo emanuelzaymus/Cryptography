@@ -1,4 +1,5 @@
 ﻿using Cryptography.Alphabet;
+using Cryptography.Analysis;
 using Cryptography.Analysis.TextNormalization;
 using Cryptography.Ciphers.Stream;
 using Cryptography.RandomNumberGenerators;
@@ -10,14 +11,14 @@ namespace Cryptography.ConsoleApp
     {
         internal static void Run()
         {
-            IRng rng = new LinearCongruentialRng(8121, 28411, 134456, -1);
+            IRng rng = new LinearCongruentialRng(8121, 28411, 134456);
             StreamCipherBruteForceAttack attack = new(Alphabets.ALPHABET, rng);
 
-            var text = Texts.GetStreamCipherMessage();
+            var text = Texts.StreamCipherMessage;
             var normalizer = new TextNormalizer(Casing.UpperCase, Alphabets.ALPHABET);
             var normalized = normalizer.Normalize(text);
 
-            attack.PrintAttack(normalized, text);
+            attack.PrintAttack(normalized, text, IndexOfCoincidence.HigherThreshold);
         }
     }
 }
