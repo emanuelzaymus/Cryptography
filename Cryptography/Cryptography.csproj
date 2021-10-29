@@ -41,6 +41,9 @@
     <None Update="Resources\Assignment1\text4_enc.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Texts\StreamCiphers\sprava_enc.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -16,6 +16,7 @@ namespace Cryptography.Utilities
         private static string Assignment1Text2 => File.ReadAllText("Resources/Assignment1/text2_enc.txt");
         private static string Assignment1Text3 => File.ReadAllText("Resources/Assignment1/text3_enc.txt");
         private static string Assignment1Text4 => File.ReadAllText("Resources/Assignment1/text4_enc.txt");
+        private static string StreamCipherMessage => File.ReadAllText("Resources/Texts/StreamCiphers/sprava_enc.txt");
 
         public static string GetEnTelegraph(TextNormalizer normalizer = null) => Normalize(EnTelegraph, normalizer);
 
@@ -38,6 +39,9 @@ namespace Cryptography.Utilities
 
         public static string GetAssignment1Text4(TextNormalizer normalizer = null)
             => Normalize(Assignment1Text4, normalizer);
+
+        public static string GetStreamCipherMessage(TextNormalizer normalizer = null) =>
+            Normalize(StreamCipherMessage, normalizer);
 
         private static string Normalize(string text, ITextNormalizer normalizer)
         {

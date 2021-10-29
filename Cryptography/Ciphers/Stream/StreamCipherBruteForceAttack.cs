@@ -1,4 +1,5 @@
 ﻿using System;
+using Cryptography.Analysis;
 using Cryptography.RandomNumberGenerators;
 using Cryptography.Utilities;
 
@@ -6,36 +7,45 @@ namespace Cryptography.Ciphers.Stream
 {
     public class StreamCipherBruteForceAttack : Attack
     {
-        public StreamCipherBruteForceAttack(string alphabet) : base(alphabet)
+        private readonly IRng _rng;
+
+        public StreamCipherBruteForceAttack(string alphabet, IRng rng) : base(alphabet)
         {
+            _rng = rng;
         }
 
-        public bool Attack(string encryptedText, IRng rng, AttackChecker attackChecker, out string decryptedText,
+        public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
             out int? usedSeed)
         {
-            return Attack(encryptedText, rng, attackChecker, out decryptedText, out usedSeed, false, null);
+            return Attack(encryptedText, attackChecker, out decryptedText, out usedSeed, false, null);
         }
 
-        public void PrintAttack(string encryptedText, IRng rng, string formattedText)
+        public void PrintAttack(string encryptedText, string formattedText)
         {
-            Attack(encryptedText, rng, null, out _, out _, true, formattedText);
+            Attack(encryptedText, null, out _, out _, true, formattedText);
         }
 
-        private bool Attack(string encryptedText, IRng rng, AttackChecker attackChecker, out string decryptedText,
+        private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
             out int? usedSeed, bool print, string formattedText)
         {
-            StreamCipher streamCipher = new(Alphabet, rng);
+            StreamCipher streamCipher = new(Alphabet, _rng);
 
-            for (usedSeed = 0; usedSeed < rng.PeriodLength; usedSeed++)
+            for (usedSeed = 0; usedSeed < _rng.PeriodLength; usedSeed++)
             {
-                rng.SetSeedAndRestart(usedSeed.Value);
+                _rng.SetSeedAndRestart(usedSeed.Value);
                 decryptedText = streamCipher.Decrypt(encryptedText);
 
-                PrintResult(print, decryptedText, formattedText, usedSeed);
+                double indexOfCoincidence = IndexOfCoincidence.GetIndexOfCoincidence(decryptedText, Alphabet);
 
-                if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
+                if (indexOfCoincidence > IndexOfCoincidence.HigherThreshold)
                 {
-                    return true;
+                    PrintResult(print, decryptedText, formattedText, $"Index of coincidence: {indexOfCoincidence}",
+                        $"Used seed: {usedSeed}");
+
+                    if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
+                    {
+                        return true;
+                    }
                 }
             }
 

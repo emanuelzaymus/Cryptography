@@ -7,8 +7,7 @@ namespace Cryptography.Analysis
 {
     public static class LanguageFrequencyAnalysis
     {
-        public static List<LetterProbability> GetProbabilitiesOfLetters(string text,
-            string validLetters)
+        public static List<LetterProbability> GetProbabilitiesOfLetters(string text, string validLetters)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentException("Value cannot be null or empty.", nameof(text));
@@ -17,7 +16,7 @@ namespace Cryptography.Analysis
 
             var lettersCounts = CalculateLettersCounts(text, validLetters);
 
-            double sum = lettersCounts.Values.Sum();
+            double sum = lettersCounts.Sum();
 
             if (sum == 0)
             {
@@ -25,20 +24,21 @@ namespace Cryptography.Analysis
             }
 
             // Calculate letter probabilities for all letters
-            return lettersCounts.Select(pair => new LetterProbability(pair.Key, pair.Value / sum)).ToList();
+            return validLetters.Zip(lettersCounts, (ch, count) => new LetterProbability(ch, count / sum)).ToList();
         }
 
-        internal static Dictionary<char, double> CalculateLettersCounts(string text, string validLetters)
+        internal static int[] CalculateLettersCounts(string text, string validLetters)
         {
-            var lettersCounts = new Dictionary<char, double>(validLetters.Length);
-            validLetters.ToList().ForEach(letter => lettersCounts.Add(letter, 0));
+            var lettersCounts = new int[validLetters.Length];
 
             // Count up all letter occurrences
             foreach (var ch in text)
             {
-                if (lettersCounts.ContainsKey(ch))
+                int index = validLetters.IndexOf(ch);
+
+                if (index >= 0)
                 {
-                    lettersCounts[ch]++;
+                    lettersCounts[index]++;
                 }
             }
 

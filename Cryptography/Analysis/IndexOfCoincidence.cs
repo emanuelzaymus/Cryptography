@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Cryptography.Alphabet;
 
@@ -8,6 +7,7 @@ namespace Cryptography.Analysis
     public static class IndexOfCoincidence
     {
         public const double Threshold = 0.049;
+        public const double HigherThreshold = 0.06;
 
         public static double GetIndexOfCoincidence(string text, string validLetters)
         {
@@ -21,13 +21,13 @@ namespace Cryptography.Analysis
             return CalculateIndexOfCoincidence(lettersCounts);
         }
 
-        private static double CalculateIndexOfCoincidence(Dictionary<char, double> lettersCounts)
+        private static double CalculateIndexOfCoincidence(int[] lettersCounts)
         {
             double indexOfCoincidence = 0;
 
-            double sum = lettersCounts.Values.Sum();
+            double sum = lettersCounts.Sum();
 
-            foreach (double letterCount in lettersCounts.Values)
+            foreach (double letterCount in lettersCounts)
             {
                 indexOfCoincidence += (letterCount / sum) * ((letterCount - 1) / (sum - 1));
             }
