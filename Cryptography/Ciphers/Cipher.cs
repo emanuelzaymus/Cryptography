@@ -15,13 +15,13 @@ namespace Cryptography.Ciphers
             Alphabet = alphabet;
         }
 
-        public string Encrypt(string plainText) => TransformEveryChar(plainText, CharEncryption);
+        public virtual string Encrypt(string plainText) => TransformEveryChar(plainText, CharEncryption);
 
-        public string Decrypt(string encryptedText) => TransformEveryChar(encryptedText, CharDecryption);
+        public virtual string Decrypt(string encryptedText) => TransformEveryChar(encryptedText, CharDecryption);
 
-        protected abstract char CharEncryption(char ch, int index);
+        protected abstract char CharEncryption(char ch, int stringCharIndex);
 
-        protected abstract char CharDecryption(char ch, int index);
+        protected abstract char CharDecryption(char ch, int stringCharIndex);
 
         protected int GetAlphabetCharIndex(char ch) => Alphabet.GetCharIndex(ch);
 
