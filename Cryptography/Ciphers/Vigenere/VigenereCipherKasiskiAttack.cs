@@ -80,7 +80,7 @@ namespace Cryptography.Ciphers.Vigenere
                     decryptedText = TryDecrypt(encryptedText, shifts);
                     password = CreatePasswordFromShifts(shifts);
 
-                    PrintResult(print, decryptedText, formattedText, $"Password: {password}");
+                    PrintResult(print, decryptedText, formattedText, null, $"Password: {password}");
 
                     if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
                     {

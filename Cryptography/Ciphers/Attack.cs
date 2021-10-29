@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
@@ -15,28 +16,39 @@ namespace Cryptography.Ciphers
             Alphabet = alphabet;
         }
 
-        protected void PrintResult(bool print, string decryptedText, string formattedText,
+        protected void DeleteFile(string writeToFile)
+        {
+            if (File.Exists(writeToFile))
+            {
+                File.Delete(writeToFile);
+            }
+        }
+
+        protected void PrintResult(bool print, string decryptedText, string formattedText, string writeToFile,
             params object[] additionalParameters)
         {
             if (print)
             {
-                if (formattedText is not null)
-                {
-                    var formatted = Utils.FormatString(decryptedText, formattedText, Alphabet);
+                var output = formattedText is not null
+                    ? Utils.FormatString(decryptedText, formattedText, Alphabet)
+                    : decryptedText;
 
-                    Console.WriteLine(formatted);
-                }
-                else
-                {
-                    Console.WriteLine(decryptedText);
-                }
+                output += "\n";
 
                 foreach (var parameter in additionalParameters)
                 {
-                    Console.WriteLine(parameter);
+                    output += parameter + "\n";
                 }
 
-                Console.WriteLine("\n\n");
+                output += "\n\n";
+
+                Console.WriteLine(output);
+
+                // TODO: writing does not work
+                if (writeToFile != null)
+                {
+                    File.AppendAllText(writeToFile, output);
+                }
             }
         }
     }

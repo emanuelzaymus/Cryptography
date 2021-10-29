@@ -16,19 +16,21 @@ namespace Cryptography.Ciphers.Stream
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
             out int? usedSeed, double indexOfCoincidenceThreshold)
         {
-            return Attack(encryptedText, attackChecker, out decryptedText, out usedSeed, false, null,
+            return Attack(encryptedText, attackChecker, out decryptedText, out usedSeed, false, null, null,
                 indexOfCoincidenceThreshold);
         }
 
-        public void PrintAttack(string encryptedText, string formattedText, double indexOfCoincidenceThreshold)
+        public void PrintAttack(string encryptedText, string formattedText, string writeToFile,
+            double indexOfCoincidenceThreshold)
         {
-            Attack(encryptedText, null, out _, out _, true, formattedText, indexOfCoincidenceThreshold);
+            Attack(encryptedText, null, out _, out _, true, formattedText, writeToFile, indexOfCoincidenceThreshold);
         }
 
-        // TODO: print output into file
         private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText,
-            out int? usedSeed, bool print, string formattedText, double indexOfCoincidenceThreshold)
+            out int? usedSeed, bool print, string formattedText, string writeToFile, double indexOfCoincidenceThreshold)
         {
+            DeleteFile(writeToFile);
+
             StreamCipher streamCipher = new(Alphabet, _rng);
             var decryptedTextArray = new char[encryptedText.Length];
 
@@ -44,8 +46,8 @@ namespace Cryptography.Ciphers.Stream
                 {
                     decryptedText = new string(decryptedTextArray);
 
-                    PrintResult(print, decryptedText, formattedText, $"Index of coincidence: {indexOfCoincidence}",
-                        $"Used seed: {usedSeed}");
+                    PrintResult(print, decryptedText, formattedText, writeToFile,
+                        $"Index of coincidence: {indexOfCoincidence}", $"Used seed: {usedSeed}");
 
                     if (attackChecker is not null && attackChecker.IsDecryptedCorrectly(decryptedText))
                     {
