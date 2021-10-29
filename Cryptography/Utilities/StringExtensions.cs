@@ -5,6 +5,8 @@ namespace Cryptography.Utilities
 {
     public static class StringExtensions
     {
+        private static readonly StringBuilder StringBuilder = new();
+
         /// <summary>
         /// Transforms every character of this string using <paramref name="transformation"/> function.
         /// </summary>
@@ -15,17 +17,18 @@ namespace Cryptography.Utilities
         {
             if (transformation is null) throw new ArgumentNullException(nameof(transformation));
 
-            var stringBuilder = new StringBuilder(str.Length);
+            StringBuilder.Clear();
+            StringBuilder.Capacity = str.Length;
 
             for (int stringCharIndex = 0; stringCharIndex < str.Length; stringCharIndex++)
             {
                 char ch = str[stringCharIndex];
                 char newChar = transformation(ch, stringCharIndex);
 
-                stringBuilder.Append(newChar);
+                StringBuilder.Append(newChar);
             }
 
-            return stringBuilder.ToString();
+            return StringBuilder.ToString();
         }
 
         /// <summary>

@@ -16,7 +16,8 @@ namespace Cryptography.Analysis
 
             Alphabets.CheckAlphabet(validLetters);
 
-            var lettersCounts = LanguageFrequencyAnalysis.CalculateLettersCounts(text, validLetters);
+            var lettersCounts = new int[validLetters.Length];
+            LanguageFrequencyAnalysis.CalculateLettersCounts(text, validLetters, lettersCounts);
 
             return CalculateIndexOfCoincidence(lettersCounts);
         }
