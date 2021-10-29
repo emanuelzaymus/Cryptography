@@ -4,13 +4,15 @@ namespace Cryptography.RandomNumberGenerators
 {
     public class BuildInRng : IRng
     {
-        private readonly int _seed;
+        private int _seed;
         private Random _random;
+
+        public int PeriodLength =>
+            throw new InvalidOperationException($"{nameof(PeriodLength)} is not supported for {nameof(BuildInRng)}");
 
         public BuildInRng(int seed)
         {
-            _seed = seed;
-            _random = new Random(seed);
+            SetSeedAndRestart(seed);
         }
 
         public double Sample()
@@ -21,6 +23,12 @@ namespace Cryptography.RandomNumberGenerators
         public void Restart()
         {
             _random = new Random(_seed);
+        }
+
+        public void SetSeedAndRestart(int seed)
+        {
+            _seed = seed;
+            Restart();
         }
     }
 }

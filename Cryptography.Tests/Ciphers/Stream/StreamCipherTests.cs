@@ -35,7 +35,7 @@ namespace Cryptography.Tests.Ciphers.Stream
         [Test]
         public void Encrypt_Alphabet_ShouldReturnShiftedAlphabet()
         {
-            IRng rng = new MockRng(3.0 / Alphabets.ALPHABET.Length);
+            IRng rng = new OneValueRng(3.0 / Alphabets.ALPHABET.Length);
             var cipher = new StreamCipher(Alphabets.ALPHABET, rng);
 
             var encrypted = cipher.Encrypt("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -46,28 +46,12 @@ namespace Cryptography.Tests.Ciphers.Stream
         [Test]
         public void Decrypt_ShiftedAlphabet_ShouldReturnAlphabet()
         {
-            IRng rng = new MockRng(3.0 / Alphabets.ALPHABET.Length);
+            IRng rng = new OneValueRng(3.0 / Alphabets.ALPHABET.Length);
             var cipher = new StreamCipher(Alphabets.ALPHABET, rng);
 
             var decrypted = cipher.Decrypt("DEFGHIJKLMNOPQRSTUVWXYZABC");
 
             Assert.That(decrypted, Is.EqualTo("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        }
-
-        private class MockRng : IRng
-        {
-            private readonly double _number;
-
-            public MockRng(double number)
-            {
-                _number = number;
-            }
-
-            public double Sample() => _number;
-
-            public void Restart()
-            {
-            }
         }
     }
 }
