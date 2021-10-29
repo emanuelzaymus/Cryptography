@@ -30,18 +30,20 @@ namespace Cryptography.Ciphers.Stream
             out int? usedSeed, bool print, string formattedText, double indexOfCoincidenceThreshold)
         {
             StreamCipher streamCipher = new(Alphabet, _rng);
+            var decryptedTextArray = new char[encryptedText.Length];
 
             for (usedSeed = 0; usedSeed < _rng.PeriodLength; usedSeed++)
             {
                 _rng.SetSeedAndRestart(usedSeed.Value);
 
-                // var dec = new char[encryptedText.Length]; // TODO: maybe i could store decrypted text in an array instead of a string
-                decryptedText = streamCipher.Decrypt(encryptedText);
+                streamCipher.Decrypt(encryptedText, decryptedTextArray);
 
-                double indexOfCoincidence = IndexOfCoincidence.GetIndexOfCoincidence(decryptedText, Alphabet);
+                double indexOfCoincidence = IndexOfCoincidence.GetIndexOfCoincidence(decryptedTextArray, Alphabet);
 
                 if (indexOfCoincidence > indexOfCoincidenceThreshold)
                 {
+                    decryptedText = new string(decryptedTextArray);
+
                     PrintResult(print, decryptedText, formattedText, $"Index of coincidence: {indexOfCoincidence}",
                         $"Used seed: {usedSeed}");
 

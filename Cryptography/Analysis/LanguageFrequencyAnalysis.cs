@@ -28,7 +28,10 @@ namespace Cryptography.Analysis
             return validLetters.Zip(lettersCounts, (ch, count) => new LetterProbability(ch, count / sum)).ToList();
         }
 
-        internal static void CalculateLettersCounts(string text, string validLetters, in int[] lettersCounts)
+        /// <summary>
+        /// Calculates letters counts of <paramref name="text"/> into <paramref name="lettersCounts"/> only for valid characters in <paramref name="validLetters"/>.
+        /// </summary>
+        internal static void CalculateLettersCounts(IEnumerable<char> text, string validLetters, in int[] lettersCounts)
         {
             if (lettersCounts.Length != validLetters.Length)
             {

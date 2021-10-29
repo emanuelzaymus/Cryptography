@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cryptography.Alphabet;
 
@@ -9,10 +10,9 @@ namespace Cryptography.Analysis
         public const double Threshold = 0.049;
         public const double HigherThreshold = 0.06;
 
-        public static double GetIndexOfCoincidence(string text, string validLetters)
+        public static double GetIndexOfCoincidence(IEnumerable<char> text, string validLetters)
         {
-            if (string.IsNullOrEmpty(text))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(text));
+            if (text is null) throw new ArgumentNullException(nameof(text));
 
             Alphabets.CheckAlphabet(validLetters);
 

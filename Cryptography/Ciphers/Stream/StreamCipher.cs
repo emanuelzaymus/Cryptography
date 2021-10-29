@@ -1,4 +1,5 @@
-﻿using Cryptography.RandomNumberGenerators;
+﻿using System;
+using Cryptography.RandomNumberGenerators;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Stream
@@ -22,6 +23,33 @@ namespace Cryptography.Ciphers.Stream
         {
             _rng.Restart();
             return base.Decrypt(encryptedText);
+        }
+
+        /// <summary>
+        /// Decrypts <paramref name="encryptedText"/> into <paramref name="decryptedTextArray"/>. It's more memory efficient than <c>string Decrypt(string encryptedText)</c> method.
+        /// </summary>
+        public void Decrypt(string encryptedText, in char[] decryptedTextArray)
+        {
+            _rng.Restart();
+
+            if (encryptedText is null)
+            {
+                throw new ArgumentNullException(nameof(encryptedText));
+            }
+
+            if (decryptedTextArray is null || decryptedTextArray.Length != encryptedText.Length)
+            {
+                throw new ArgumentException($"Array has to be the same length as {nameof(encryptedText)} string.",
+                    nameof(decryptedTextArray));
+            }
+
+            for (int i = 0; i < encryptedText.Length; i++)
+            {
+                char ch = encryptedText[i];
+                char newChar = CharDecryption(ch, i);
+
+                decryptedTextArray[i] = newChar;
+            }
         }
 
         protected override char CharEncryption(char ch, int _) => StreamTransformation(ch, false);
