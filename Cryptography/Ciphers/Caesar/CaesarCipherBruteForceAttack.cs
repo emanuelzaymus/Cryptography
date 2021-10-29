@@ -1,5 +1,4 @@
 ﻿using System;
-using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Caesar
@@ -7,14 +6,10 @@ namespace Cryptography.Ciphers.Caesar
     /// <summary>
     /// Ciphertext only brute force attack.
     /// </summary>
-    public class CaesarCipherBruteForceAttack
+    public class CaesarCipherBruteForceAttack : Attack
     {
-        private readonly string _alphabet;
-
-        public CaesarCipherBruteForceAttack(string alphabet)
+        public CaesarCipherBruteForceAttack(string alphabet) : base(alphabet)
         {
-            Alphabets.CheckAlphabet(alphabet);
-            _alphabet = alphabet;
         }
 
         public bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText, out int? shift)
@@ -30,7 +25,7 @@ namespace Cryptography.Ciphers.Caesar
         private bool Attack(string encryptedText, AttackChecker attackChecker, out string decryptedText, out int? shift,
             bool print)
         {
-            for (shift = 0; shift < _alphabet.Length; shift++)
+            for (shift = 0; shift < Alphabet.Length; shift++)
             {
                 decryptedText = ShiftEveryChar(encryptedText, -shift.Value);
 
@@ -53,7 +48,7 @@ namespace Cryptography.Ciphers.Caesar
 
         private string ShiftEveryChar(string encryptedText, int shift)
         {
-            return encryptedText.Transform((ch, _) => CaesarCipherUtils.ShiftChar(ch, shift, _alphabet));
+            return encryptedText.Transform((ch, _) => CaesarCipherUtils.ShiftChar(ch, shift, Alphabet));
         }
     }
 }

@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine
 {
-    public abstract class AffineCipherAttack
+    public abstract class AffineCipherAttack : Attack
     {
-        protected readonly string Alphabet;
-
         private readonly int[] _divisors;
 
-        protected AffineCipherAttack(string alphabet)
+        protected AffineCipherAttack(string alphabet) : base(alphabet)
         {
-            Alphabets.CheckAlphabet(alphabet);
-
-            Alphabet = alphabet;
             _divisors = Utils.GetDivisorsWithout1(alphabet.Length);
         }
 

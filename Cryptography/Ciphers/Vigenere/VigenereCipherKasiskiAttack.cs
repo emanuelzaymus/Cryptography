@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
-using Cryptography.Alphabet;
 using Cryptography.Analysis;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Vigenere
 {
     [SuppressMessage("ReSharper", "InvalidXmlDocComment")]
-    public class VigenereCipherKasiskiAttack
+    public class VigenereCipherKasiskiAttack : Attack
     {
-        private readonly string _alphabet;
         private readonly List<LetterProbability> _probabilitiesOfLetters;
 
-        public VigenereCipherKasiskiAttack(string alphabet, List<LetterProbability> probabilitiesOfLetters)
+        public VigenereCipherKasiskiAttack(string alphabet, List<LetterProbability> probabilitiesOfLetters) :
+            base(alphabet)
         {
-            Alphabets.CheckAlphabet(alphabet);
-
-            _alphabet = alphabet;
             _probabilitiesOfLetters = probabilitiesOfLetters;
         }
 
@@ -70,7 +66,7 @@ namespace Cryptography.Ciphers.Vigenere
                 // Now I've chosen suitable passwordLength
 
                 IEnumerable<List<LetterProbability>> allLetterProbabilities = dividedStrings
-                    .Select(s => LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(s, _alphabet));
+                    .Select(s => LanguageFrequencyAnalysis.GetProbabilitiesOfLetters(s, Alphabet));
 
                 // Calculate for every string the smallest differences of letter probabilities
                 List<List<(int Shift, double Difference)>> allDifferences = allLetterProbabilities
@@ -118,7 +114,7 @@ namespace Cryptography.Ciphers.Vigenere
         private bool IsAverageCoincidenceAboveThreshold(List<string> dividedStrings)
         {
             var coincidences = dividedStrings
-                .Select(s => IndexOfCoincidence.GetIndexOfCoincidence(s, _alphabet));
+                .Select(s => IndexOfCoincidence.GetIndexOfCoincidence(s, Alphabet));
 
             return coincidences.Average() > IndexOfCoincidence.Threshold;
         }
@@ -126,7 +122,7 @@ namespace Cryptography.Ciphers.Vigenere
         private List<(int Shift, double Difference)> AllLettersProbabilitiesDifferenceForEveryShift(
             List<LetterProbability> letterProbabilities)
         {
-            return Enumerable.Range(0, _alphabet.Length)
+            return Enumerable.Range(0, Alphabet.Length)
                 .Select(i => (Shift: i, Difference: AllLettersProbabilitiesDifference(letterProbabilities, i)))
                 .OrderBy(tuple => tuple.Difference)
                 .ToList();
@@ -166,15 +162,15 @@ namespace Cryptography.Ciphers.Vigenere
         {
             return encryptedText.Transform((ch, i) =>
             {
-                int charIndex = _alphabet.GetCharIndex(ch);
+                int charIndex = Alphabet.GetCharIndex(ch);
                 int shift = shifts[i % shifts.Count];
-                return _alphabet[Utils.PositiveModulo(charIndex - shift, _alphabet.Length)];
+                return Alphabet[Utils.PositiveModulo(charIndex - shift, Alphabet.Length)];
             });
         }
 
         private string CreatePasswordFromShifts(List<int> shifts)
         {
-            return string.Concat(shifts.Select(s => _alphabet[s]));
+            return string.Concat(shifts.Select(s => Alphabet[s]));
         }
 
         private void PrintResult(bool print, string decryptedText, string formattedText, string password)
@@ -183,7 +179,7 @@ namespace Cryptography.Ciphers.Vigenere
             {
                 if (formattedText is not null)
                 {
-                    var formatted = Utils.FormatString(decryptedText, formattedText, _alphabet);
+                    var formatted = Utils.FormatString(decryptedText, formattedText, Alphabet);
 
                     Console.WriteLine(formatted);
                 }
