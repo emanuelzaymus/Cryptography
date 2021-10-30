@@ -1,22 +1,20 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.IO;
 using Cryptography.Analysis.TextNormalization;
 
 namespace Cryptography.Utilities
 {
-    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public static class Texts
     {
-        private static string EnTelegraph => Read("Resources/TextsToAnalyse/en_teleg.txt");
-        private static string SkTelegraph => Read("Resources/TextsToAnalyse/sk_teleg.txt");
-        private static string SkWikipedia => Read("Resources/TextsToAnalyse/sk_wikipedia.txt");
-        private static string Text1 => Read("Resources/Texts/text1.txt");
-        private static string Text2 => Read("Resources/Texts/text2.txt");
-        public static string Assignment1Text1 => Read("Resources/Assignment1/text1_enc.txt");
-        public static string Assignment1Text2 => Read("Resources/Assignment1/text2_enc.txt");
-        public static string Assignment1Text3 => Read("Resources/Assignment1/text3_enc.txt");
-        public static string Assignment1Text4 => Read("Resources/Assignment1/text4_enc.txt");
-        public static string StreamCipherMessage => Read("Resources/Texts/StreamCiphers/sprava_enc.txt");
+        private static string EnTelegraph => Read(Paths.In.TextsToAnalyse.EnTelegraph);
+        private static string SkTelegraph => Read(Paths.In.TextsToAnalyse.SkTelegraph);
+        private static string SkWikipedia => Read(Paths.In.TextsToAnalyse.SkWikipedia);
+        private static string Text1 => Read(Paths.In.Texts.Text1);
+        private static string Text2 => Read(Paths.In.Texts.Text2);
+        public static string Assignment1Text1 => Read(Paths.In.Assignment1.Text1);
+        public static string Assignment1Text2 => Read(Paths.In.Assignment1.Text2);
+        public static string Assignment1Text3 => Read(Paths.In.Assignment1.Text3);
+        public static string Assignment1Text4 => Read(Paths.In.Assignment1.Text4);
+        public static string StreamCipherMessage => Read(Paths.In.Texts.StreamCiphers.Message);
         public static string Assignment3Text1 => Read(Paths.In.Assignment3.Text1);
         public static string Assignment3Text2 => Read(Paths.In.Assignment3.Text2);
         public static string Assignment3Text3 => Read(Paths.In.Assignment3.Text3);

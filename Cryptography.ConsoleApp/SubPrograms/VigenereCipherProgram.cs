@@ -10,8 +10,8 @@ namespace Cryptography.ConsoleApp.SubPrograms
     {
         internal static void Run()
         {
-            VigenereCipherKasiskiAttack attack =
-                new(Alphabets.ALPHABET, ProbabilitiesOfLetters.SkTelegraphWithoutSpace);
+            VigenereCipherKasiskiAttack attack = new(Alphabets.ALPHABET,
+                ProbabilitiesOfLetters.SkTelegraphWithoutSpace);
 
             var text1 = Texts.GetText1();
             var normalizer = new TextNormalizer(Casing.UpperCase, Alphabets.ALPHABET);
