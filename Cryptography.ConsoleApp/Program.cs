@@ -1,4 +1,6 @@
-﻿namespace Cryptography.ConsoleApp
+﻿using Cryptography.ConsoleApp.SubPrograms;
+
+namespace Cryptography.ConsoleApp
 {
     public static class Program
     {

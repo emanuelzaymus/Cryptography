@@ -5,7 +5,7 @@ using Cryptography.Ciphers.Stream;
 using Cryptography.RandomNumberGenerators;
 using Cryptography.Utilities;
 
-namespace Cryptography.ConsoleApp
+namespace Cryptography.ConsoleApp.SubPrograms
 {
     internal static class StreamCipherProgram
     {

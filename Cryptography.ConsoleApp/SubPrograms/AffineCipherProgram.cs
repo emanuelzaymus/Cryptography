@@ -3,7 +3,7 @@ using Cryptography.Alphabet;
 using Cryptography.Analysis;
 using Cryptography.Ciphers.Affine;
 
-namespace Cryptography.ConsoleApp
+namespace Cryptography.ConsoleApp.SubPrograms
 {
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     [SuppressMessage("ReSharper", "CommentTypo")]
@@ -11,7 +11,8 @@ namespace Cryptography.ConsoleApp
     {
         internal static void Run()
         {
-            AffineCipherLanguageAnalysisAttack attack = new(Alphabets.ALPHABET_, ProbabilitiesOfLetters.SkTelegraphWithSpace);
+            AffineCipherLanguageAnalysisAttack attack = new(Alphabets.ALPHABET_,
+                ProbabilitiesOfLetters.SkTelegraphWithSpace);
 
             // VYRIESIL SOM LAHKU ULOHU
             attack.PrintAttack("LIYGTOGDPOAUPDFQNVPVDAQV", 2);

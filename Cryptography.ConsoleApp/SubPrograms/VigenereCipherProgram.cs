@@ -4,7 +4,7 @@ using Cryptography.Analysis.TextNormalization;
 using Cryptography.Ciphers.Vigenere;
 using Cryptography.Utilities;
 
-namespace Cryptography.ConsoleApp
+namespace Cryptography.ConsoleApp.SubPrograms
 {
     internal static class VigenereCipherProgram
     {

@@ -2,7 +2,7 @@
 using Cryptography.Alphabet;
 using Cryptography.Ciphers.Caesar;
 
-namespace Cryptography.ConsoleApp
+namespace Cryptography.ConsoleApp.SubPrograms
 {
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     internal static class CaesarCipherProgram
