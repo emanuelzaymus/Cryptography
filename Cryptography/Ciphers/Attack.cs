@@ -44,7 +44,6 @@ namespace Cryptography.Ciphers
 
                 Console.WriteLine(output);
 
-                // TODO: writing does not work
                 if (writeToFile != null)
                 {
                     File.AppendAllText(writeToFile, output);

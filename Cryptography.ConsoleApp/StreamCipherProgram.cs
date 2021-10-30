@@ -18,7 +18,8 @@ namespace Cryptography.ConsoleApp
             var normalizer = new TextNormalizer(Casing.UpperCase, Alphabets.ALPHABET);
             var normalized = normalizer.Normalize(text);
 
-            attack.PrintAttack(normalized, text, null, IndexOfCoincidence.HigherThreshold); // Used seed = 12345
+            // Used seed = 12345
+            attack.PrintAttack(normalized, text, null, IndexOfCoincidence.HigherThreshold);
         }
     }
 }

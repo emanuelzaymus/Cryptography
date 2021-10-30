@@ -11,25 +11,25 @@ namespace Cryptography.ConsoleApp
         internal static void RunText1()
         {
             // Used seed = 77777
-            Run(Texts.Assignment3Text1, Paths.Assignment3Text1Decrypted, 0.0692);
+            Run(Texts.Assignment3Text1, Paths.Out.Assignment3.Text1, 0.0692);
         }
 
         internal static void RunText2()
         {
             // Used seed = 78901
-            Run(Texts.Assignment3Text2, Paths.Assignment3Text2Decrypted, 0.0706);
+            Run(Texts.Assignment3Text2, Paths.Out.Assignment3.Text2, 0.0706);
         }
 
         internal static void RunText3()
         {
             // Used seed = 89012
-            Run(Texts.Assignment3Text3, Paths.Assignment3Text3Decrypted, 0.07);
+            Run(Texts.Assignment3Text3, Paths.Out.Assignment3.Text3, 0.07);
         }
 
         internal static void RunText4()
         {
             // Used seed = 98765
-            Run(Texts.Assignment3Text4, Paths.Assignment3Text4Decrypted, 0.06539);
+            Run(Texts.Assignment3Text4, Paths.Out.Assignment3.Text4, 0.06539);
         }
 
         private static void Run(string text, string writeToFile, double indexOfCoincidenceThreshold)
