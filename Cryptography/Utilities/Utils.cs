@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace Cryptography.Utilities
@@ -55,6 +57,21 @@ namespace Cryptography.Utilities
             return GetDivisors(n).Skip(1).ToArray();
         }
 
+        public static int CalculateGreatestCommonDivisor(int a, int b) // TODO: not used
+        {
+            if (a < 0 || b < 0)
+                throw new ArgumentException("Numbers A and B cannot be negative.");
+
+            while (b > 0)
+            {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+
+            return a;
+        }
+
         /// <summary>
         /// Creates permutation series. Every time returns only the same instance of <c>List</c> object!
         /// </summary>
@@ -79,6 +96,30 @@ namespace Cryptography.Utilities
 
                 yield return oneSeries;
             }
+        }
+
+        /// <summary>
+        /// Calculates x^d mod n.
+        /// </summary>
+        public static decimal Power(decimal x, decimal d, decimal n)
+        {
+            var dBits = decimal.GetBits(d);
+            var bitArray = new BitArray(dBits);
+
+            decimal help = x;
+            decimal y = 1;
+
+            for (int i = 0; i < bitArray.Length; i++)
+            {
+                if (bitArray[i])
+                {
+                    y = y * help % n;
+                }
+
+                help = help * help % n;
+            }
+
+            return y;
         }
 
         /// <summary>
@@ -116,6 +157,11 @@ namespace Cryptography.Utilities
             }
 
             return builder.ToString();
+        }
+
+        public static BigInteger CalculateEulerPhiFunction(BigInteger p, BigInteger q)
+        {
+            return (p - 1) * (q - 1);
         }
     }
 }

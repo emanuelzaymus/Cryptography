@@ -38,6 +38,53 @@ namespace Cryptography.Utilities
             return null;
         }
 
+        /// <summary>
+        /// Calculates inverse element to number <param name="b"></param> using Extended Euclidean Algorithm.
+        /// </summary>
+        public int? InverseByEea(int b)
+        {
+            CheckElementInBounds(b);
+
+            if (b == 0)
+            {
+                return null;
+            }
+
+            int a = Z;
+
+            // Calculate first q
+            int q = (int) (a / (double) b);
+
+            // Set first values t_a and t_b
+            int ta = 0;
+            int tb = 1;
+
+            while (true)
+            {
+                int tempB = b;
+                b = a % b;
+                a = tempB;
+
+                if (b <= 0)
+                {
+                    if (a == 1)
+                    {
+                        break;
+                    }
+
+                    return null;
+                }
+
+                int tempTb = tb;
+                tb = (ta - tb * q) % Z;
+                ta = tempTb;
+
+                q = (int) (a / (double) b);
+            }
+
+            return tb;
+        }
+
         private void CheckElementInBounds(int a)
         {
             if (a < 0 || a >= Z)
