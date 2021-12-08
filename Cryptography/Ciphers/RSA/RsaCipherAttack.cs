@@ -32,11 +32,13 @@ namespace Cryptography.Ciphers.RSA
             _module = module;
         }
 
-        public void CrackPrivateKey() => CrackPrivateKey(2);
+        public void CrackPrivateKeyParallel() => CrackPrivateKeyParallel(2);
 
-        public void CrackPrivateKey(BigInteger startFactorizationWith)
+        public void CrackPrivateKeyParallel(BigInteger startFactorizationWith)
         {
-            var primeP = Primes.FindFirstPrimeFactor(_module, startFactorizationWith);
+            // I suppose that _module has 2 prime divisors, so I can find any of them using Divisors.FindAnyDivisorParallel method.
+            // I do not check whether it's like that.
+            var primeP = Divisors.FindAnyDivisorParallel(_module, startFactorizationWith);
 
             if (!primeP.HasValue)
             {

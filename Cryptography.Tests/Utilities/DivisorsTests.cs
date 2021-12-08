@@ -41,10 +41,7 @@ namespace Cryptography.Tests.Utilities
         [Test]
         public void FindAnyDivisorParallel_Task3_ShouldReturnOneDivisor()
         {
-            var stopwatch = Stopwatch.StartNew();
-            var anyDivisor = Divisors.FindAnyDivisorParallel(BigInteger.Parse("56341958081545199783"), 6_000_000_000);
-            stopwatch.Stop();
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
+            var anyDivisor = Divisors.FindAnyDivisorParallel(BigInteger.Parse("56341958081545199783"), 6_500_000_000);
 
             Assert.That(anyDivisor, Is.EqualTo(new BigInteger(6940440583)));
         }

@@ -72,7 +72,7 @@ namespace Cryptography.Utilities
         /// <param name="startWith">Starts finding a divisor from this value</param>
         public static BigInteger? FindAnyDivisorParallel(BigInteger n, BigInteger startWith)
         {
-            int maxDegreeOfParallelism = Environment.ProcessorCount;
+            int maxDegreeOfParallelism = Environment.ProcessorCount; // Count of logical processors
             var upperBound = n.Sqrt() + 1; // I am adding + 1 because SplitRange will exclude it.
 
             var splits = SplitRange(startWith, upperBound, maxDegreeOfParallelism);
