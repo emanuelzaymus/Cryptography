@@ -121,8 +121,8 @@ namespace Cryptography.Tests.Utilities
         [Test]
         public void FindFirstPrimeFactor_Task3_ShouldReturnFirstDivisor()
         {
-            var firstPrimeFactor =
-                Primes.FindFirstPrimeFactor(BigInteger.Parse("56341958081545199783"), new BigInteger(6_900_000_000));
+            var firstPrimeFactor = Primes.FindFirstPrimeFactor(BigInteger.Parse("56341958081545199783"),
+                new BigInteger(6_900_000_000));
 
             Assert.That(firstPrimeFactor, Is.EqualTo(new BigInteger(6940440583)));
         }

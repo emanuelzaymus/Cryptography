@@ -97,12 +97,17 @@ namespace Cryptography.Utilities
                     nameof(startWith));
             }
 
-            if (startWith == 2 && number % 2 == 0)
+            // If startWith is an even number, try whether it is a divisor.
+            if (startWith % 2 == 0 && number % startWith == 0)
             {
-                return 2;
+                return startWith;
             }
 
+            // Else make from startWith an odd number by adding 1.
+            startWith++;
+
             var upperBound = number / 2;
+            // This for-loop needs an odd initial value.
             for (var i = startWith; i < upperBound; i += 2)
             {
                 if (number % i == 0)

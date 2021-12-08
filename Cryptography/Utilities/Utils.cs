@@ -101,7 +101,7 @@ namespace Cryptography.Utilities
         /// <summary>
         /// Calculates x^d mod n.
         /// </summary>
-        public static decimal Power(decimal x, decimal d, decimal n)
+        public static decimal Power(decimal x, decimal d, decimal n) // TODO: not used
         {
             var dBits = decimal.GetBits(d);
             var bitArray = new BitArray(dBits);
