@@ -13,16 +13,16 @@ namespace Cryptography.Ciphers.RSA
         private readonly BigInteger _module;
 
         /// <summary> p </summary>
-        private BigInteger _primeP;
+        public BigInteger PrimeP { get; private set; }
 
         /// <summary> q </summary>
-        private BigInteger _primeQ;
+        public BigInteger PrimeQ { get; private set; }
 
         /// <summary> Euler Phi Function </summary>
-        private BigInteger _phi;
+        public BigInteger Phi { get; private set; }
 
         /// <summary> d </summary>
-        private BigInteger _privateKey;
+        public BigInteger PrivateKey { get; private set; }
 
         /// <param name="publicKey"> e </param>
         /// <param name="module"> n </param>
@@ -45,18 +45,18 @@ namespace Cryptography.Ciphers.RSA
                 throw new Exception("Module is a prime number! Does not have any prime factors.");
             }
 
-            _primeP = primeP.Value;
-            _primeQ = _module / _primeP; // Should be a prime (because _modulo should have exactly 2 divisors). 
+            PrimeP = primeP.Value;
+            PrimeQ = _module / PrimeP; // Should be a prime (because _modulo should have exactly 2 divisors). 
 
-            _phi = Utils.CalculateEulerPhiFunction(_primeP, _primeQ);
-            var privateKey = ZClass.InverseByEea(_publicKey, _phi);
+            Phi = Utils.CalculateEulerPhiFunction(PrimeP, PrimeQ);
+            var privateKey = ZClass.InverseByEea(_publicKey, Phi);
 
             if (!privateKey.HasValue)
             {
                 throw new Exception("Public key does not have any inverse element.");
             }
 
-            _privateKey = privateKey.Value;
+            PrivateKey = privateKey.Value;
         }
 
         public BigInteger Attack(BigInteger encryptedMessage)
@@ -67,7 +67,7 @@ namespace Cryptography.Ciphers.RSA
                     "Message must be lower than module of the cipher.");
             }
 
-            return BigInteger.ModPow(encryptedMessage, _privateKey, _module);
+            return BigInteger.ModPow(encryptedMessage, PrivateKey, _module);
         }
     }
 }

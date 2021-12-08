@@ -17,10 +17,12 @@ namespace Cryptography.ConsoleApp
 
             // StreamCipherProgram.Run();
 
-            Assignment3Program.RunText1();
+            // Assignment3Program.RunText1();
             // Assignment3Program.RunText2();
             // Assignment3Program.RunText3();
             // Assignment3Program.RunText4();
+
+            Assignment4Program.RunAll();
         }
     }
 }

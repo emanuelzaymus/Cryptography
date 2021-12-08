@@ -9,6 +9,8 @@ namespace Cryptography.Utilities
 {
     public static class Divisors
     {
+        private static readonly BigInteger BigIntegerTwo = new(2);
+
         /// <summary>
         /// Returns all divisors of number <paramref name="n"/>.
         /// </summary>
@@ -85,21 +87,21 @@ namespace Cryptography.Utilities
                     var fromInclusive = split.FromInclusive;
 
                     // If fromInclusive is 2, try whether it is a divisor.
-                    if (fromInclusive == 2 && n % 2 == 0)
+                    if (fromInclusive == 2 && n % BigIntegerTwo == 0)
                     {
-                        anyDivisors.Add(2);
+                        anyDivisors.Add(BigIntegerTwo);
                         return;
                     }
 
                     // Else make from fromInclusive an odd number by adding 1.
-                    if (fromInclusive % 2 == 0)
+                    if (fromInclusive % BigIntegerTwo == 0)
                     {
                         fromInclusive++;
                     }
 
                     int counter = 1;
                     // This for-loop needs an odd initial value.
-                    for (BigInteger i = fromInclusive; i < split.ToExclusive; i += 2)
+                    for (BigInteger i = fromInclusive; i < split.ToExclusive; i += BigIntegerTwo)
                     {
                         if (n % i == 0)
                         {
