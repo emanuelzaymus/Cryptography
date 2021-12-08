@@ -40,7 +40,7 @@ namespace Cryptography.Ciphers.RSA
 
             if (!primeP.HasValue)
             {
-                throw new Exception("Module is prime! Does not have any prime factors.");
+                throw new Exception("Module is a prime number! Does not have any prime factors.");
             }
 
             _primeP = primeP.Value;
