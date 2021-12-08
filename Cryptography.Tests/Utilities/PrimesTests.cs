@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Cryptography.Utilities;
 using NUnit.Framework;
 
@@ -99,6 +100,31 @@ namespace Cryptography.Tests.Utilities
             var actualFactors = Primes.Factorize(70_537_896).ToArray();
 
             Assert.That(expectedFactors, Is.EquivalentTo(actualFactors));
+        }
+
+        [Test]
+        public void FindFirstPrimeFactor_Task1_ShouldReturnFirstDivisor()
+        {
+            var firstPrimeFactor = Primes.FindFirstPrimeFactor(13169004533);
+
+            Assert.That(firstPrimeFactor, Is.EqualTo(new BigInteger(101279)));
+        }
+
+        [Test]
+        public void FindFirstPrimeFactor_Task2_ShouldReturnFirstDivisor()
+        {
+            var firstPrimeFactor = Primes.FindFirstPrimeFactor(1690428486610429);
+
+            Assert.That(firstPrimeFactor, Is.EqualTo(new BigInteger(35352181)));
+        }
+
+        [Test]
+        public void FindFirstPrimeFactor_Task3_ShouldReturnFirstDivisor()
+        {
+            var firstPrimeFactor =
+                Primes.FindFirstPrimeFactor(BigInteger.Parse("56341958081545199783"), new BigInteger(6_900_000_000));
+
+            Assert.That(firstPrimeFactor, Is.EqualTo(new BigInteger(6940440583)));
         }
     }
 }

@@ -6,18 +6,24 @@ namespace Cryptography.Ciphers.RSA
 {
     public class RsaCipher
     {
+        /// <summary> n </summary>
         private readonly BigInteger _module;
+
+        /// <summary> e </summary>
         private readonly BigInteger _publicKey;
+
+        /// <summary> d </summary>
         private readonly BigInteger _privateKey;
 
+        /// <summary>
+        /// Primes P and Q are not check to be primes. 
+        /// </summary>
+        /// <param name="primeP"> p </param>
+        /// <param name="primeQ"> q </param>
+        /// <param name="publicKey"> e </param>
+        /// <param name="privateKey"> d </param>
         public RsaCipher(BigInteger primeP, BigInteger primeQ, BigInteger publicKey, BigInteger privateKey)
         {
-            // if (!Primes.IsPrime(primeP))
-            //     throw new ArgumentException("P is not a prime.", nameof(primeP));
-            //
-            // if (!Primes.IsPrime(primeQ))
-            //     throw new ArgumentException("Q is not a prime.", nameof(primeQ));
-
             _module = primeP * primeQ;
 
             if (publicKey >= _module)
@@ -44,9 +50,6 @@ namespace Cryptography.Ciphers.RSA
             CheckMessage(plainMessage);
 
             return BigInteger.ModPow(plainMessage, _publicKey, _module);
-
-            // return Utils.Power(plainMessage, _publicKey, _module);
-            // return (decimal) Math.Pow(plainMessage, _publicKey) % _module;
         }
 
         public BigInteger Decrypt(BigInteger encryptedMessage)
@@ -54,9 +57,6 @@ namespace Cryptography.Ciphers.RSA
             CheckMessage(encryptedMessage);
 
             return BigInteger.ModPow(encryptedMessage, _privateKey, _module);
-
-            // return Utils.Power(encryptedMessage, _privateKey, _module);
-            // return (decimal) Math.Pow(encryptedMessage, _privateKey) % _module;
         }
 
         private void CheckMessage(BigInteger message)

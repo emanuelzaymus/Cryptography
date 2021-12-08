@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Cryptography.Utilities
 {
@@ -85,11 +86,79 @@ namespace Cryptography.Utilities
             return tb;
         }
 
+        public static BigInteger? InverseByEea(BigInteger number, BigInteger modulo)
+        {
+            if (number < 0 || number >= modulo)
+            {
+                throw new ArgumentOutOfRangeException(nameof(number), $"Element must be between 0 and {modulo}.");
+            }
+
+            if (number == 0)
+            {
+                return null;
+            }
+
+            var a = modulo;
+            var b = number;
+
+            // Calculate first q
+            var q = CustomDivision(a, b);
+            // var q = a / b;
+
+            // Set first values t_a and t_b
+            BigInteger ta = 0;
+            BigInteger tb = 1;
+
+            while (true)
+            {
+                var tempB = b;
+                b = a % b;
+                a = tempB;
+
+                if (b <= 0)
+                {
+                    if (a == 1)
+                    {
+                        break;
+                    }
+
+                    return null;
+                }
+
+                var tempTb = tb;
+                tb = (ta - tb * q) % modulo;
+                ta = tempTb;
+
+                q = CustomDivision(a, b);
+            }
+
+            return tb;
+        }
+
+        public static BigInteger CustomDivision(BigInteger a, BigInteger b)
+        {
+            var division = BigInteger.DivRem(a, b, out var reminder);
+
+            var halfB = BigInteger.DivRem(b, 2, out var halfBReminder);
+
+            if (halfBReminder != 0)
+            {
+                halfB = CustomDivision(b, 2);
+            }
+
+            if (reminder >= halfB)
+            {
+                division++;
+            }
+
+            return division;
+        }
+
         private void CheckElementInBounds(int a)
         {
             if (a < 0 || a >= Z)
             {
-                throw new ArgumentOutOfRangeException(nameof(a), $"Element must be between 0 and {nameof(Z)}.");
+                throw new ArgumentOutOfRangeException(nameof(a), $"Element must be between 0 and {Z}.");
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Cryptography.Utilities;
+﻿using System.Numerics;
+using Cryptography.Utilities;
 using NUnit.Framework;
 
 namespace Cryptography.Tests.Utilities
@@ -26,6 +27,56 @@ namespace Cryptography.Tests.Utilities
             var inverseElement = z.InverseByEea(65536);
 
             Assert.That(inverseElement.HasValue, Is.False);
+        }
+
+        [Test]
+        public void InverseByEea_Task1_ShouldReturnCorrectValue()
+        {
+            // 13168773228 = (101279 - 1) * (130027 - 1)
+            var inverseElement = ZClass.InverseByEea(65537, 13168773228);
+
+            Assert.That(inverseElement.HasValue, Is.True);
+            // ReSharper disable once PossibleInvalidOperationException
+            Assert.That(inverseElement.Value, Is.EqualTo(new BigInteger(72739001)));
+        }
+
+        [Test]
+        public void InverseByEea_Task2_ShouldReturnCorrectValue()
+        {
+            // 1690428403441440 = (35352181 - 1) * (47816809 - 1)
+            var inverseElement = ZClass.InverseByEea(65537, 1690428403441440);
+
+            Assert.That(inverseElement.HasValue, Is.True);
+            // ReSharper disable once PossibleInvalidOperationException
+            Assert.That(inverseElement.Value, Is.EqualTo(new BigInteger(1308297747522113)));
+        }
+
+        [Test]
+        public void InverseByEea_Task3_ShouldReturnCorrectValue()
+        {
+            // 56341958066486836800 = (6940440583 - 1) * (8117922401 - 1)
+            var inverseElement = ZClass.InverseByEea(65537, BigInteger.Parse("56341958066486836800"));
+
+            Assert.That(inverseElement.HasValue, Is.True);
+            // ReSharper disable once PossibleInvalidOperationException
+            Assert.That(inverseElement.Value, Is.EqualTo(new BigInteger(10931906232715055873)));
+        }
+
+        [Test]
+        public void CustomDivision_1489And51_29()
+        {
+            var customDivision = ZClass.CustomDivision(1489, 51);
+
+            Assert.That(customDivision, Is.EqualTo(new BigInteger(29)));
+        }
+
+
+        [Test]
+        public void CustomDivision_1866And51_37()
+        {
+            var customDivision = ZClass.CustomDivision(1866, 51);
+
+            Assert.That(customDivision, Is.EqualTo(new BigInteger(37)));
         }
     }
 }

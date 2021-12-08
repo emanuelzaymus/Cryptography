@@ -42,9 +42,9 @@ namespace Cryptography.Utilities
             {
                 if (sieve[i])
                 {
-                    for (int j = i * 2; j < upperBound; j += i)
+                    for (long j = i * 2; j < upperBound; j += i)
                     {
-                        sieve[j] = false;
+                        sieve[(int) j] = false;
                     }
                 }
             }
@@ -79,18 +79,39 @@ namespace Cryptography.Utilities
             }
         }
 
-        public static bool IsPrime(int number)
+        public static BigInteger? FindFirstPrimeFactor(BigInteger number)
         {
-            var factors = Factorize(number);
-
-            return !factors.Any();
+            return FindFirstPrimeFactor(number, 2);
         }
 
-        public static bool IsPrime(BigInteger number)
+        public static BigInteger? FindFirstPrimeFactor(BigInteger number, BigInteger startWith)
         {
-            var factors = Factorize(int.MaxValue);
+            if (number <= 1)
+            {
+                throw new ArgumentException($"There are no prime factors for number {number}.", nameof(number));
+            }
 
-            return !factors.Any();
+            if (startWith < 2)
+            {
+                throw new ArgumentException($"Algorithm can start with minimal value of 2. Not less.",
+                    nameof(startWith));
+            }
+
+            if (startWith == 2 && number % 2 == 0)
+            {
+                return 2;
+            }
+
+            var upperBound = number / 2;
+            for (var i = startWith; i < upperBound; i += 2)
+            {
+                if (number % i == 0)
+                {
+                    return i;
+                }
+            }
+
+            return null;
         }
     }
 }

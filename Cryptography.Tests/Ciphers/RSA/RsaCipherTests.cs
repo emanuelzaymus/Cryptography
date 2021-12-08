@@ -63,7 +63,7 @@ namespace Cryptography.Tests.Ciphers.RSA
         }
 
         [Test]
-        public void Decrypt_22496913456008_ShouldReturn17014716723435111315()
+        public void Decrypt_17014716723435111315_ShouldReturn1234567890()
         {
             Decrypt_DecryptsEncryptedMessage_ReturnsPlainMessage(6940440583, 8117922401, 65537, 10931906232715055873,
                 1234567890, 17014716723435111315);
