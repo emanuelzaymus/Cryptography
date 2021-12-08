@@ -14,7 +14,7 @@ namespace Cryptography.Tests.Utilities
 
             Assert.That(sqrt, Is.EqualTo(new BigInteger(114756)));
         }
-        
+
         [Test]
         public void Sqrt_NumberFromTask2_ShouldReturnCorrectResult()
         {
@@ -22,8 +22,7 @@ namespace Cryptography.Tests.Utilities
 
             Assert.That(sqrt, Is.EqualTo(new BigInteger(41114820)));
         }
-        
-                
+
         [Test]
         public void Sqrt_NumberFromTask3_ShouldReturnCorrectResult()
         {
