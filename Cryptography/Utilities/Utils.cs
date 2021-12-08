@@ -159,6 +159,9 @@ namespace Cryptography.Utilities
             return builder.ToString();
         }
 
+        /// <summary>
+        /// Calculates (p - 1) * (q - 1). 
+        /// </summary>
         public static BigInteger CalculateEulerPhiFunction(BigInteger p, BigInteger q)
         {
             return (p - 1) * (q - 1);
