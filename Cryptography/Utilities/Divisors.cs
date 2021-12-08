@@ -77,9 +77,8 @@ namespace Cryptography.Utilities
             int maxDegreeOfParallelism = Environment.ProcessorCount; // Count of logical processors
             var upperBound = n.Sqrt() + 1; // I am adding + 1 because SplitRange will exclude it.
 
-            var splits = SplitRange(startWith, upperBound, maxDegreeOfParallelism);
-
-            var anyDivisors = new ConcurrentBag<BigInteger>();
+            var divisorsConcurrentBag = new ConcurrentBag<BigInteger>();
+            var splits = SplitRange(startWith, upperBound, maxDegreeOfParallelism, divisorsConcurrentBag);
 
             Parallel.ForEach(splits, new ParallelOptions {MaxDegreeOfParallelism = maxDegreeOfParallelism},
                 split =>
@@ -89,7 +88,7 @@ namespace Cryptography.Utilities
                     // If fromInclusive is 2, try whether it is a divisor.
                     if (fromInclusive == 2 && n % BigIntegerTwo == 0)
                     {
-                        anyDivisors.Add(BigIntegerTwo);
+                        split.DivisorsConcurrentBag.Add(BigIntegerTwo);
                         return;
                     }
 
@@ -105,13 +104,13 @@ namespace Cryptography.Utilities
                     {
                         if (n % i == 0)
                         {
-                            anyDivisors.Add(i);
+                            split.DivisorsConcurrentBag.Add(i);
                             return;
                         }
 
                         if (counter++ >= 1_000_000)
                         {
-                            if (!anyDivisors.IsEmpty)
+                            if (!split.DivisorsConcurrentBag.IsEmpty)
                             {
                                 return;
                             }
@@ -121,37 +120,40 @@ namespace Cryptography.Utilities
                     }
                 });
 
-            return anyDivisors.Any() ? anyDivisors.First() : null;
+            return divisorsConcurrentBag.Any() ? divisorsConcurrentBag.First() : null;
         }
 
         /// <summary>
         /// Creates <paramref name="numberOfSplits"/> splits from range from <paramref name="rangeFromInclusive"/> to <paramref name="rangeToExclusive"/>. 
         /// </summary>
-        public static List<(BigInteger FromInclusive, BigInteger ToExclusive)> SplitRange(
-            BigInteger rangeFromInclusive, BigInteger rangeToExclusive, int numberOfSplits)
+        public static List<SplitData> SplitRange(BigInteger rangeFromInclusive, BigInteger rangeToExclusive,
+            int numberOfSplits, ConcurrentBag<BigInteger> divisorsConcurrentBag)
         {
             if (rangeFromInclusive >= rangeToExclusive)
             {
                 throw new ArgumentException("RangeFromInclusive needs to be smaller than rangeToExclusive");
             }
 
-            List<(BigInteger FromInclusive, BigInteger ToExclusive)> splits = new(numberOfSplits);
+            List<SplitData> splits = new(numberOfSplits);
 
             var totalSize = rangeToExclusive - rangeFromInclusive;
 
             var splitSize = totalSize / numberOfSplits;
 
-            splits.Add((rangeFromInclusive, rangeFromInclusive + splitSize));
+            splits.Add(new(rangeFromInclusive, rangeFromInclusive + splitSize, divisorsConcurrentBag));
             for (int i = 1; i < numberOfSplits; i++)
             {
                 var splitBefore = splits[i - 1];
 
                 var start = splitBefore.ToExclusive;
                 var end = start + splitSize;
-                splits.Add((start, end));
+                splits.Add(new(start, end, divisorsConcurrentBag));
             }
 
             return splits;
         }
+
+        public record SplitData(BigInteger FromInclusive, BigInteger ToExclusive,
+            ConcurrentBag<BigInteger> DivisorsConcurrentBag);
     }
 }
