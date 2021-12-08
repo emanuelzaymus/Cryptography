@@ -32,9 +32,11 @@ namespace Cryptography.Ciphers.RSA
             _module = module;
         }
 
-        public void CrackPrivateKey()
+        public void CrackPrivateKey() => CrackPrivateKey(2);
+
+        public void CrackPrivateKey(BigInteger startFactorizationWith)
         {
-            var primeP = Primes.FindFirstPrimeFactor(_module);
+            var primeP = Primes.FindFirstPrimeFactor(_module, startFactorizationWith);
 
             if (!primeP.HasValue)
             {

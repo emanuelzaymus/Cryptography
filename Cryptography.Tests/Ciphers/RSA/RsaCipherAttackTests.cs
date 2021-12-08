@@ -33,10 +33,10 @@ namespace Cryptography.Tests.Ciphers.RSA
         public void Attack_Task3_ShouldReturnCorrectMessage()
         {
             RsaCipherAttack attack = new(65537, BigInteger.Parse("56341958081545199783"));
-        
-            attack.CrackPrivateKey();
+
+            attack.CrackPrivateKey(6_900_000_000);
             var decryptedMessage = attack.Attack(17014716723435111315);
-        
+
             Assert.That(decryptedMessage, Is.EqualTo(new BigInteger(1234567890)));
         }
     }
