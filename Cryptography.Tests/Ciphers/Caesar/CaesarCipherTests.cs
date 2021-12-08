@@ -12,6 +12,7 @@ namespace Cryptography.Tests.Ciphers.Caesar
         [Test]
         public void Encrypt_NormalShift_ShouldEncryptCorrectly()
         {
+            // ReSharper disable once RedundantArgumentDefaultValue
             CaesarCipher cipher = new(Alphabets.ALPHABET, 3);
             const string text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -46,6 +47,7 @@ namespace Cryptography.Tests.Ciphers.Caesar
         [Test]
         public void Decrypt_NormalShift_ShouldEncryptCorrectly()
         {
+            // ReSharper disable once RedundantArgumentDefaultValue
             CaesarCipher cipher = new(Alphabets.ALPHABET, 3);
             const string encrypted = "DEFGHIJKLMNOPQRSTUVWXYZABC";
 

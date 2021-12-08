@@ -14,9 +14,7 @@ namespace Cryptography.Tests.Utilities
 
             var inverseElement = z.InverseByEea(65537);
 
-            Assert.That(inverseElement.HasValue, Is.True);
-            // ReSharper disable once PossibleInvalidOperationException
-            Assert.That(inverseElement.Value, Is.EqualTo(31734449));
+            Assert.That(inverseElement, Is.EqualTo(31734449));
         }
 
         [Test]
@@ -35,9 +33,7 @@ namespace Cryptography.Tests.Utilities
             // 13168773228 = (101279 - 1) * (130027 - 1)
             var inverseElement = ZClass.InverseByEea(65537, 13168773228);
 
-            Assert.That(inverseElement.HasValue, Is.True);
-            // ReSharper disable once PossibleInvalidOperationException
-            Assert.That(inverseElement.Value, Is.EqualTo(new BigInteger(72739001)));
+            Assert.That(inverseElement, Is.EqualTo(new BigInteger(72739001)));
         }
 
         [Test]
@@ -46,9 +42,7 @@ namespace Cryptography.Tests.Utilities
             // 1690428403441440 = (35352181 - 1) * (47816809 - 1)
             var inverseElement = ZClass.InverseByEea(65537, 1690428403441440);
 
-            Assert.That(inverseElement.HasValue, Is.True);
-            // ReSharper disable once PossibleInvalidOperationException
-            Assert.That(inverseElement.Value, Is.EqualTo(new BigInteger(1308297747522113)));
+            Assert.That(inverseElement, Is.EqualTo(new BigInteger(1308297747522113)));
         }
 
         [Test]
@@ -57,9 +51,7 @@ namespace Cryptography.Tests.Utilities
             // 56341958066486836800 = (6940440583 - 1) * (8117922401 - 1)
             var inverseElement = ZClass.InverseByEea(65537, BigInteger.Parse("56341958066486836800"));
 
-            Assert.That(inverseElement.HasValue, Is.True);
-            // ReSharper disable once PossibleInvalidOperationException
-            Assert.That(inverseElement.Value, Is.EqualTo(new BigInteger(10931906232715055873)));
+            Assert.That(inverseElement, Is.EqualTo(new BigInteger(10931906232715055873)));
         }
     }
 }

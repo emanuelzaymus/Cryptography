@@ -86,6 +86,14 @@ namespace Cryptography.Utilities
             return tb;
         }
 
+        private void CheckElementInBounds(int a)
+        {
+            if (a < 0 || a >= Z)
+            {
+                throw new ArgumentOutOfRangeException(nameof(a), $"Element must be between 0 and {Z}.");
+            }
+        }
+
         public static BigInteger? InverseByEea(BigInteger number, BigInteger modulo)
         {
             if (number < 0 || number >= modulo)
@@ -132,14 +140,6 @@ namespace Cryptography.Utilities
             }
 
             return tb;
-        }
-
-        private void CheckElementInBounds(int a)
-        {
-            if (a < 0 || a >= Z)
-            {
-                throw new ArgumentOutOfRangeException(nameof(a), $"Element must be between 0 and {Z}.");
-            }
         }
     }
 }

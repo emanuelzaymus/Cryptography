@@ -73,7 +73,8 @@ namespace Cryptography.Utilities
             return GetDivisors(n).Skip(1).ToArray();
         }
 
-        public static int CalculateGreatestCommonDivisor(int a, int b) // TODO: not used
+        // ReSharper disable once UnusedMember.Global
+        public static int CalculateGreatestCommonDivisor(int a, int b)
         {
             if (a < 0 || b < 0)
                 throw new ArgumentException("Numbers A and B cannot be negative.");
@@ -115,9 +116,10 @@ namespace Cryptography.Utilities
         }
 
         /// <summary>
-        /// Calculates x^d mod n.
+        /// Effective power with modulus calculation: x^d mod n.
         /// </summary>
-        public static decimal Power(decimal x, decimal d, decimal n) // TODO: not used
+        // ReSharper disable once UnusedMember.Global
+        public static decimal Power(decimal x, decimal d, decimal n)
         {
             var dBits = decimal.GetBits(d);
             var bitArray = new BitArray(dBits);
