@@ -2,16 +2,16 @@
 {
     public class AttackChecker
     {
-        private readonly string _originalText;
+        private readonly object _originalMessage;
 
-        public AttackChecker(string originalText)
+        public AttackChecker(object originalMessage)
         {
-            _originalText = originalText;
+            _originalMessage = originalMessage;
         }
 
-        public bool IsDecryptedCorrectly(string decryptedText)
+        public bool IsDecryptedCorrectly(object decryptedMessage)
         {
-            return _originalText == decryptedText;
+            return Equals(_originalMessage, decryptedMessage);
         }
     }
 }
