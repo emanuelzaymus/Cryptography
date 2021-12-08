@@ -42,54 +42,6 @@ namespace Cryptography.Utilities
         }
 
         /// <summary>
-        /// Returns all divisors of number <paramref name="n"/>.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static int[] GetDivisors(int n)
-        {
-            if (n <= 0)
-                throw new ArgumentOutOfRangeException(nameof(n), "Number n has to be positive.");
-
-            var divisors = new List<int>();
-
-            for (int i = 1; i <= n / 2; i++)
-            {
-                if (n % i == 0)
-                {
-                    divisors.Add(i);
-                }
-            }
-
-            divisors.Add(n);
-
-            return divisors.ToArray();
-        }
-
-        /// <summary>
-        /// Returns divisors of number <paramref name="n"/> without number 1.
-        /// </summary>
-        public static int[] GetDivisorsWithout1(int n)
-        {
-            return GetDivisors(n).Skip(1).ToArray();
-        }
-
-        // ReSharper disable once UnusedMember.Global
-        public static int CalculateGreatestCommonDivisor(int a, int b)
-        {
-            if (a < 0 || b < 0)
-                throw new ArgumentException("Numbers A and B cannot be negative.");
-
-            while (b > 0)
-            {
-                int temp = b;
-                b = a % b;
-                a = temp;
-            }
-
-            return a;
-        }
-
-        /// <summary>
         /// Creates permutation series. Every time returns only the same instance of <c>List</c> object!
         /// </summary>
         public static IEnumerable<List<int>> GeneratePermutationSeries(int seriesLength, int useNumberCount)

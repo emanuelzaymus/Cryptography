@@ -12,7 +12,7 @@ namespace Cryptography.Ciphers.Affine
 
             int positiveModulo = Utils.PositiveModulo(key1, alphabetLength);
 
-            var divisors = Utils.GetDivisorsWithout1(alphabetLength);
+            var divisors = Divisors.GetDivisorsWithout1(alphabetLength);
 
             if (divisors.Any(d => positiveModulo % d == 0))
             {

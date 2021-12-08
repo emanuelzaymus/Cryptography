@@ -10,7 +10,7 @@ namespace Cryptography.Ciphers.Affine
 
         protected AffineCipherAttack(string alphabet) : base(alphabet)
         {
-            _divisors = Utils.GetDivisorsWithout1(alphabet.Length);
+            _divisors = Divisors.GetDivisorsWithout1(alphabet.Length);
         }
 
         protected bool IsDivisibleByAlphabetDivisors(int i)

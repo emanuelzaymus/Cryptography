@@ -37,18 +37,6 @@ namespace Cryptography.Tests.Utilities
         }
 
         [Test]
-        public void GetDivisors()
-        {
-            Assert.AreEqual(new[] {1}, Utils.GetDivisors(1));
-            Assert.AreEqual(new[] {1, 2}, Utils.GetDivisors(2));
-            Assert.AreEqual(new[] {1, 3}, Utils.GetDivisors(3));
-            Assert.AreEqual(new[] {1, 2, 4}, Utils.GetDivisors(4));
-            Assert.AreEqual(new[] {1, 5}, Utils.GetDivisors(5));
-            Assert.AreEqual(new[] {1, 2, 5, 10}, Utils.GetDivisors(10));
-            Assert.AreEqual(new[] {1, 2, 3, 4, 6, 8, 12, 16, 24, 48}, Utils.GetDivisors(48));
-        }
-
-        [Test]
         public void GeneratePermutationSeries_SeriesLength3AndUseNumberCount2_ShouldReturnCorrectly()
         {
             var list = Utils.GeneratePermutationSeries(seriesLength: 3, useNumberCount: 2);
