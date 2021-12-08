@@ -59,19 +59,12 @@ namespace Cryptography.Tests.Utilities
             var bi7 = startValue + splitSize * 7;
             var bi8 = startValue + splitSize * 8;
 
-            List<Divisors.SplitData> bounds = new()
+            List<(BigInteger FromInclusive, BigInteger ToExclusive)> bounds = new()
             {
-                new(startValue, bi1, null),
-                new(bi1, bi2, null),
-                new(bi2, bi3, null),
-                new(bi3, bi4, null),
-                new(bi4, bi5, null),
-                new(bi5, bi6, null),
-                new(bi6, bi7, null),
-                new(bi7, bi8, null)
+                (startValue, bi1), (bi1, bi2), (bi2, bi3), (bi3, bi4), (bi4, bi5), (bi5, bi6), (bi6, bi7), (bi7, bi8)
             };
 
-            var splits = Divisors.SplitRange(2, 7506128035, 8, null);
+            var splits = Divisors.SplitRange(2, 7506128035, 8);
 
             Assert.That(splits, Is.EquivalentTo(bounds));
         }

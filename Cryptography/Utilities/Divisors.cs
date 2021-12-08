@@ -78,82 +78,97 @@ namespace Cryptography.Utilities
             var upperBound = n.Sqrt() + 1; // I am adding + 1 because SplitRange will exclude it.
 
             var divisorsConcurrentBag = new ConcurrentBag<BigInteger>();
-            var splits = SplitRange(startWith, upperBound, maxDegreeOfParallelism, divisorsConcurrentBag);
 
-            Parallel.ForEach(splits, new ParallelOptions {MaxDegreeOfParallelism = maxDegreeOfParallelism},
-                split =>
+            var splitsData = SplitRange(startWith, upperBound, maxDegreeOfParallelism)
+                .Select(s => new SplitData(s.FromInclusive, s.ToExclusive, n, divisorsConcurrentBag))
+                .ToList();
+
+            Parallel.ForEach(
+                splitsData,
+                new ParallelOptions {MaxDegreeOfParallelism = maxDegreeOfParallelism},
+                FindAnyDivisorAndAddToBag
+            );
+
+            return divisorsConcurrentBag.Any() ? divisorsConcurrentBag.First() : null;
+        }
+
+        private static void FindAnyDivisorAndAddToBag(SplitData splitData)
+        {
+            var fromInclusive = splitData.FromInclusive;
+            var toExclusive = splitData.ToExclusive;
+            var n = splitData.Number;
+            var divisorsConcurrentBag = splitData.DivisorsConcurrentBag;
+
+            // If fromInclusive is 2, try whether it is a divisor.
+            if (fromInclusive == 2 && n % BigIntegerTwo == 0)
+            {
+                divisorsConcurrentBag.Add(BigIntegerTwo);
+                return;
+            }
+
+            // Else make from fromInclusive an odd number by adding 1.
+            if (fromInclusive % BigIntegerTwo == 0)
+            {
+                fromInclusive++;
+            }
+
+            int counter = 1;
+            // This for-loop needs an odd initial value.
+            for (BigInteger i = fromInclusive; i < toExclusive; i += BigIntegerTwo)
+            {
+                if (n % i == 0)
                 {
-                    var fromInclusive = split.FromInclusive;
+                    divisorsConcurrentBag.Add(i);
+                    return;
+                }
 
-                    // If fromInclusive is 2, try whether it is a divisor.
-                    if (fromInclusive == 2 && n % BigIntegerTwo == 0)
+                if (counter++ >= 1_000_000)
+                {
+                    if (!divisorsConcurrentBag.IsEmpty)
                     {
-                        split.DivisorsConcurrentBag.Add(BigIntegerTwo);
                         return;
                     }
 
-                    // Else make from fromInclusive an odd number by adding 1.
-                    if (fromInclusive % BigIntegerTwo == 0)
-                    {
-                        fromInclusive++;
-                    }
-
-                    int counter = 1;
-                    // This for-loop needs an odd initial value.
-                    for (BigInteger i = fromInclusive; i < split.ToExclusive; i += BigIntegerTwo)
-                    {
-                        if (n % i == 0)
-                        {
-                            split.DivisorsConcurrentBag.Add(i);
-                            return;
-                        }
-
-                        if (counter++ >= 1_000_000)
-                        {
-                            if (!split.DivisorsConcurrentBag.IsEmpty)
-                            {
-                                return;
-                            }
-
-                            counter = 1;
-                        }
-                    }
-                });
-
-            return divisorsConcurrentBag.Any() ? divisorsConcurrentBag.First() : null;
+                    counter = 1;
+                }
+            }
         }
 
         /// <summary>
         /// Creates <paramref name="numberOfSplits"/> splits from range from <paramref name="rangeFromInclusive"/> to <paramref name="rangeToExclusive"/>. 
         /// </summary>
-        public static List<SplitData> SplitRange(BigInteger rangeFromInclusive, BigInteger rangeToExclusive,
-            int numberOfSplits, ConcurrentBag<BigInteger> divisorsConcurrentBag)
+        public static List<(BigInteger FromInclusive, BigInteger ToExclusive)> SplitRange(BigInteger rangeFromInclusive,
+            BigInteger rangeToExclusive, int numberOfSplits)
         {
             if (rangeFromInclusive >= rangeToExclusive)
             {
                 throw new ArgumentException("RangeFromInclusive needs to be smaller than rangeToExclusive");
             }
 
-            List<SplitData> splits = new(numberOfSplits);
+            List<(BigInteger FromInclusive, BigInteger ToExclusive)> splits = new(numberOfSplits);
 
             var totalSize = rangeToExclusive - rangeFromInclusive;
 
             var splitSize = totalSize / numberOfSplits;
 
-            splits.Add(new(rangeFromInclusive, rangeFromInclusive + splitSize, divisorsConcurrentBag));
+            splits.Add(new(rangeFromInclusive, rangeFromInclusive + splitSize));
             for (int i = 1; i < numberOfSplits; i++)
             {
                 var splitBefore = splits[i - 1];
 
                 var start = splitBefore.ToExclusive;
                 var end = start + splitSize;
-                splits.Add(new(start, end, divisorsConcurrentBag));
+                splits.Add(new(start, end));
             }
 
             return splits;
         }
 
-        public record SplitData(BigInteger FromInclusive, BigInteger ToExclusive,
-            ConcurrentBag<BigInteger> DivisorsConcurrentBag);
+        private record SplitData(
+            BigInteger FromInclusive,
+            BigInteger ToExclusive,
+            BigInteger Number,
+            ConcurrentBag<BigInteger> DivisorsConcurrentBag
+        );
     }
 }
