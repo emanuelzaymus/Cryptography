@@ -14,7 +14,23 @@ namespace Cryptography.Utilities
             if (b <= 0)
                 throw new ArgumentException("B cannot be 0 or negative.", nameof(b));
 
-            int modulo = a % b;
+            var modulo = a % b;
+
+            // If modulo is negative than calculate opposite number.
+            if (modulo < 0)
+            {
+                return b + modulo;
+            }
+
+            return modulo;
+        }
+
+        public static BigInteger PositiveModulo(BigInteger a, BigInteger b)
+        {
+            if (b <= 0)
+                throw new ArgumentException("B cannot be 0 or negative.", nameof(b));
+
+            var modulo = a % b;
 
             // If modulo is negative than calculate opposite number.
             if (modulo < 0)

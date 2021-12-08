@@ -102,8 +102,7 @@ namespace Cryptography.Utilities
             var b = number;
 
             // Calculate first q
-            var q = CustomDivision(a, b);
-            // var q = a / b;
+            var q = a / b;
 
             // Set first values t_a and t_b
             BigInteger ta = 0;
@@ -126,32 +125,13 @@ namespace Cryptography.Utilities
                 }
 
                 var tempTb = tb;
-                tb = (ta - tb * q) % modulo;
+                tb = Utils.PositiveModulo(ta - tb * q, modulo);
                 ta = tempTb;
 
-                q = CustomDivision(a, b);
+                q = a / b;
             }
 
             return tb;
-        }
-
-        public static BigInteger CustomDivision(BigInteger a, BigInteger b)
-        {
-            var division = BigInteger.DivRem(a, b, out var reminder);
-
-            var halfB = BigInteger.DivRem(b, 2, out var halfBReminder);
-
-            if (halfBReminder != 0)
-            {
-                halfB = CustomDivision(b, 2);
-            }
-
-            if (reminder >= halfB)
-            {
-                division++;
-            }
-
-            return division;
         }
 
         private void CheckElementInBounds(int a)

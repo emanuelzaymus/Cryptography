@@ -61,22 +61,5 @@ namespace Cryptography.Tests.Utilities
             // ReSharper disable once PossibleInvalidOperationException
             Assert.That(inverseElement.Value, Is.EqualTo(new BigInteger(10931906232715055873)));
         }
-
-        [Test]
-        public void CustomDivision_1489And51_29()
-        {
-            var customDivision = ZClass.CustomDivision(1489, 51);
-
-            Assert.That(customDivision, Is.EqualTo(new BigInteger(29)));
-        }
-
-
-        [Test]
-        public void CustomDivision_1866And51_37()
-        {
-            var customDivision = ZClass.CustomDivision(1866, 51);
-
-            Assert.That(customDivision, Is.EqualTo(new BigInteger(37)));
-        }
     }
 }
