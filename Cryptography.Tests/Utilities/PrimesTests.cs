@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
 using Cryptography.Utilities;
 using NUnit.Framework;
 
@@ -129,87 +125,6 @@ namespace Cryptography.Tests.Utilities
                 new BigInteger(6_900_000_000));
 
             Assert.That(firstPrimeFactor, Is.EqualTo(new BigInteger(6940440583)));
-        }
-
-        [Test]
-        public void ParallelTests()
-        {
-            var stopwatch = Stopwatch.StartNew();
-            var number = BigInteger.Parse("56341958081545199783");
-
-            var bi1 = BigInteger.Multiply(938266005, 1);
-            var bi2 = BigInteger.Multiply(938266005, 2);
-            var bi3 = BigInteger.Multiply(938266005, 3);
-            var bi4 = BigInteger.Multiply(938266005, 4);
-            var bi5 = BigInteger.Multiply(938266005, 5);
-            var bi6 = BigInteger.Multiply(938266005, 6);
-            var bi7 = BigInteger.Multiply(938266005, 7);
-            var bi8 = BigInteger.Multiply(938266005, 8) + 1;
-
-            List<(BigInteger FromInclusive, BigInteger ToExclusive)> bounds = new()
-            {
-                (2, bi1),
-                (bi1, bi2),
-                (bi2, bi3),
-                (bi3, bi4),
-                (bi4, bi5),
-                (bi5, bi6),
-                (bi6, bi7),
-                (bi7, bi8)
-            };
-
-            var primeFactors = new ConcurrentBag<BigInteger>();
-
-            Parallel.ForEach(bounds, new ParallelOptions {MaxDegreeOfParallelism = Environment.ProcessorCount},
-                b =>
-                {
-                    var fromInclusive = b.FromInclusive;
-
-                    // If fromInclusive is 2, try whether it is a divisor.
-                    if (fromInclusive == 2 && number % 2 == 0)
-                    {
-                        primeFactors.Add(2);
-                        return;
-                    }
-
-                    // Else make from fromInclusive an odd number by adding 1.
-                    if (fromInclusive % 2 == 0)
-                    {
-                        fromInclusive++;
-                    }
-
-                    int counter = 1;
-                    // This for-loop needs an odd initial value.
-                    for (BigInteger i = fromInclusive; i < b.ToExclusive; i += 2)
-                    {
-                        if (number % i == 0)
-                        {
-                            primeFactors.Add(i);
-                            return;
-                        }
-
-                        if (counter++ >= 1_000_000)
-                        {
-                            if (!primeFactors.IsEmpty)
-                            {
-                                return;
-                            }
-
-                            counter = 1;
-                        }
-                    }
-                });
-
-            var foundFactors = primeFactors.ToList();
-
-            stopwatch.Stop();
-
-            foreach (var foundFactor in foundFactors)
-            {
-                Console.WriteLine(foundFactor);
-            }
-
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -13,7 +12,6 @@ namespace Cryptography.Utilities
         /// <summary>
         /// Returns all divisors of number <paramref name="n"/>.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static int[] GetDivisors(int n)
         {
             if (n <= 0)
@@ -42,15 +40,6 @@ namespace Cryptography.Utilities
             return GetDivisors(n).Skip(1).ToArray();
         }
 
-        /// <summary>
-        /// Finds any divisor of a number with maximal number of threads.
-        /// </summary>
-        /// <param name="n">Number</param>
-        public static BigInteger FindAnyDivisorParallel(BigInteger n)
-        {
-            return FindAnyDivisorParallel(n, Environment.ProcessorCount);
-        }
-
         // ReSharper disable once UnusedMember.Global
         public static int CalculateGreatestCommonDivisor(int a, int b)
         {
@@ -71,45 +60,34 @@ namespace Cryptography.Utilities
         /// Finds any divisor of a number.
         /// </summary>
         /// <param name="n">Number</param>
-        /// <param name="maxDegreeOfParallelism">Set number of threads to use</param>
-        /// <returns></returns>
-        public static BigInteger FindAnyDivisorParallel(BigInteger n, int maxDegreeOfParallelism)
+        public static BigInteger? FindAnyDivisorParallel(BigInteger n)
         {
-            var stopwatch = Stopwatch.StartNew();
-            var number = BigInteger.Parse("56341958081545199783");
+            return FindAnyDivisorParallel(n, 2);
+        }
 
-            var bi1 = BigInteger.Multiply(938266005, 1);
-            var bi2 = BigInteger.Multiply(938266005, 2);
-            var bi3 = BigInteger.Multiply(938266005, 3);
-            var bi4 = BigInteger.Multiply(938266005, 4);
-            var bi5 = BigInteger.Multiply(938266005, 5);
-            var bi6 = BigInteger.Multiply(938266005, 6);
-            var bi7 = BigInteger.Multiply(938266005, 7);
-            var bi8 = BigInteger.Multiply(938266005, 8) + 1;
+        /// <summary>
+        /// Finds any divisor of a number.
+        /// </summary>
+        /// <param name="n">Number</param>
+        /// <param name="startWith">Starts finding a divisor from this value</param>
+        public static BigInteger? FindAnyDivisorParallel(BigInteger n, BigInteger startWith)
+        {
+            int maxDegreeOfParallelism = Environment.ProcessorCount;
+            var upperBound = n.Sqrt() + 1; // I am adding + 1 because SplitRange will exclude it.
 
-            List<(BigInteger FromInclusive, BigInteger ToExclusive)> bounds = new()
-            {
-                (2, bi1),
-                (bi1, bi2),
-                (bi2, bi3),
-                (bi3, bi4),
-                (bi4, bi5),
-                (bi5, bi6),
-                (bi6, bi7),
-                (bi7, bi8)
-            };
+            var splits = SplitRange(startWith, upperBound, maxDegreeOfParallelism);
 
-            var primeFactors = new ConcurrentBag<BigInteger>();
+            var anyDivisors = new ConcurrentBag<BigInteger>();
 
-            Parallel.ForEach(bounds, new ParallelOptions {MaxDegreeOfParallelism = Environment.ProcessorCount},
-                b =>
+            Parallel.ForEach(splits, new ParallelOptions {MaxDegreeOfParallelism = maxDegreeOfParallelism},
+                split =>
                 {
-                    var fromInclusive = b.FromInclusive;
+                    var fromInclusive = split.FromInclusive;
 
                     // If fromInclusive is 2, try whether it is a divisor.
-                    if (fromInclusive == 2 && number % 2 == 0)
+                    if (fromInclusive == 2 && n % 2 == 0)
                     {
-                        primeFactors.Add(2);
+                        anyDivisors.Add(2);
                         return;
                     }
 
@@ -121,17 +99,17 @@ namespace Cryptography.Utilities
 
                     int counter = 1;
                     // This for-loop needs an odd initial value.
-                    for (BigInteger i = fromInclusive; i < b.ToExclusive; i += 2)
+                    for (BigInteger i = fromInclusive; i < split.ToExclusive; i += 2)
                     {
-                        if (number % i == 0)
+                        if (n % i == 0)
                         {
-                            primeFactors.Add(i);
+                            anyDivisors.Add(i);
                             return;
                         }
 
                         if (counter++ >= 1_000_000)
                         {
-                            if (!primeFactors.IsEmpty)
+                            if (!anyDivisors.IsEmpty)
                             {
                                 return;
                             }
@@ -141,18 +119,37 @@ namespace Cryptography.Utilities
                     }
                 });
 
-            var foundFactors = primeFactors.ToList();
+            return anyDivisors.Any() ? anyDivisors.First() : null;
+        }
 
-            stopwatch.Stop();
-
-            foreach (var foundFactor in foundFactors)
+        /// <summary>
+        /// Creates <paramref name="numberOfSplits"/> splits from range from <paramref name="rangeFromInclusive"/> to <paramref name="rangeToExclusive"/>. 
+        /// </summary>
+        public static List<(BigInteger FromInclusive, BigInteger ToExclusive)> SplitRange(
+            BigInteger rangeFromInclusive, BigInteger rangeToExclusive, int numberOfSplits)
+        {
+            if (rangeFromInclusive >= rangeToExclusive)
             {
-                Console.WriteLine(foundFactor);
+                throw new ArgumentException("RangeFromInclusive needs to be smaller than rangeToExclusive");
             }
 
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
+            List<(BigInteger FromInclusive, BigInteger ToExclusive)> splits = new(numberOfSplits);
 
-            return primeFactors.First();
+            var totalSize = rangeToExclusive - rangeFromInclusive;
+
+            var splitSize = totalSize / numberOfSplits;
+
+            splits.Add((rangeFromInclusive, rangeFromInclusive + splitSize));
+            for (int i = 1; i < numberOfSplits; i++)
+            {
+                var splitBefore = splits[i - 1];
+
+                var start = splitBefore.ToExclusive;
+                var end = start + splitSize;
+                splits.Add((start, end));
+            }
+
+            return splits;
         }
     }
 }
