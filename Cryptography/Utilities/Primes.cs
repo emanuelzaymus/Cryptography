@@ -105,7 +105,7 @@ namespace Cryptography.Utilities
             // Else make from startWith an odd number by adding 1.
             startWith++;
 
-            var upperBound = number / 2;
+            var upperBound = number.Sqrt();
             // This for-loop needs an odd initial value.
             for (var i = startWith; i < upperBound; i += 2)
             {
