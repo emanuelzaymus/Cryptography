@@ -85,6 +85,7 @@ namespace Cryptography.Utilities
 
             Parallel.ForEach(
                 splitsData,
+                // Do not use CancellationToken - It slows down the performance significantly.
                 new ParallelOptions {MaxDegreeOfParallelism = maxDegreeOfParallelism},
                 splitData =>
                     FindAnyDivisorAndAddToBag(splitData.FromInclusive, splitData.ToExclusive, n, divisorsConcurrentBag)
