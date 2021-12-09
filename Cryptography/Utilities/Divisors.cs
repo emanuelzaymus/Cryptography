@@ -10,6 +10,8 @@ namespace Cryptography.Utilities
     public static class Divisors
     {
         private static readonly BigInteger BigIntegerTwo = new(2);
+        private static readonly BigInteger BigIntegerThree = new(3);
+        private static readonly BigInteger BigIntegerFour = new(4);
 
         /// <summary>
         /// Returns all divisors of number <paramref name="n"/>.
@@ -86,19 +88,17 @@ namespace Cryptography.Utilities
             Parallel.ForEach(
                 splitsData,
                 new ParallelOptions {MaxDegreeOfParallelism = maxDegreeOfParallelism},
-                FindAnyDivisorAndAddToBag
+                splitData => FindAnyDivisorAndAddToBag(splitData.FromInclusive, splitData.ToExclusive, splitData.Number,
+                    splitData.DivisorsConcurrentBag)
             );
 
             return divisorsConcurrentBag.Any() ? divisorsConcurrentBag.First() : null;
         }
 
-        private static void FindAnyDivisorAndAddToBag(SplitData splitData)
+        // TODO: add cancellation token
+        private static void FindAnyDivisorAndAddToBag(BigInteger fromInclusive, BigInteger toExclusive, BigInteger n,
+            ConcurrentBag<BigInteger> divisorsConcurrentBag)
         {
-            var fromInclusive = splitData.FromInclusive;
-            var toExclusive = splitData.ToExclusive;
-            var n = splitData.Number;
-            var divisorsConcurrentBag = splitData.DivisorsConcurrentBag;
-
             // If fromInclusive is 2, try whether it is a divisor.
             if (fromInclusive == 2 && n % BigIntegerTwo == 0)
             {
@@ -106,15 +106,42 @@ namespace Cryptography.Utilities
                 return;
             }
 
-            // Else make from fromInclusive an odd number by adding 1.
+            // Else make from fromInclusive AN ODD number.
             if (fromInclusive % BigIntegerTwo == 0)
             {
                 fromInclusive++;
             }
 
+            // If fromInclusive is 3, try whether it is a divisor.
+            if (fromInclusive == 3 && n % BigIntegerThree == 0)
+            {
+                divisorsConcurrentBag.Add(BigIntegerThree);
+                return;
+            }
+
+            // Else make from fonInclusive AN ODD number which is NOT MULTIPLE OF 3.
+            if (fromInclusive % BigIntegerThree == 0)
+            {
+                fromInclusive += BigIntegerTwo;
+            }
+
+            // If predecessor od fromInclusive is multiple of 3, try whether it is a divisor and add 4.
+            if ((fromInclusive - 1) % BigIntegerThree == 0)
+            {
+                if (n % fromInclusive == 0)
+                {
+                    divisorsConcurrentBag.Add(fromInclusive);
+                    return;
+                }
+
+                fromInclusive += BigIntegerFour;
+            }
+
             int counter = 1;
+            bool isTwo = false; // isTwo is inverted in the first loop and added in the second loop for the first time.
+
             // This for-loop needs an odd initial value.
-            for (BigInteger i = fromInclusive; i < toExclusive; i += BigIntegerTwo)
+            for (BigInteger i = fromInclusive; i < toExclusive; i += (isTwo ? BigIntegerTwo : BigIntegerFour))
             {
                 if (n % i == 0)
                 {
@@ -131,6 +158,8 @@ namespace Cryptography.Utilities
 
                     counter = 1;
                 }
+
+                isTwo = !isTwo;
             }
         }
 

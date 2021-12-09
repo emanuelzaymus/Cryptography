@@ -26,6 +26,7 @@ namespace Cryptography.ConsoleApp.SubPrograms
             stopwatch.Stop();
 
             Console.WriteLine(numberOfTask + ".");
+
             Console.WriteLine("    n = " + module);
             Console.WriteLine("    e = " + publicKey);
             Console.WriteLine("    y = " + encryptedMessage);
