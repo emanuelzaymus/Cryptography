@@ -79,23 +79,20 @@ namespace Cryptography.Utilities
             int maxDegreeOfParallelism = Environment.ProcessorCount; // Count of logical processors
             var upperBound = n.Sqrt() + 1; // I am adding + 1 because SplitRange will exclude it.
 
-            var divisorsConcurrentBag = new ConcurrentBag<BigInteger>();
+            var splitsData = SplitRange(startWith, upperBound, maxDegreeOfParallelism);
 
-            var splitsData = SplitRange(startWith, upperBound, maxDegreeOfParallelism)
-                .Select(s => new SplitData(s.FromInclusive, s.ToExclusive, n, divisorsConcurrentBag))
-                .ToList();
+            var divisorsConcurrentBag = new ConcurrentBag<BigInteger>();
 
             Parallel.ForEach(
                 splitsData,
                 new ParallelOptions {MaxDegreeOfParallelism = maxDegreeOfParallelism},
-                splitData => FindAnyDivisorAndAddToBag(splitData.FromInclusive, splitData.ToExclusive, splitData.Number,
-                    splitData.DivisorsConcurrentBag)
+                splitData =>
+                    FindAnyDivisorAndAddToBag(splitData.FromInclusive, splitData.ToExclusive, n, divisorsConcurrentBag)
             );
 
             return divisorsConcurrentBag.Any() ? divisorsConcurrentBag.First() : null;
         }
 
-        // TODO: add cancellation token
         private static void FindAnyDivisorAndAddToBag(BigInteger fromInclusive, BigInteger toExclusive, BigInteger n,
             ConcurrentBag<BigInteger> divisorsConcurrentBag)
         {
@@ -192,12 +189,5 @@ namespace Cryptography.Utilities
 
             return splits;
         }
-
-        private record SplitData(
-            BigInteger FromInclusive,
-            BigInteger ToExclusive,
-            BigInteger Number,
-            ConcurrentBag<BigInteger> DivisorsConcurrentBag
-        );
     }
 }
