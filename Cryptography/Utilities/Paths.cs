@@ -4,7 +4,7 @@
     {
         private const string Resources = "Resources/";
 
-        internal static class In
+        public static class In
         {
             private const string InResources = "./" + Resources;
 
@@ -26,6 +26,16 @@
                 internal const string Text2 = Assignment3Directory + "text2_enc.txt";
                 internal const string Text3 = Assignment3Directory + "text3_enc.txt";
                 internal const string Text4 = Assignment3Directory + "text4_enc.txt";
+            }
+
+            public static class Assignment5
+            {
+                private const string Assignment5Directory = InResources + "Assignment5/";
+
+                public const string Shadow1 = Assignment5Directory + "shadow1.txt";
+                public const string Shadow2 = Assignment5Directory + "shadow2.txt";
+                public const string Shadow3 = Assignment5Directory + "shadow3.txt";
+                public const string Shadow4 = Assignment5Directory + "shadow4.txt";
             }
 
             internal static class Texts
