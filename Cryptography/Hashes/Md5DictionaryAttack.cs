@@ -39,6 +39,7 @@ namespace Cryptography.Hashes
 
             foreach (var word in _dictionary)
             {
+                // Creating a new char array by calling word.ToCharArray(). 
                 var permutation = OneUpperCaseLetterPermutation(word.ToCharArray());
 
                 foreach (var wordChars in permutation)
@@ -79,13 +80,13 @@ namespace Cryptography.Hashes
 
         private byte[] ComputeHash(char[] wordChars, byte[] saltBytes)
         {
-            //  TODO: creates new array
+            // Creates every time a new byte array.
             byte[] wordBytes = Encoding.UTF8.GetBytes(wordChars);
 
-            //  TODO: creates new array
+            // Another byte array created.
             var concatenated = wordBytes.Concat(saltBytes).ToArray();
 
-            // TODO: TryComputeHash
+            // New byte array created again.
             return _md5.ComputeHash(concatenated);
         }
     }
