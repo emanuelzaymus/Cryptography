@@ -36,6 +36,9 @@
                 public const string Shadow2 = Assignment5Directory + "shadow2.txt";
                 public const string Shadow3 = Assignment5Directory + "shadow3.txt";
                 public const string Shadow4 = Assignment5Directory + "shadow4.txt";
+
+                public const string SlovakFemaleNames = Assignment5Directory + "slovak-female-names.txt";
+                public const string SlovakMaleNames = Assignment5Directory + "slovak-male-names.txt";
             }
 
             internal static class Texts
