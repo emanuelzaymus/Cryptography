@@ -1,6 +1,6 @@
 ﻿using System;
 using Cryptography.Alphabet;
-using Cryptography.Utilities;
+using Cryptography.Extensions;
 
 namespace Cryptography.Ciphers.MonoAlphabeticSubstitution
 {

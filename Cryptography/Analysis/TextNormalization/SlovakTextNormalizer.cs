@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Cryptography.Utilities;
+using Cryptography.Extensions;
 
 namespace Cryptography.Analysis.TextNormalization
 {

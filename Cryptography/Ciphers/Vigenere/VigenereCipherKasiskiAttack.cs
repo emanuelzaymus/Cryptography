@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using Cryptography.Analysis;
+using Cryptography.Extensions;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Vigenere

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cryptography.Extensions;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine

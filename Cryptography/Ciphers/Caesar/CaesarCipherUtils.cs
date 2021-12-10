@@ -1,4 +1,5 @@
-﻿using Cryptography.Utilities;
+﻿using Cryptography.Extensions;
+using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Caesar
 {

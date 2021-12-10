@@ -1,5 +1,6 @@
 ﻿using Cryptography.Alphabet;
 using Cryptography.Ciphers.MonoAlphabeticSubstitution;
+using Cryptography.Extensions;
 using Cryptography.Utilities;
 
 namespace Cryptography.Ciphers.Affine

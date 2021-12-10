@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Cryptography.Utilities
+namespace Cryptography.Extensions
 {
     public static class BigIntegerExtensions
     {

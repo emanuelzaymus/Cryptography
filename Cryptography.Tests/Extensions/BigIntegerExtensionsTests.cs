@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
-using Cryptography.Utilities;
+using Cryptography.Extensions;
 using NUnit.Framework;
 
-namespace Cryptography.Tests.Utilities
+namespace Cryptography.Tests.Extensions
 {
     [TestFixture]
     public class BigIntegerExtensionsTests
