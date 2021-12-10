@@ -1,6 +1,6 @@
 ﻿namespace Cryptography.Hashes
 {
-    public class Md5Attack
+    public class Md5PermutationsAttack
     {
         
     }

@@ -10,6 +10,8 @@ namespace Cryptography.Utilities
         private static string SkWikipedia => Read(Paths.In.TextsToAnalyse.SkWikipedia);
         private static string Text1 => Read(Paths.In.Texts.Text1);
         private static string Text2 => Read(Paths.In.Texts.Text2);
+        private static string SlovakFemaleNames => Read(Paths.In.Assignment5.SlovakFemaleNames);
+        private static string SlovakMaleNames => Read(Paths.In.Assignment5.SlovakMaleNames);
         public static string Assignment1Text1 => Read(Paths.In.Assignment1.Text1);
         public static string Assignment1Text2 => Read(Paths.In.Assignment1.Text2);
         public static string Assignment1Text3 => Read(Paths.In.Assignment1.Text3);
@@ -29,6 +31,12 @@ namespace Cryptography.Utilities
         public static string GetText1(TextNormalizer normalizer = null) => Normalize(Text1, normalizer);
 
         public static string GetText2(TextNormalizer normalizer = null) => Normalize(Text2, normalizer);
+
+        public static string GetSlovakFemaleNames(TextNormalizer normalizer = null) =>
+            Normalize(SlovakFemaleNames, normalizer);
+
+        public static string GetSlovakMaleNames(TextNormalizer normalizer = null) =>
+            Normalize(SlovakMaleNames, normalizer);
 
         private static string Read(string path) => File.ReadAllText(path);
 
