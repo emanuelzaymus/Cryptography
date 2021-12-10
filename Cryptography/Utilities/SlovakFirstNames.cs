@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cryptography.Analysis.TextNormalization;
 
@@ -6,6 +7,8 @@ namespace Cryptography.Utilities
 {
     public static class SlovakFirstNames
     {
+        private static readonly SlovakTextNormalizer SlovakTextNormalizer = new(Casing.LowerCase);
+
         public static List<string> GetNamesWithDiminutives()
         {
             return GetFemaleNamesWithDiminutives().Concat(GetMaleNamesWithDiminutives()).ToList();
@@ -13,8 +16,18 @@ namespace Cryptography.Utilities
 
         private static IEnumerable<string> GetFemaleNamesWithDiminutives()
         {
-            var slovakTextNormalizer = new SlovakTextNormalizer(Casing.LowerCase);
-            var names = Texts.GetSlovakFemaleNames(slovakTextNormalizer)
+            return GetNamesWithDiminutives(Texts.GetSlovakFemaleNames(SlovakTextNormalizer), CreateFemaleDiminutive);
+        }
+
+        private static IEnumerable<string> GetMaleNamesWithDiminutives()
+        {
+            return GetNamesWithDiminutives(Texts.GetSlovakMaleNames(SlovakTextNormalizer), CreateMaleDiminutive);
+        }
+
+        private static IEnumerable<string> GetNamesWithDiminutives(string allNamesInLines,
+            Func<string, string> createDiminutive)
+        {
+            var names = allNamesInLines
                 .Split('\n')
                 .Select(n => n.Trim());
 
@@ -22,7 +35,7 @@ namespace Cryptography.Utilities
             {
                 yield return name;
 
-                var diminutive = CreateFemaleDiminutive(name);
+                var diminutive = createDiminutive(name);
 
                 if (diminutive is not null)
                 {
@@ -40,26 +53,6 @@ namespace Cryptography.Utilities
 
             // All Slovak female names terminates with 'a' => I need to remove the last character first.
             return femaleName.Remove(femaleName.Length - 1) + "ka";
-        }
-
-        private static IEnumerable<string> GetMaleNamesWithDiminutives()
-        {
-            var slovakTextNormalizer = new SlovakTextNormalizer(Casing.LowerCase);
-            var names = Texts.GetSlovakMaleNames(slovakTextNormalizer)
-                .Split('\n')
-                .Select(n => n.Trim());
-
-            foreach (var name in names)
-            {
-                yield return name;
-
-                var diminutive = CreateMaleDiminutive(name);
-
-                if (diminutive is not null)
-                {
-                    yield return diminutive;
-                }
-            }
         }
 
         private static string CreateMaleDiminutive(string maleName)
