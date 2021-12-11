@@ -43,6 +43,6 @@ namespace Cryptography.Hashes
 
         protected byte[] StringToByteArray(string str) => Encoding.UTF8.GetBytes(str);
 
-        private byte[] CharArrayToByteArray(char[] charArray) => Encoding.UTF8.GetBytes(charArray);
+        protected byte[] CharArrayToByteArray(char[] charArray) => Encoding.UTF8.GetBytes(charArray);
     }
 }

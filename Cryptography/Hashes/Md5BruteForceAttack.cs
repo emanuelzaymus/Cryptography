@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Cryptography.Alphabet;
 using Cryptography.Utilities;
@@ -58,9 +59,11 @@ namespace Cryptography.Hashes
         private void FindMatchingPasswordHash(IEnumerable<char[]> alphabetPermutations, byte[] saltBytes,
             byte[] passwordHashBytes, ConcurrentBag<string> crackedPasswordConcurrentBag)
         {
+            var md5 = MD5.Create();
+
             foreach (var wordChars in alphabetPermutations)
             {
-                byte[] hash = ComputeHash(wordChars, saltBytes);
+                byte[] hash = ComputeHashOptimized(wordChars, saltBytes, md5);
 
                 if (hash.SequenceEqual(passwordHashBytes))
                 {
@@ -74,6 +77,11 @@ namespace Cryptography.Hashes
         /// </summary>
         public IEnumerable<char[]> AlphabetPermutations(int wordLength, int fromInclusive, int rangeSize)
         {
+            if (rangeSize == 0)
+            {
+                yield break;
+            }
+
             var charArray = Enumerable.Repeat(_alphabet[0], wordLength).ToArray(); // All = first elements from alphabet
             charArray[0] = _alphabet[fromInclusive]; // First will be fromInclusive 
 
@@ -84,7 +92,7 @@ namespace Cryptography.Hashes
             wordIndices[0] = fromInclusive; // First is fromInclusive
 
             // Subtracting 1 element because I returned first element above.
-            int upToElementNumber = fromInclusive + ((int) Math.Pow(_alphabet.Length, 2) * rangeSize - 1);
+            int upToElementNumber = fromInclusive + ((int) Math.Pow(_alphabet.Length, wordLength - 1) * rangeSize - 1);
             for (int i = fromInclusive; i < upToElementNumber; i++)
             {
                 for (int j = wordLength - 1; j >= 0; j--)
@@ -102,6 +110,18 @@ namespace Cryptography.Hashes
 
                 yield return charArray;
             }
+        }
+
+        private byte[] ComputeHashOptimized(char[] wordChars, byte[] saltBytes, MD5 md5)
+        {
+            // Creates every time a new byte array.
+            byte[] wordBytes = CharArrayToByteArray(wordChars);
+
+            // Another byte array created.
+            var concatenated = wordBytes.Concat(saltBytes).ToArray();
+
+            // New byte array created again.
+            return md5.ComputeHash(concatenated);
         }
     }
 }

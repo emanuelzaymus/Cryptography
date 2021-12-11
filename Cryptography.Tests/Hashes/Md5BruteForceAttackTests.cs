@@ -34,8 +34,7 @@ namespace Cryptography.Tests.Hashes
         }
 
         private void TryCrackPassword(string alphabet, int minLength, int maxLength, string passwordHash, string salt,
-            bool result,
-            string expectedPassword)
+            bool result, string expectedPassword)
         {
             Md5BruteForceAttack attack = new(alphabet, minLength, maxLength);
 
@@ -201,6 +200,58 @@ namespace Cryptography.Tests.Hashes
 
             // ReSharper disable once PossibleMultipleEnumeration
             Assert.That(enumerable.Count(), Is.EqualTo(16));
+        }
+
+        [Test]
+        public void AlphabetPermutations_FromInclusive0RangeSize1_ShouldReturn6Elements()
+        {
+            // ReSharper disable once StringLiteralTypo
+            Md5BruteForceAttack attack = new("abcdef", default, default);
+            var enumerable = attack.AlphabetPermutations(2, 0, 1);
+
+            char[][] expected =
+            {
+                new[] {'a', 'a'},
+                new[] {'a', 'b'},
+                new[] {'a', 'c'},
+                new[] {'a', 'd'},
+                new[] {'a', 'e'},
+                new[] {'a', 'f'},
+            };
+
+            Assert.That(enumerable, Is.EquivalentTo(expected));
+        }
+
+        [Test]
+        public void AlphabetPermutations_FromInclusive1RangeSize1_ShouldReturn6Elements()
+        {
+            // ReSharper disable once StringLiteralTypo
+            Md5BruteForceAttack attack = new("abcdef", default, default);
+            var enumerable = attack.AlphabetPermutations(2, 1, 1);
+
+            char[][] expected =
+            {
+                new[] {'b', 'a'},
+                new[] {'b', 'b'},
+                new[] {'b', 'c'},
+                new[] {'b', 'd'},
+                new[] {'b', 'e'},
+                new[] {'b', 'f'},
+            };
+
+            Assert.That(enumerable, Is.EquivalentTo(expected));
+        }
+
+        [Test]
+        public void AlphabetPermutations_FromInclusive1RangeSize0_ShouldReturn6Elements()
+        {
+            // ReSharper disable once StringLiteralTypo
+            Md5BruteForceAttack attack = new("abcdef", default, default);
+            var enumerable = attack.AlphabetPermutations(2, 1, 0);
+
+            var expected = Array.Empty<char[]>();
+
+            Assert.That(enumerable, Is.EquivalentTo(expected));
         }
 
         [Test]
