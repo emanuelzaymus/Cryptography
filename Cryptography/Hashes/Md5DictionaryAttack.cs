@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Cryptography.Hashes
 {
     public class Md5DictionaryAttack : Md5Attack
     {
-        private readonly MD5 _md5 = MD5.Create();
-
         private readonly IReadOnlyList<string> _dictionary;
 
         public Md5DictionaryAttack(IReadOnlyList<string> dictionary)
@@ -17,25 +12,10 @@ namespace Cryptography.Hashes
             _dictionary = dictionary;
         }
 
-        public IEnumerable<UserShadow> CrackPasswords(IEnumerable<UserShadow> userShadows)
+        public override bool TryCrackPassword(string passwordHash, string salt, out string crackedPassword)
         {
-            foreach (var userShadow in userShadows)
-            {
-                var success = TryCrackPassword(userShadow.PasswordHash, userShadow.Salt, out var crackedPassword);
-
-                if (success)
-                {
-                    userShadow.CrackedPassword = crackedPassword;
-
-                    yield return userShadow;
-                }
-            }
-        }
-
-        public bool TryCrackPassword(string passwordHash, string salt, out string crackedPassword)
-        {
-            byte[] passwordHashBytes = Convert.FromBase64String(passwordHash);
-            byte[] saltBytes = Encoding.UTF8.GetBytes(salt);
+            byte[] passwordHashBytes = HashToByteArray(passwordHash);
+            byte[] saltBytes = StringToByteArray(salt);
 
             foreach (var word in _dictionary)
             {
@@ -76,18 +56,6 @@ namespace Cryptography.Hashes
 
                 yield return charArray;
             }
-        }
-
-        private byte[] ComputeHash(char[] wordChars, byte[] saltBytes)
-        {
-            // Creates every time a new byte array.
-            byte[] wordBytes = Encoding.UTF8.GetBytes(wordChars);
-
-            // Another byte array created.
-            var concatenated = wordBytes.Concat(saltBytes).ToArray();
-
-            // New byte array created again.
-            return _md5.ComputeHash(concatenated);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Cryptography.Alphabet;
 
 namespace Cryptography.Hashes
@@ -21,10 +20,10 @@ namespace Cryptography.Hashes
             _maxLength = maxLength;
         }
 
-        public bool TryCrackPassword(string passwordHash, string salt, out string crackedPassword)
+        public override bool TryCrackPassword(string passwordHash, string salt, out string crackedPassword)
         {
-            byte[] passwordHashBytes = Convert.FromBase64String(passwordHash);
-            byte[] saltBytes = Encoding.UTF8.GetBytes(salt);
+            byte[] passwordHashBytes = HashToByteArray(passwordHash);
+            byte[] saltBytes = StringToByteArray(salt);
 
             for (int wordLength = _minLength; wordLength <= _maxLength; wordLength++)
             {
@@ -77,18 +76,6 @@ namespace Cryptography.Hashes
 
                 yield return charArray;
             }
-        }
-
-        private byte[] ComputeHash(char[] wordChars, byte[] saltBytes)
-        {
-            // Creates every time a new byte array.
-            byte[] wordBytes = Encoding.UTF8.GetBytes(wordChars);
-
-            // Another byte array created.
-            var concatenated = wordBytes.Concat(saltBytes).ToArray();
-
-            // New byte array created again.
-            return Md5.ComputeHash(concatenated);
         }
     }
 }
