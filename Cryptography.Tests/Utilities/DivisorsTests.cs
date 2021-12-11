@@ -74,7 +74,7 @@ namespace Cryptography.Tests.Utilities
         {
             List<(int FromInclusive, int ToExclusive)> bounds = new()
             {
-                (0, 3), (3, 7), (7, 10), (10, 13), (13, 16), (16, 20), (20, 23), (23, 26)
+                (0, 3), (3, 4), (7, 3), (10, 3), (13, 3), (16, 4), (20, 3), (23, 3)
             };
 
             var splits = Divisors.SplitRange(26, 8);

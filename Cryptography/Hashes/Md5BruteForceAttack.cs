@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cryptography.Alphabet;
 using Cryptography.Utilities;
 
@@ -29,24 +31,42 @@ namespace Cryptography.Hashes
             var processorCount = Environment.ProcessorCount;
             var alphabetSplits = Divisors.SplitRange(_alphabet.Length, processorCount);
 
+            ConcurrentBag<string> crackedPasswordConcurrentBag = new();
+
             for (int wordLength = _minLength; wordLength <= _maxLength; wordLength++)
             {
-                var permutation = AlphabetPermutations(wordLength, 0, 0);
-
-                foreach (var wordChars in permutation)
+                var length = wordLength;
+                Parallel.ForEach(alphabetSplits, new ParallelOptions {MaxDegreeOfParallelism = processorCount}, split =>
                 {
-                    byte[] hash = ComputeHash(wordChars, saltBytes);
+                    var (fromInclusive, rangeSize) = split;
+                    var permutations = AlphabetPermutations(length, fromInclusive, rangeSize);
 
-                    if (hash.SequenceEqual(passwordHashBytes))
-                    {
-                        crackedPassword = new string(wordChars);
-                        return true;
-                    }
+                    FindMatchingPasswordHash(permutations, saltBytes, passwordHashBytes, crackedPasswordConcurrentBag);
+                });
+
+                if (crackedPasswordConcurrentBag.Any())
+                {
+                    crackedPassword = crackedPasswordConcurrentBag.First();
+                    return true;
                 }
             }
 
             crackedPassword = null;
             return false;
+        }
+
+        private void FindMatchingPasswordHash(IEnumerable<char[]> alphabetPermutations, byte[] saltBytes,
+            byte[] passwordHashBytes, ConcurrentBag<string> crackedPasswordConcurrentBag)
+        {
+            foreach (var wordChars in alphabetPermutations)
+            {
+                byte[] hash = ComputeHash(wordChars, saltBytes);
+
+                if (hash.SequenceEqual(passwordHashBytes))
+                {
+                    crackedPasswordConcurrentBag.Add(new string(wordChars));
+                }
+            }
         }
 
         /// <summary>
