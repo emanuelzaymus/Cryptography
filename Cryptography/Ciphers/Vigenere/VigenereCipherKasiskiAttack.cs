@@ -146,7 +146,7 @@ namespace Cryptography.Ciphers.Vigenere
 
         private IEnumerable<List<int>> CreateAllIndicesCombinations(int passwordLength, int tryCombinationsCount)
         {
-            return Utils.GeneratePermutationSeries(passwordLength, tryCombinationsCount);
+            return Permutations.GeneratePermutationSeries(passwordLength, tryCombinationsCount);
         }
 
         private IEnumerable<int> SelectShifts(List<List<(int Shift, double Difference)>> allDifferences,

@@ -40,7 +40,8 @@ namespace Cryptography.Hashes
                 Parallel.ForEach(alphabetSplits, new ParallelOptions {MaxDegreeOfParallelism = processorCount}, split =>
                 {
                     var (fromInclusive, rangeSize) = split;
-                    var permutations = AlphabetPermutations(length, fromInclusive, rangeSize);
+                    var permutations = Permutations.GenerateAlphabetPermutations(length, fromInclusive,
+                        rangeSize, _alphabet);
 
                     FindMatchingPasswordHash(permutations, saltBytes, passwordHashBytes, crackedPasswordConcurrentBag);
                 });
@@ -69,46 +70,6 @@ namespace Cryptography.Hashes
                 {
                     crackedPasswordConcurrentBag.Add(new string(wordChars));
                 }
-            }
-        }
-
-        /// <summary>
-        /// Every time returns the same instance of the array.
-        /// </summary>
-        public IEnumerable<char[]> AlphabetPermutations(int wordLength, int fromInclusive, int rangeSize)
-        {
-            if (rangeSize == 0)
-            {
-                yield break;
-            }
-
-            var charArray = Enumerable.Repeat(_alphabet[0], wordLength).ToArray(); // All = first elements from alphabet
-            charArray[0] = _alphabet[fromInclusive]; // First will be fromInclusive 
-
-            yield return charArray;
-
-            // Alphabet indices to Alphabet
-            var wordIndices = new int[wordLength]; // All are zeros
-            wordIndices[0] = fromInclusive; // First is fromInclusive
-
-            // Subtracting 1 element because I returned first element above.
-            int upToElementNumber = fromInclusive + ((int) Math.Pow(_alphabet.Length, wordLength - 1) * rangeSize - 1);
-            for (int i = fromInclusive; i < upToElementNumber; i++)
-            {
-                for (int j = wordLength - 1; j >= 0; j--)
-                {
-                    if (wordIndices[j] < _alphabet.Length - 1)
-                    {
-                        wordIndices[j]++;
-                        charArray[j] = _alphabet[wordIndices[j]];
-                        break;
-                    }
-
-                    wordIndices[j] = 0;
-                    charArray[j] = _alphabet[wordIndices[j]];
-                }
-
-                yield return charArray;
             }
         }
 

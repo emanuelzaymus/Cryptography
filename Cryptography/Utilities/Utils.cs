@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Text;
 
@@ -39,32 +37,6 @@ namespace Cryptography.Utilities
             }
 
             return modulo;
-        }
-
-        /// <summary>
-        /// Creates permutation series. Every time returns only the same instance of <c>List</c> object!
-        /// </summary>
-        public static IEnumerable<List<int>> GeneratePermutationSeries(int seriesLength, int useNumberCount)
-        {
-            var oneSeries = Enumerable.Repeat(0, seriesLength).ToList();
-
-            yield return oneSeries;
-
-            for (int i = 0; i < Math.Pow(useNumberCount, seriesLength) - 1; i++)
-            {
-                for (int j = 0; j < seriesLength; j++)
-                {
-                    if (oneSeries[j] < useNumberCount - 1)
-                    {
-                        oneSeries[j]++;
-                        break;
-                    }
-
-                    oneSeries[j] = 0;
-                }
-
-                yield return oneSeries;
-            }
         }
 
         /// <summary>
