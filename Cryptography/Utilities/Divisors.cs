@@ -191,5 +191,28 @@ namespace Cryptography.Utilities
 
             return splits;
         }
+
+        /// <summary>
+        /// Creates <paramref name="numberOfSplits"/> splits from range from <c>0</c> to <paramref name="rangeTotalSize"/>. 
+        /// </summary>
+        public static List<(int FromInclusive, int ToExclusive)> SplitRange(int rangeTotalSize, int numberOfSplits)
+        {
+            List<(int FromInclusive, int ToExclusive)> splits = new(numberOfSplits);
+
+            double splitSize = rangeTotalSize / (double) numberOfSplits;
+
+            splits.Add(new(0, (int) splitSize));
+
+            for (int i = 1; i < numberOfSplits; i++)
+            {
+                var splitBefore = splits[i - 1];
+
+                var start = splitBefore.ToExclusive;
+                var end = (int) Math.Round(splitSize * (i + 1), MidpointRounding.AwayFromZero);
+                splits.Add(new(start, end));
+            }
+
+            return splits;
+        }
     }
 }

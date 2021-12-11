@@ -50,7 +50,7 @@ namespace Cryptography.Tests.Hashes
         {
             // ReSharper disable once StringLiteralTypo
             Md5BruteForceAttack attack = new("abcd", default, default);
-            var enumerable = attack.AlphabetPermutations(3);
+            var enumerable = attack.AlphabetPermutations(3, 0, 4);
 
             char[][] expected =
             {
@@ -107,6 +107,100 @@ namespace Cryptography.Tests.Hashes
 
             // ReSharper disable once PossibleMultipleEnumeration
             Assert.That(enumerable.Count(), Is.EqualTo((int) Math.Pow(4, 3))); // 64
+        }
+
+        [Test]
+        public void AlphabetPermutations_FromInclusive2RangeSize2_ShouldReturn32Elements()
+        {
+            // ReSharper disable once StringLiteralTypo
+            Md5BruteForceAttack attack = new("abcd", default, default);
+            var enumerable = attack.AlphabetPermutations(3, 2, 2);
+
+            char[][] expected =
+            {
+                new[] {'c', 'a', 'a'},
+                new[] {'c', 'a', 'b'},
+                new[] {'c', 'a', 'c'},
+                new[] {'c', 'a', 'd'},
+
+                new[] {'c', 'b', 'a'},
+                new[] {'c', 'b', 'b'},
+                new[] {'c', 'b', 'c'},
+                new[] {'c', 'b', 'd'},
+
+                new[] {'c', 'c', 'a'},
+                new[] {'c', 'c', 'b'},
+                new[] {'c', 'c', 'c'},
+                new[] {'c', 'c', 'd'},
+
+                new[] {'c', 'd', 'a'},
+                new[] {'c', 'd', 'b'},
+                new[] {'c', 'd', 'c'},
+                new[] {'c', 'd', 'd'},
+
+                new[] {'d', 'a', 'a'},
+                new[] {'d', 'a', 'b'},
+                new[] {'d', 'a', 'c'},
+                new[] {'d', 'a', 'd'},
+
+                new[] {'d', 'b', 'a'},
+                new[] {'d', 'b', 'b'},
+                new[] {'d', 'b', 'c'},
+                new[] {'d', 'b', 'd'},
+
+                new[] {'d', 'c', 'a'},
+                new[] {'d', 'c', 'b'},
+                new[] {'d', 'c', 'c'},
+                new[] {'d', 'c', 'd'},
+
+                new[] {'d', 'd', 'a'},
+                new[] {'d', 'd', 'b'},
+                new[] {'d', 'd', 'c'},
+                new[] {'d', 'd', 'd'},
+            };
+
+            // ReSharper disable once PossibleMultipleEnumeration
+            Assert.That(enumerable, Is.EquivalentTo(expected));
+
+            // ReSharper disable once PossibleMultipleEnumeration
+            Assert.That(enumerable.Count(), Is.EqualTo(32));
+        }
+
+        [Test]
+        public void AlphabetPermutations_FromInclusive2RangeSize1_ShouldReturn16Elements()
+        {
+            // ReSharper disable once StringLiteralTypo
+            Md5BruteForceAttack attack = new("abcd", default, default);
+            var enumerable = attack.AlphabetPermutations(3, 2, 1);
+
+            char[][] expected =
+            {
+                new[] {'c', 'a', 'a'},
+                new[] {'c', 'a', 'b'},
+                new[] {'c', 'a', 'c'},
+                new[] {'c', 'a', 'd'},
+
+                new[] {'c', 'b', 'a'},
+                new[] {'c', 'b', 'b'},
+                new[] {'c', 'b', 'c'},
+                new[] {'c', 'b', 'd'},
+
+                new[] {'c', 'c', 'a'},
+                new[] {'c', 'c', 'b'},
+                new[] {'c', 'c', 'c'},
+                new[] {'c', 'c', 'd'},
+
+                new[] {'c', 'd', 'a'},
+                new[] {'c', 'd', 'b'},
+                new[] {'c', 'd', 'c'},
+                new[] {'c', 'd', 'd'},
+            };
+
+            // ReSharper disable once PossibleMultipleEnumeration
+            Assert.That(enumerable, Is.EquivalentTo(expected));
+
+            // ReSharper disable once PossibleMultipleEnumeration
+            Assert.That(enumerable.Count(), Is.EqualTo(16));
         }
 
         [Test]

@@ -68,5 +68,18 @@ namespace Cryptography.Tests.Utilities
 
             Assert.That(splits, Is.EquivalentTo(bounds));
         }
+
+        [Test]
+        public void SplitRange_Integers()
+        {
+            List<(int FromInclusive, int ToExclusive)> bounds = new()
+            {
+                (0, 3), (3, 7), (7, 10), (10, 13), (13, 16), (16, 20), (20, 23), (23, 26)
+            };
+
+            var splits = Divisors.SplitRange(26, 8);
+
+            Assert.That(splits, Is.EquivalentTo(bounds));
+        }
     }
 }
