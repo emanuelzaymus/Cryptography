@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Cryptography.Hashes
 {
-    public class Md5DictionaryAttack
+    public class Md5DictionaryAttack : Md5Attack
     {
         private readonly MD5 _md5 = MD5.Create();
 
