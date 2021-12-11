@@ -30,7 +30,7 @@ namespace Cryptography.Hashes
             byte[] saltBytes = StringToByteArray(salt);
 
             var processorCount = Environment.ProcessorCount;
-            var alphabetSplits = Divisors.SplitRange(_alphabet.Length, processorCount);
+            var alphabetSplits = Utils.SplitRange(_alphabet.Length, processorCount);
 
             ConcurrentBag<string> crackedPasswordConcurrentBag = new();
 

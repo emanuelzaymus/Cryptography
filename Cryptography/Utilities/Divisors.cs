@@ -80,7 +80,7 @@ namespace Cryptography.Utilities
             int maxDegreeOfParallelism = Environment.ProcessorCount; // Count of logical processors
             var upperBound = n.Sqrt() + 1; // I am adding + 1 because SplitRange will exclude it.
 
-            var splitsData = SplitRange(startWith, upperBound, maxDegreeOfParallelism);
+            var splitsData = Utils.SplitRange(startWith, upperBound, maxDegreeOfParallelism);
 
             var divisorsConcurrentBag = new ConcurrentBag<BigInteger>();
 
@@ -160,60 +160,6 @@ namespace Cryptography.Utilities
 
                 isTwo = !isTwo;
             }
-        }
-
-        /// <summary>
-        /// Creates <paramref name="numberOfSplits"/> splits from range from <paramref name="rangeFromInclusive"/> to <paramref name="rangeToExclusive"/>. 
-        /// </summary>
-        public static List<(BigInteger FromInclusive, BigInteger ToExclusive)> SplitRange(BigInteger rangeFromInclusive,
-            BigInteger rangeToExclusive, int numberOfSplits)
-        {
-            if (rangeFromInclusive >= rangeToExclusive)
-            {
-                throw new ArgumentException("RangeFromInclusive needs to be smaller than rangeToExclusive");
-            }
-
-            List<(BigInteger FromInclusive, BigInteger ToExclusive)> splits = new(numberOfSplits);
-
-            var totalSize = rangeToExclusive - rangeFromInclusive;
-
-            var splitSize = totalSize / numberOfSplits;
-
-            splits.Add(new(rangeFromInclusive, rangeFromInclusive + splitSize));
-            for (int i = 1; i < numberOfSplits; i++)
-            {
-                var splitBefore = splits[i - 1];
-
-                var start = splitBefore.ToExclusive;
-                var end = start + splitSize;
-                splits.Add(new(start, end));
-            }
-
-            return splits;
-        }
-
-        /// <summary>
-        /// Creates <paramref name="numberOfSplits"/> splits from range from <c>0</c> to <paramref name="rangeTotalSize"/>. 
-        /// </summary>
-        public static List<(int FromInclusive, int RangeSize)> SplitRange(int rangeTotalSize, int numberOfSplits)
-        {
-            List<(int FromInclusive, int RangeSize)> splits = new(numberOfSplits);
-
-            double splitSize = rangeTotalSize / (double) numberOfSplits;
-
-            var firstRangeSize = (int) Math.Round(splitSize, MidpointRounding.AwayFromZero);
-            splits.Add(new(0, firstRangeSize));
-
-            for (int i = 1; i < numberOfSplits; i++)
-            {
-                var splitBefore = splits[i - 1];
-
-                var startIndex = splitBefore.FromInclusive + splitBefore.RangeSize;
-                var rangeSize = (int) Math.Round(splitSize * (i + 1), MidpointRounding.AwayFromZero) - startIndex;
-                splits.Add(new(startIndex, rangeSize));
-            }
-
-            return splits;
         }
     }
 }
