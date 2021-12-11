@@ -24,6 +24,13 @@ namespace Cryptography.Hashes
             _maxLength = maxLength;
         }
 
+        /// <summary>
+        /// Parallel password cracking.
+        /// </summary>
+        /// <param name="passwordHash"></param>
+        /// <param name="salt"></param>
+        /// <param name="crackedPassword"></param>
+        /// <returns></returns>
         public override bool TryCrackPassword(string passwordHash, string salt, out string crackedPassword)
         {
             byte[] passwordHashBytes = HashToByteArray(passwordHash);
@@ -73,6 +80,7 @@ namespace Cryptography.Hashes
             }
         }
 
+        // TODO: Optimize
         private byte[] ComputeHashOptimized(char[] wordChars, byte[] saltBytes, MD5 md5)
         {
             // Creates every time a new byte array.
