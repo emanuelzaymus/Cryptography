@@ -44,7 +44,7 @@ namespace Cryptography.Tests.Hashes
         }
 
         [Test]
-        public void Test()
+        public void Test() // TODO: remove
         {
             var passSalt = Encoding.UTF8.GetBytes("2Dad34" + "L5O9wplS");
 

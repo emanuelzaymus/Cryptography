@@ -8,8 +8,6 @@ namespace Cryptography.Hashes
 {
     public abstract class Md5Attack
     {
-        private readonly MD5 _md5 = MD5.Create();
-
         public IEnumerable<UserShadow> CrackPasswords(IEnumerable<UserShadow> userShadows)
         {
             foreach (var userShadow in userShadows)
@@ -27,7 +25,8 @@ namespace Cryptography.Hashes
 
         public abstract bool TryCrackPassword(string passwordHash, string salt, out string crackedPassword);
 
-        protected byte[] ComputeHash(char[] wordChars, byte[] saltBytes)
+        // TODO: Optimize
+        protected byte[] ComputeHash(char[] wordChars, byte[] saltBytes, MD5 md5)
         {
             // Creates every time a new byte array.
             byte[] wordBytes = CharArrayToByteArray(wordChars);
@@ -36,13 +35,13 @@ namespace Cryptography.Hashes
             var concatenated = wordBytes.Concat(saltBytes).ToArray();
 
             // New byte array created again.
-            return _md5.ComputeHash(concatenated);
+            return md5.ComputeHash(concatenated);
         }
 
         protected byte[] HashToByteArray(string passwordHash) => Convert.FromBase64String(passwordHash);
 
         protected byte[] StringToByteArray(string str) => Encoding.UTF8.GetBytes(str);
 
-        protected byte[] CharArrayToByteArray(char[] charArray) => Encoding.UTF8.GetBytes(charArray);
+        private byte[] CharArrayToByteArray(char[] charArray) => Encoding.UTF8.GetBytes(charArray);
     }
 }

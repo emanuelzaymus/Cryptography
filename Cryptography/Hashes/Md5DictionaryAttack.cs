@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace Cryptography.Hashes
 {
     public class Md5DictionaryAttack : Md5Attack
     {
+        private readonly MD5 _md5 = MD5.Create();
+
         private readonly IReadOnlyList<string> _dictionary;
 
         public Md5DictionaryAttack(IReadOnlyList<string> dictionary)
@@ -24,7 +27,7 @@ namespace Cryptography.Hashes
 
                 foreach (var wordChars in permutation)
                 {
-                    byte[] hash = ComputeHash(wordChars, saltBytes);
+                    byte[] hash = ComputeHash(wordChars, saltBytes, _md5);
 
                     if (hash.SequenceEqual(passwordHashBytes))
                     {

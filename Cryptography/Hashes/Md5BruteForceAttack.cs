@@ -72,7 +72,7 @@ namespace Cryptography.Hashes
             int counter = 0;
             foreach (var wordChars in alphabetPermutations)
             {
-                byte[] hash = ComputeHashOptimized(wordChars, saltBytes, md5);
+                byte[] hash = ComputeHash(wordChars, saltBytes, md5);
 
                 if (hash.SequenceEqual(passwordHashBytes))
                 {
@@ -89,19 +89,6 @@ namespace Cryptography.Hashes
                     counter = 0;
                 }
             }
-        }
-
-        // TODO: Optimize
-        private byte[] ComputeHashOptimized(char[] wordChars, byte[] saltBytes, MD5 md5)
-        {
-            // Creates every time a new byte array.
-            byte[] wordBytes = CharArrayToByteArray(wordChars);
-
-            // Another byte array created.
-            var concatenated = wordBytes.Concat(saltBytes).ToArray();
-
-            // New byte array created again.
-            return md5.ComputeHash(concatenated);
         }
     }
 }
