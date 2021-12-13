@@ -69,6 +69,7 @@ namespace Cryptography.Hashes
         {
             var md5 = MD5.Create();
 
+            int counter = 0;
             foreach (var wordChars in alphabetPermutations)
             {
                 byte[] hash = ComputeHashOptimized(wordChars, saltBytes, md5);
@@ -76,6 +77,16 @@ namespace Cryptography.Hashes
                 if (hash.SequenceEqual(passwordHashBytes))
                 {
                     crackedPasswordConcurrentBag.Add(new string(wordChars));
+                }
+
+                if (counter++ >= 1_000_000)
+                {
+                    if (!crackedPasswordConcurrentBag.IsEmpty)
+                    {
+                        return;
+                    }
+
+                    counter = 0;
                 }
             }
         }
