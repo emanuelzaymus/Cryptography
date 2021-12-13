@@ -94,6 +94,9 @@ namespace Cryptography.Utilities
             }
         }
 
+        /// <summary>
+        /// Calculates inverse element to number <param name="number"></param> using Extended Euclidean Algorithm.
+        /// </summary>
         public static BigInteger? InverseByEea(BigInteger number, BigInteger modulo)
         {
             if (number < 0 || number >= modulo)
