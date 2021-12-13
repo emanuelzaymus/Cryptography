@@ -136,7 +136,7 @@ namespace Cryptography.Utilities
                 fromInclusive += BigIntegerFour;
             }
 
-            int counter = 1;
+            int counter = 0;
             bool isTwo = false; // isTwo is inverted in the first loop and added in the second loop for the first time.
 
             // This for-loop needs an odd initial value.
@@ -155,7 +155,7 @@ namespace Cryptography.Utilities
                         return;
                     }
 
-                    counter = 1;
+                    counter = 0;
                 }
 
                 isTwo = !isTwo;
