@@ -44,7 +44,7 @@ namespace Cryptography.ConsoleApp.SubPrograms
 
             foreach (var crackedPassword in crackedPasswords)
             {
-                Console.WriteLine($"    {crackedPassword.Login} => {crackedPassword.CrackedPassword}");
+                Console.WriteLine($"    {crackedPassword}");
             }
 
             stopwatch.Stop();

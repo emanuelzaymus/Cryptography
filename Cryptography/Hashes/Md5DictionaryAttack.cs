@@ -20,6 +20,10 @@ namespace Cryptography.Hashes
             byte[] passwordHashBytes = HashToByteArray(passwordHash);
             byte[] saltBytes = StringToByteArray(salt);
 
+            var maxWordLength = _dictionary.Max(w => w.Length);
+            var md5 = new Md5(maxWordLength + saltBytes.Length);
+            var hashBytes = new byte[Md5.OutputByteArrayLength];
+
             foreach (var word in _dictionary)
             {
                 // Creating a new char array by calling word.ToCharArray(). 
@@ -27,9 +31,10 @@ namespace Cryptography.Hashes
 
                 foreach (var wordChars in permutation)
                 {
-                    byte[] hash = ComputeHash(wordChars, saltBytes, _md5);
+                    // byte[] hash = ComputeHash(wordChars, saltBytes, _md5);
+                    md5.ComputeHash(wordChars, saltBytes, hashBytes);
 
-                    if (hash.SequenceEqual(passwordHashBytes))
+                    if (hashBytes.SequenceEqual(passwordHashBytes))
                     {
                         crackedPassword = new string(wordChars);
                         return true;
