@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using Cryptography.Extensions;
 
 namespace Cryptography.Hashes
 {
@@ -20,19 +21,16 @@ namespace Cryptography.Hashes
             byte[] passwordHashBytes = HashToByteArray(passwordHash);
             byte[] saltBytes = StringToByteArray(salt);
 
-            var maxWordLength = _dictionary.Max(w => w.Length);
-            var md5 = new Md5(maxWordLength + saltBytes.Length);
-            var hashBytes = new byte[Md5.OutputByteArrayLength];
+            var hashBytes = new byte[OutputByteArrayLength];
 
             foreach (var word in _dictionary)
             {
-                // Creating a new char array by calling word.ToCharArray(). 
+                // Creating a new char array by calling word.ToCharArray().
                 var permutation = OneUpperCaseLetterPermutation(word.ToCharArray());
 
                 foreach (var wordChars in permutation)
                 {
-                    // byte[] hash = ComputeHash(wordChars, saltBytes, _md5);
-                    md5.ComputeHash(wordChars, saltBytes, hashBytes);
+                    _md5.ComputeHash(wordChars, saltBytes, hashBytes);
 
                     if (hashBytes.SequenceEqual(passwordHashBytes))
                     {

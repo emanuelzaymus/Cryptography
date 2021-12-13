@@ -25,9 +25,9 @@ namespace Cryptography.ConsoleApp
             // Assignment4Program.RunAll();
 
             Assignment5Program.RunShadow1();
-            // Assignment5Program.RunShadow2();
-            // Assignment5Program.RunShadow3();
-            // Assignment5Program.RunShadow4();
+            Assignment5Program.RunShadow2();
+            Assignment5Program.RunShadow3();
+            Assignment5Program.RunShadow4();
         }
     }
 }

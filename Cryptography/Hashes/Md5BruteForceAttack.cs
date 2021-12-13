@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Cryptography.Alphabet;
+using Cryptography.Extensions;
 using Cryptography.Utilities;
 
 namespace Cryptography.Hashes
@@ -47,11 +48,10 @@ namespace Cryptography.Hashes
                 Parallel.ForEach(alphabetSplits, new ParallelOptions {MaxDegreeOfParallelism = processorCount}, split =>
                 {
                     var (fromInclusive, rangeSize) = split;
-                    var permutations = Permutations.GenerateAlphabetPermutations(currentWordLength, fromInclusive,
-                        rangeSize, _alphabet);
+                    var permutations = Permutations.GenerateAlphabetPermutations(currentWordLength,
+                        fromInclusive, rangeSize, _alphabet);
 
-                    FindMatchingPasswordHash(permutations, currentWordLength, saltBytes, passwordHashBytes,
-                        crackedPasswordConcurrentBag);
+                    FindMatchingPasswordHash(permutations, saltBytes, passwordHashBytes, crackedPasswordConcurrentBag);
                 });
 
                 if (crackedPasswordConcurrentBag.Any())
@@ -65,17 +65,15 @@ namespace Cryptography.Hashes
             return false;
         }
 
-        private void FindMatchingPasswordHash(IEnumerable<char[]> alphabetPermutations, int wordLength,
-            byte[] saltBytes, byte[] passwordHashBytes, ConcurrentBag<string> crackedPasswordConcurrentBag)
+        private void FindMatchingPasswordHash(IEnumerable<char[]> alphabetPermutations, byte[] saltBytes,
+            byte[] passwordHashBytes, ConcurrentBag<string> crackedPasswordConcurrentBag)
         {
-            // var md5 = MD5.Create();
-            var md5 = new Md5(wordLength + saltBytes.Length);
-            var hashBytes = new byte[Md5.OutputByteArrayLength];
+            var md5 = MD5.Create();
+            var hashBytes = new byte[OutputByteArrayLength];
 
             int counter = 0;
             foreach (var wordChars in alphabetPermutations)
             {
-                // byte[] hash = ComputeHash(wordChars, saltBytes, md5);
                 md5.ComputeHash(wordChars, saltBytes, hashBytes);
 
                 if (hashBytes.SequenceEqual(passwordHashBytes))

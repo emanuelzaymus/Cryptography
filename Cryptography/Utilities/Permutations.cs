@@ -44,6 +44,7 @@ namespace Cryptography.Utilities
                 yield break;
             }
 
+            // Creating a new char array.
             var charArray = Enumerable.Repeat(alphabet[0], wordLength).ToArray(); // All = first elements from alphabet
             charArray[0] = alphabet[fromInclusive]; // First will be fromInclusive 
 

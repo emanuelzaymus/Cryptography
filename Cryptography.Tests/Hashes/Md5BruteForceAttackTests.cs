@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 using Cryptography.Hashes;
 using NUnit.Framework;
 
@@ -42,32 +38,6 @@ namespace Cryptography.Tests.Hashes
 
             Assert.That(success, Is.EqualTo(result));
             Assert.That(crackedPassword, Is.EqualTo(expectedPassword));
-        }
-
-        [Test]
-        public void Test() // TODO: remove
-        {
-            var word = "7AB6sdZQWQWQWQ".ToCharArray();
-
-            // var charArray = new char[10];
-            // Array.Copy(word, 0, charArray, 7, 7);
-
-            var passSalt = Encoding.UTF8.GetBytes(word.Concat("tVnMsoD5XZXZZXZX".ToCharArray()).ToArray());
-
-            Console.WriteLine(word.Length);
-
-            Console.WriteLine(passSalt.Length);
-            var hashData = MD5.HashData(passSalt);
-            Console.WriteLine(hashData.Length);
-            Console.WriteLine(Convert.ToBase64String(hashData));
-        }
-
-        [Test]
-        public void T2()
-        {
-            var fromBase64String = Convert.FromBase64String("uAbCdEFXGx+GGhRcuBo2uw==");
-
-            Console.WriteLine(fromBase64String.Length);
         }
     }
 }

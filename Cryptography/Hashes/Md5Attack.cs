@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace Cryptography.Hashes
 {
     public abstract class Md5Attack
     {
+        protected const int OutputByteArrayLength = 16;
+
         public IEnumerable<UserShadow> CrackPasswords(IEnumerable<UserShadow> userShadows)
         {
+            int i = 1;
             foreach (var userShadow in userShadows)
             {
+                Console.WriteLine($"{i++}. {userShadow.Login}");
+
                 var success = TryCrackPassword(userShadow.PasswordHash, userShadow.Salt, out var crackedPassword);
 
                 if (success)
@@ -25,23 +28,8 @@ namespace Cryptography.Hashes
 
         public abstract bool TryCrackPassword(string passwordHash, string salt, out string crackedPassword);
 
-        // TODO: Optimize
-        protected byte[] ComputeHash(char[] wordChars, byte[] saltBytes, MD5 md5)
-        {
-            // Creates every time a new byte array.
-            byte[] wordBytes = CharArrayToByteArray(wordChars);
-
-            // Another byte array created.
-            var concatenated = wordBytes.Concat(saltBytes).ToArray();
-
-            // New byte array created again.
-            return md5.ComputeHash(concatenated);
-        }
-
         protected byte[] HashToByteArray(string passwordHash) => Convert.FromBase64String(passwordHash);
 
         protected byte[] StringToByteArray(string str) => Encoding.UTF8.GetBytes(str);
-
-        private byte[] CharArrayToByteArray(char[] charArray) => Encoding.UTF8.GetBytes(charArray);
     }
 }

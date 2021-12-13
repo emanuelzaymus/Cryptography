@@ -26,14 +26,14 @@ namespace Cryptography.ConsoleApp.SubPrograms
             // ReSharper disable once JoinDeclarationAndInitializer
             Md5Attack attack;
 
-            attack = new Md5DictionaryAttack(SlovakFirstNames.GetNamesWithDiminutives());
-            RunAttack(attack, shadows);
+            // attack = new Md5DictionaryAttack(SlovakFirstNames.GetNamesWithDiminutives());
+            // RunAttack(attack, shadows);
 
             attack = new Md5BruteForceAttack(Alphabets.alphabet, 6, 7);
             RunAttack(attack, shadows);
 
-            // attack = new Md5BruteForceAttack(Alphabets.Alphabet123, 4, 5);
-            // RunAttack(attack, shadows);
+            attack = new Md5BruteForceAttack(Alphabets.Alphabet123, 4, 5);
+            RunAttack(attack, shadows);
         }
 
         private static void RunAttack(Md5Attack md5Attack, List<UserShadow> shadows)

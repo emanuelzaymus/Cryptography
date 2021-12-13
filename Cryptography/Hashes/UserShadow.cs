@@ -6,7 +6,7 @@
 
         public override string ToString()
         {
-            return $"{Login}:{Salt}:{PasswordHash} => {CrackedPassword}";
+            return $"{Login}:{Salt}:{PasswordHash} -> {CrackedPassword}";
         }
     }
 }
