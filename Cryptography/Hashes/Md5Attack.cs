@@ -8,7 +8,8 @@ namespace Cryptography.Hashes
     {
         protected const int OutputByteArrayLength = 16;
 
-        public IEnumerable<UserShadow> CrackPasswords(IEnumerable<UserShadow> userShadows)
+        public IEnumerable<UserShadow> CrackPasswords(IEnumerable<UserShadow> userShadows,
+            bool finishAfterFirstCracked = false)
         {
             int i = 1;
             foreach (var userShadow in userShadows)
@@ -22,6 +23,11 @@ namespace Cryptography.Hashes
                     userShadow.CrackedPassword = crackedPassword;
 
                     yield return userShadow;
+
+                    if (finishAfterFirstCracked)
+                    {
+                        yield break;
+                    }
                 }
             }
         }
